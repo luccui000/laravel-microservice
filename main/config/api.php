@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'admin' => env('BASE_ADMIN_API', 'https://admin.minhluc.com')
+    'admin' => env('BASE_ADMIN_URI', 'https://admin.minhluc.com')
 ];

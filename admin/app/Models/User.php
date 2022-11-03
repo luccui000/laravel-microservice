@@ -42,13 +42,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function post()
+    public function customer()
     {
-        return $this->belongsToMany(Post::class, 'like_posts');
-    }
-
-    public function like(Post $post)
-    {
-        return $this->post()->attach($post->id);
+        return $this->belongsTo(Customer::class, 'id', 'user_id');
     }
 }
