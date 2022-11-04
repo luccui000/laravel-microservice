@@ -71,8 +71,10 @@ class AuthController extends Controller
     public function me(Request $request)
     {
         try {
+            $user = $request->user();
+            $user->load('customer');
             return $this->jsonData([
-               'user' => $request->user()
+               'user' => $user
             ]);
         } catch (\Exception $ex) {
             return $this->jsonError($ex->getMessage());

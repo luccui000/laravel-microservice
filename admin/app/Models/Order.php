@@ -31,4 +31,9 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class, 'detail_orders', 'order_id', 'product_id');
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }
