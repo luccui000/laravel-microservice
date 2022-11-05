@@ -1,28 +1,46 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <transition>
+      <component :is="layout" v-if="layout" ></component>
+    </transition>
+    <router-view />
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script>  
+import { defaultLayout } from '@/config/app' 
+const requireContextLayouts = require.context('@/layouts', true, /index.vue$/)
+const layouts = requireContextLayouts.keys()
+  .map(file =>
+    [file.replace(/(^.\/)|(\.vue$)/g, '').replace('/index', ''), requireContextLayouts(file)]
+  )
+  .reduce((components, [name, component]) => {
+    components[name] = component.default;
+    return components;
+  }, {})
+
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name: 'App', 
+  data() {
+    return {  
+      layout: defaultLayout
+    }
+  }, 
+  created() {
+    const layout = this.$route.meta?.layout || defaultLayout;
+    this.setLayout(layout);
+  },
+  methods: {
+    setLayout(layout) {
+      if(!layout || !layouts[layout]) {
+        layout = defaultLayout;
+      }
+      this.layout = layouts[layout];
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style> 
 </style>
