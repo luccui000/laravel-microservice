@@ -5,7 +5,7 @@
         <!--Desktop Logo-->
         <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
           <a href="index.html">
-            <img src="assets/images/logo.svg" alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
+            <img src="/assets/images/logo.svg" alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
           </a>
         </div>
         <!--End Desktop Logo-->
@@ -215,7 +215,7 @@
                     </li>
                     <li class="grid__item lvl-1 col-md-6 col-lg-6">
                       <a href="#">
-                        <img src="assets/images/megamenu-bg1.jpg" alt="" title="" />
+                        <img src="/assets/images/megamenu-bg1.jpg" alt="" title="" />
                       </a>
                     </li>
                   </ul>
@@ -328,7 +328,7 @@
                     </li>
                     <li class="grid__item large-up--one-whole imageCol">
                       <a href="#">
-                        <img src="assets/images/megamenu-bg2.jpg" alt="">
+                        <img src="/assets/images/megamenu-bg2.jpg" alt="">
                       </a>
                     </li>
                   </ul>
@@ -431,7 +431,7 @@
         <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
           <div class="logo">
             <a href="index.html">
-              <img src="assets/images/logo.svg" alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
+              <img src="/assets/images/logo.svg" alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
             </a>
           </div>
         </div>
@@ -447,7 +447,7 @@
               <ul class="mini-products-list">
                 <li class="item">
                   <a class="product-image" href="#">
-                    <img src="assets/images/product-images/cape-dress-1.jpg" alt="3/4 Sleeve Kimono Dress" title="" />
+                    <img src="/assets/images/product-images/cape-dress-1.jpg" alt="3/4 Sleeve Kimono Dress" title="" />
                   </a>
                   <div class="product-details">
                     <a href="#" class="remove">
@@ -479,7 +479,7 @@
                 </li>
                 <li class="item">
                   <a class="product-image" href="#">
-                    <img src="assets/images/product-images/cape-dress-2.jpg" alt="Elastic Waist Dress - Black / Small" title="" />
+                    <img src="/assets/images/product-images/cape-dress-2.jpg" alt="Elastic Waist Dress - Black / Small" title="" />
                   </a>
                   <div class="product-details">
                     <a href="#" class="remove">

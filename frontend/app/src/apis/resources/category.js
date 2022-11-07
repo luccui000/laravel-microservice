@@ -1,9 +1,9 @@
 import Resource from '@/apis/resource';
 
 class Category extends Resource {
-  constructor(uri) {
-    super(uri);
+  constructor() {
+    super('categories');
   }
 }
 
-export default new Category('/categories');
+export default new Category();
