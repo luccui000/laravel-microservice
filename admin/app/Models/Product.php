@@ -66,6 +66,11 @@ class Product extends Model
         return $this->hasMany(Sku::class);
     }
 
+    public function invoices()
+    {
+        return $this->belongsToMany(Invoice::class, 'invoice_details');
+    }
+
     public function orders()
     {
         return $this->belongsToMany(Order::class);
