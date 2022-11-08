@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\FE\PostController;
 use App\Http\Controllers\FE\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,8 @@ Route::group(['prefix' => 'products'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('{id}/rate', [ProductController::class, 'rate']);
     });
+});
+
+Route::group(['prefix' => 'posts'], function() {
+    Route::get('/', [PostController::class, 'index']);
 });

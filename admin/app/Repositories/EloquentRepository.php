@@ -117,4 +117,9 @@ abstract class EloquentRepository implements BaseRepository
     {
         return $this->model->where($column, $operator, $value, $boolean);
     }
+
+    public function paginate($perPage = 10)
+    {
+        return $this->model->paginate($perPage);
+    }
 }
