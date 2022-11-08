@@ -17,6 +17,11 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
         return $this->model->count();
     }
 
+    public function index()
+    {
+        return $this->model->with(['skus.variants', 'skus.options'])->get();
+    }
+
     public function bestSeller()
     {
         return $this->model

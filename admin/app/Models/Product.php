@@ -36,6 +36,16 @@ class Product extends Model
         return $this->belongsTo(Supplier::class);
     }
 
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
+
+    public function skus()
+    {
+        return $this->hasMany(Sku::class);
+    }
+
     public function orders()
     {
         return $this->belongsToMany(Order::class);

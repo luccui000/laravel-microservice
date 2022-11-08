@@ -25,7 +25,7 @@ class ProductController extends Controller
     public function index(Request $request): JsonResponse
     {
         try {
-            $products = $this->_productRepo->all();
+            $products = $this->_productRepo->index();
 
             return $this->jsonData($products);
         } catch (\Exception $ex) {
