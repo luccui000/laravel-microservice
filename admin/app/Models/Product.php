@@ -24,6 +24,7 @@ class Product extends Model
         'is_unlimited',
         'category_id',
         'supplier_id',
+        'brand_id',
     ];
 
     public $appends = [
@@ -49,6 +50,11 @@ class Product extends Model
     public function supplier()
     {
         return $this->belongsTo(Supplier::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
 
     public function orders()
