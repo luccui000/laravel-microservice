@@ -26,6 +26,21 @@ class Product extends Model
         'supplier_id',
     ];
 
+    public $appends = [
+        'min_price',
+        'max_price'
+    ];
+
+    public function getMinPriceAttribute()
+    {
+        return $this->skus->min('price');
+    }
+
+    public function getMaxPriceAttribute()
+    {
+        return $this->skus->max('price');
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
