@@ -56,6 +56,15 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class);
     }
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
+
+    public function skus()
+    {
+        return $this->hasMany(Sku::class);
+    }
 
     public function orders()
     {
