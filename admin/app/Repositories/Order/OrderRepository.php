@@ -47,4 +47,38 @@ class OrderRepository extends EloquentRepository implements OrderRepositoryInter
             ->orderBy('date', 'DESC')
             ->get();
     }
+
+    public function saleInMonth($month = null, $year = null)
+    {
+        if(!$month) $month = Carbon::now()->month;
+        if(!$year) $year = Carbon::now()->year;
+
+        return $this->model
+            ->where('status', Order::SUCCESS)
+            ->whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
+            ->sum('total');
+    }
+
+    public function saleInYear($year = null)
+    {
+        if(!$year) $year = Carbon::now()->year;
+
+        return $this->model
+            ->where('status', Order::SUCCESS)
+            ->whereYear('created_at', $year)
+            ->sum('total');
+    }
+
+    public function revenueInMonth($month = null, $year = null)
+    {
+        if(!$month) $month = Carbon::now()->month;
+        if(!$year) $year = Carbon::now()->year;
+
+        $statement = "SELECT SUM(price * quantity) as total FROM invoice_details";
+        $successOrder = $this->model
+            ->where('status', Order::SUCCESS)
+            ->sum('total');
+        $invoices = DB::select($statement)[0];
+    }
 }

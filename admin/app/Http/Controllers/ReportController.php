@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\Customer\CustomerRepository;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Product\ProductRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -38,7 +39,14 @@ class ReportController extends Controller
                 ],
                 'orders'        => $this->_orderRepo->orderInPreviouseDay(),
                 'customers'     => $this->_customerRepo->customerIn7PreviousDay(),
-                'sale_in_month' => $this->_orderRepo->saleIn30Day()
+                'sale_in_month' => $this->_orderRepo->saleIn30Day(),
+                'sale' => [
+                    'month' => $this->_orderRepo->saleInMonth(),
+                    'year' => $this->_orderRepo->saleInYear(),
+                ],
+                'revenue' => [
+                    'month' => $this->_orderRepo->revenueInMonth()
+                ]
             ]);
         } catch (\Exception $ex) {
             return $this->jsonError($ex->getMessage());
