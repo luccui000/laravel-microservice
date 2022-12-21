@@ -3,10 +3,10 @@
     <table>
       <thead class="cart__row cart__header">
         <tr>
-          <th colspan="2" class="text-center">Product</th>
-          <th class="text-center">Price</th>
-          <th class="text-center">Quantity</th>
-          <th class="text-right">Total</th>
+          <th colspan="2" class="text-center">Tên sản phẩm</th>
+          <th class="text-center">Giá</th>
+          <th class="text-center">Số lượng</th>
+          <th class="text-right">Thành tiền</th>
           <th class="action">&nbsp;</th>
         </tr>
       </thead>

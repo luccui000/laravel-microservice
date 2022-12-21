@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Order\OrderRepository;
 use Illuminate\Http\Request;
+use Luccui\ShareData\Repositories\Order\OrderRepository;
 
 class OrderController extends Controller
 {

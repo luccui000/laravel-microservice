@@ -2,28 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Customer\CustomerRepository;
-use App\Repositories\Order\OrderRepository;
-use App\Repositories\Product\ProductRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Luccui\ShareData\Repositories\Comment\CommentRepository;
+use Luccui\ShareData\Repositories\Customer\CustomerRepository;
+use Luccui\ShareData\Repositories\Order\OrderRepository;
+use Luccui\ShareData\Repositories\Product\ProductRepository;
 
 class ReportController extends Controller
 {
     private $_productRepo;
     private $_orderRepo;
     private $_customerRepo;
+    private $_commentRepo;
 
     public function __construct(
         ProductRepository $productRepository,
         OrderRepository $orderRepository,
-        CustomerRepository $customerRepository
+        CustomerRepository $customerRepository,
+        CommentRepository $commentRepository
     ) {
         $this->_productRepo = $productRepository;
         $this->_orderRepo = $orderRepository;
         $this->_customerRepo = $customerRepository;
+        $this->_commentRepo = $commentRepository;
     }
 
-    public function overview(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @Description
+     * @Author MinhLuc
+     * @Date 21/12/2022
+     */
+    public function overview(Request $request): JsonResponse
     {
         try {
             return $this->jsonData([
@@ -38,14 +50,22 @@ class ReportController extends Controller
                 ],
                 'orders'        => $this->_orderRepo->orderInPreviouseDay(),
                 'customers'     => $this->_customerRepo->customerIn7PreviousDay(),
-                'sale_in_month' => $this->_orderRepo->saleIn30Day()
+                'sale_in_month' => $this->_orderRepo->saleIn30Day(),
+                'total_comment' => $this->_commentRepo->totalComments(),
             ]);
         } catch (\Exception $ex) {
             return $this->jsonError($ex->getMessage());
         }
     }
 
-    public function bestSeller(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @Description
+     * @Author MinhLuc
+     * @Date 21/12/2022
+     */
+    public function bestSeller(Request $request): JsonResponse
     {
         try {
             $products = $this->_productRepo->bestSeller();

@@ -4,6 +4,12 @@
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../modules/share-data"
+        }
+    ],
     "require": {
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
@@ -12,7 +18,8 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "php-amqplib/php-amqplib": "^3.4",
-        "vladimir-yuldashev/laravel-queue-rabbitmq": "^11.3"
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "^11.3",
+        "luccui/share-data": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

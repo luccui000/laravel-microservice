@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Category\CategoryRepository;
+use Luccui\ShareData\Repositories\Category\CategoryRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

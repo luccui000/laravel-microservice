@@ -1,0 +1,28 @@
+{
+    "name": "luccui/share-model",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Luccui\\ShareModel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "luccui000",
+            "email": "luccui2k@gmail.com"
+        }
+    ],
+    "require": {
+
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Luccui\\ShareModel\\ShareModelServiceProvider"
+            ],
+            "aliases": {
+                "ShareModel": "Luccui\\ShareModel\\Facades\\ShareModel"
+            }
+        }
+    }
+}

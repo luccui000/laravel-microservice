@@ -3,11 +3,15 @@ import VueRouter from 'vue-router';
 import Home from '@/views/Home/index.vue';
 import Products from '@/views/Products';
 import ProductDetail from '@/views/ProductDetail';
-import Cart from "@/views/Cart";
+import Cart from '@/views/Cart';
+import auth from './modules/auth';
+import cart from './modules/cart';
 
 Vue.use(VueRouter);
 
 const routes = [
+  ...auth,
+  ...cart,
   {
     path: '/',
     name: 'home.index',
@@ -24,7 +28,7 @@ const routes = [
     meta: {
       // layout: 'auth',
       title: 'Sản phẩm',
-    }
+    },
   },
   {
     path: '/products/:id',
@@ -32,16 +36,16 @@ const routes = [
     component: ProductDetail,
     meta: {
       title: 'Chi tiết sản phẩm',
-    }
+    },
   },
   {
     path: '/shopping-cart',
     name: 'cart.index',
     component: Cart,
     meta: {
-      title: 'Giỏ hàng'
-    }
-  }
+      title: 'Giỏ hàng',
+    },
+  },
 ];
 
 export default new VueRouter({

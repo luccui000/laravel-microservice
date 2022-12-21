@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Product\ProductRepository;
+use Luccui\ShareData\Repositories\Product\ProductRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

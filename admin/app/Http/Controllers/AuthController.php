@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Repositories\Customer\CustomerRepository;
-use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Luccui\ShareData\Repositories\Customer\CustomerRepository;
+use Luccui\ShareData\Repositories\User\UserRepository;
 
 
 class AuthController extends Controller

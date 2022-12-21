@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\FE;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Post\PostRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Luccui\ShareData\Repositories\Post\PostRepository;
 
 class PostController extends Controller
 {
@@ -19,7 +18,7 @@ class PostController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $posts = $this->_postRepo->paginate(10);
+            $posts = $this->_postRepo->getAllPost();
             return $this->jsonData($posts);
         } catch (\Exception $ex) {
             return $this->jsonError($ex->getMessage());

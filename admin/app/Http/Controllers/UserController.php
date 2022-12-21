@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
+use Luccui\ShareData\Repositories\User\UserRepositoryInterface;
 
 class UserController extends Controller
 {
@@ -61,6 +61,6 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        
+
     }
 }

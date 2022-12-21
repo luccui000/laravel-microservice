@@ -25,9 +25,15 @@
             <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
               <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
                 <ul class="customer-links list-inline">
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Create Account</a></li>
-                    <li><a href="#">Wishlist</a></li>
+                    <li>
+                      <router-link to="/login">Đăng nhập</router-link>
+                    </li>
+                    <li>
+                      <router-link to="/register">Tạo tài khoản</router-link>
+                    </li>
+                    <li>
+                      <router-link to="/wishlist">Danh sách yêu thích</router-link>
+                    </li>
                 </ul>
             </div>
         </div>

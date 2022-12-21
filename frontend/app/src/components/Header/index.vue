@@ -4,9 +4,9 @@
       <div class="row align-items-center">
         <!--Desktop Logo-->
         <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
-          <a href="index.html">
-            <img src="/assets/images/logo.svg" alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
-          </a>
+			<router-link to="/">
+				<img class="luccui-logo" src="/assets/images/logo.png" alt="MinhLuc" title="MinhLuc" />
+			</router-link>
         </div>
         <!--End Desktop Logo-->
         <div class="col-2 col-sm-3 col-md-3 col-lg-8">
@@ -430,18 +430,18 @@
         <!--Mobile Logo-->
         <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
           <div class="logo">
-            <a href="index.html">
-              <img src="/assets/images/logo.svg" alt="Belle Multipurpose Html Template" title="Belle Multipurpose Html Template" />
-            </a>
+            <router-link to="/">
+              <img src="/assets/images/logo.svg" alt="MinhLucShop" title="MinhLucShop" />
+            </router-link> 
           </div>
         </div>
         <!--Mobile Logo-->
         <div class="col-4 col-sm-3 col-md-3 col-lg-2">
           <div class="site-cart">
-            <a href="#" class="site-header__cart" title="Cart">
+            <router-link class="site-header__cart" to="/cart">
               <i class="icon anm anm-bag-l"></i>
-              <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">2</span>
-            </a>
+              <span class="site-header__cart-count">2</span>
+            </router-link> 
             <!--Minicart Popup-->
             <div id="header-cart" class="block block-cart">
               <ul class="mini-products-list">
@@ -537,7 +537,39 @@
 </template>
 
 <script>
+import { computed, reactive } from 'vue';
 export default {
   name: 'NavHeader',
+  setup() {
+    const products = reactive([
+      {
+        id: 1,
+        name: 'Sleeve Kimono Dress',
+        variant_type: 'Gray / XXL',
+        quantity: 4,
+        price: 745.2
+      },
+      {
+        id: 2,
+        name: 'Sleeve Kimono Dress',
+        variant_type: 'Gray / XXL',
+        quantity: 1,
+        price: 745.2
+      },
+    ]);
+
+    const totalPrice = computed(() => products.reduce((total, curr) => total + curr.price * curr.quantity))
+
+    return {
+      products,
+      totalPrice
+    }
+  }
 }
 </script>
+
+<style>
+.luccui-logo {
+	width: 200px;
+}
+</style>
