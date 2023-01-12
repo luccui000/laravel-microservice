@@ -80,4 +80,31 @@ class Product extends Model
     {
         return $this->hasMany(DetailOrder::class);
     }
+
+    public function details()
+    {
+        return $this->belongsToMany(Order::class, 'detail_orders');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Rate::class);
+    }
+
+    public function colors()
+    {
+        return $this->hasManyThrough(ProductVariantOption::class, ProductVariant::class)
+            ->where('product_variants.name', 'Color');
+    }
+
+    public function sizes()
+    {
+        return $this->hasManyThrough(ProductVariantOption::class, ProductVariant::class)
+            ->where('product_variants.name', 'Size');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'product_tags');
+    }
 }

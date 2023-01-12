@@ -4,10 +4,10 @@ namespace App\Http\Controllers\FE;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FE\RateRequest;
-use App\Repositories\Product\ProductRepository;
-use App\Repositories\Rate\RateRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Luccui\ShareData\Repositories\Product\ProductRepository;
+use Luccui\ShareData\Repositories\Rate\RateRepository;
 
 class ProductController extends Controller
 {

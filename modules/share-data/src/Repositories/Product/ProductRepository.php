@@ -62,4 +62,49 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
             ->take(10)
             ->get();
     }
+
+    public function getProducts($request)
+    {
+        $categories = $request->get('categories');
+        $categories = explode(',', $categories);
+        $prices = $request->get('prices');
+        $prices = explode(',', $prices);
+        $colors = $request->get('colors');
+        $colors = explode(',', $colors);
+
+        if(isset($prices[0]) && isset($prices[1])) {
+            [$minPrice, $maxPrice] = $prices;
+        } else {
+            $minPrice = 0;
+            $maxPrice = $prices;
+        }
+
+        $query = $this->model->query();
+
+        if(count($categories) > 0) {
+            $query = $query->with([
+                'category' => function($query) use ($categories) {
+                    $query->whereIn('name', $categories);
+                }
+            ]);
+        }
+
+        if($request->has('prices')) {
+            $query = $query->where('price', '>=', $minPrice)
+                ->where('price', '<', $maxPrice);
+        }
+
+        if($request->has('colors')) {
+            $query = $query->whereHas('variants', function($query) use ($colors) {
+                $query->where('name', 'Color')
+                    ->whereHas('options', function($subQuery) use ($colors) {
+                        $subQuery->whereIn('name', $colors);
+                    });
+            });
+        }
+
+        return $query->with(['category', 'supplier', 'variants.options'])
+            ->paginate();
+    }
+
 }

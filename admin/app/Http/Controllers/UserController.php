@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Luccui\ShareData\Repositories\User\UserRepositoryInterface;
+use Luccui\ShareData\Repositories\User\UserRepository;
 
 class UserController extends Controller
 {
     private $_userRepo;
 
-    public function __construct(UserRepositoryInterface $userRepo)
+    public function __construct(UserRepository $userRepo)
     {
         $this->_userRepo = $userRepo;
     }

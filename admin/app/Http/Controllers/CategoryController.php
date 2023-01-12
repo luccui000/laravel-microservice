@@ -31,21 +31,42 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        //
+        try {
+            $category = $this->_categoryRepo->store($request);
+            return $this->jsonData($category);
+        } catch (\Exception $ex) {
+            return $this->jsonError($ex->getMessage());
+        }
     }
 
     public function show($id)
     {
-        //
+        try {
+            $category = $this->_categoryRepo->find($id);
+
+            return $this->jsonData($category);
+        }  catch (\Exception $ex) {
+            return $this->jsonError($ex->getMessage());
+        }
     }
 
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $category = $this->_categoryRepo->update($id, $request);
+            return $this->jsonData($category);
+        }  catch (\Exception $ex) {
+            return $this->jsonError($ex->getMessage());
+        }
     }
 
     public function destroy($id)
     {
-        //
+        try {
+            $this->_categoryRepo->destroy($id);
+            return $this->jsonMessage('deleted');
+        }  catch (\Exception $ex) {
+            return $this->jsonError($ex->getMessage());
+        }
     }
 }

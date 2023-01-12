@@ -24,16 +24,21 @@
             </div>
             <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
               <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
-                <ul class="customer-links list-inline">
-                    <li>
-                      <router-link to="/login">Đăng nhập</router-link>
-                    </li>
-                    <li>
-                      <router-link to="/register">Tạo tài khoản</router-link>
-                    </li>
-                    <li>
-                      <router-link to="/wishlist">Danh sách yêu thích</router-link>
-                    </li>
+                <ul class="customer-links list-inline" v-if="isLogin">
+                  <li>
+                    <router-link to="/">{{ user.name }}</router-link>
+                  </li>
+                </ul>
+                <ul class="customer-links list-inline" v-else>
+                  <li>
+                    <router-link to="/login">Đăng nhập</router-link>
+                  </li>
+                  <li>
+                    <router-link to="/register">Tạo tài khoản</router-link>
+                  </li>
+                  <li>
+                    <router-link to="/wishlist">Danh sách yêu thích</router-link>
+                  </li> 
                 </ul>
             </div>
         </div>
@@ -43,6 +48,17 @@
 
 <script>
 export default {
-  name: 'TopHeader'
+  name: 'TopHeader',
+  data() {
+    return {};
+  },
+  computed: {
+    isLogin() {
+      return this.$store.getters['auth/isLogin'];
+    },
+    user() {
+      return this.$store.getters['auth/user'];
+    }
+  }
 }
 </script>

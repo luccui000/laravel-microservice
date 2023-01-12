@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\OrderCreated;
 use Illuminate\Http\Request;
 use Illuminate\Http\Client\Factory as HttpClient;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
+use Luccui\ShareData\Jobs\OrderCreated;
 
 class OrderController extends Controller
 {

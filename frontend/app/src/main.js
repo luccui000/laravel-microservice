@@ -4,11 +4,23 @@ import store from '@/store';
 import router from '@/router';
 import '@/utils/style';
 import '@/utils/globalComponent';
-Vue.use(store);
+import '@/filters';
 
 Vue.config.productionTip = false;
 
-new Vue({
-  render: (h) => h(App),
-  router,
-}).$mount('#app');
+const Application = () => {
+  return {
+    init: async () => {
+      await store.dispatch('auth/getInfo');
+
+      new Vue({
+        router,
+        store,
+        render: (h) => h(App),
+      }).$mount('#app');
+    },
+  };
+};
+
+const app = Application();
+app.init();

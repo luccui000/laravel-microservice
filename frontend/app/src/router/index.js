@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Home/index.vue';
-import Products from '@/views/Products';
-import ProductDetail from '@/views/ProductDetail';
 import Cart from '@/views/Cart';
 import auth from './modules/auth';
 import cart from './modules/cart';
+import product from './modules/product';
 
 Vue.use(VueRouter);
 
 const routes = [
   ...auth,
   ...cart,
+  ...product,
   {
     path: '/',
     name: 'home.index',
@@ -19,23 +19,6 @@ const routes = [
     meta: {
       // layout: 'auth',
       title: 'Trang chủ',
-    },
-  },
-  {
-    path: '/products',
-    name: 'products.index',
-    component: Products,
-    meta: {
-      // layout: 'auth',
-      title: 'Sản phẩm',
-    },
-  },
-  {
-    path: '/products/:id',
-    name: 'products.show',
-    component: ProductDetail,
-    meta: {
-      title: 'Chi tiết sản phẩm',
     },
   },
   {

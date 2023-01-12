@@ -14,11 +14,11 @@ class CouponController extends Controller
 
     public function __construct(
         CouponRepository $couponRepository,
-        CouponCustomerRepository $customerRepositoryRepository
+        CouponCustomerRepository $couponCustomerRepository
     )
     {
         $this->_couponRepo = $couponRepository;
-        $this->_couponCustomerRepo = $customerRepositoryRepository;
+        $this->_couponCustomerRepo = $couponCustomerRepository;
     }
 
     public function applyCoupon(Request $request)

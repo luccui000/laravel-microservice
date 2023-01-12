@@ -1,6 +1,6 @@
 export const CONST_APP = {
-  admin_api: 'https://admin.minhluc.com/api',
-  base_api: 'https://app.minhluc.com/api/fe',
+  admin_api: 'http://admin.minhluc.com/api',
+  base_api: 'http://app.minhluc.com/api/fe',
   token_key: 'TOKEN',
 };
 

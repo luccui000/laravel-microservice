@@ -30,6 +30,15 @@ const auth = [
       title: 'Danh sách yêu thích',
     },
   },
+  {
+    path: '/me',
+    name: 'me.index',
+    component: WishlistView,
+    meta: {
+      // layout: 'auth',
+      title: 'Danh sách yêu thích',
+    },
+  },
 ];
 
 export default auth;

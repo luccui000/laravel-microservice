@@ -4,6 +4,8 @@ namespace Luccui\ShareData;
 
 use Illuminate\Support\ServiceProvider;
 use Luccui\ShareData\Command\PublishMigration;
+use Luccui\ShareData\Models\Order;
+use Luccui\ShareData\Observers\OrderObserver;
 
 class ShareDataServiceProvider extends ServiceProvider
 {
@@ -13,6 +15,7 @@ class ShareDataServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        Order::observe(OrderObserver::class);
         $this->loadMigrationsFrom([
             __DIR__ . '../database/migrations'
         ]);

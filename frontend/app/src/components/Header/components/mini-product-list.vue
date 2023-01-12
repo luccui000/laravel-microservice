@@ -18,7 +18,7 @@
           <a class="qtyBtn minus" href="javascript:void(0);">
             <i class="fa anm anm-minus-r" aria-hidden="true"></i>
           </a>
-          <input type="text" id="Quantity" name="quantity" value="1" class="product-form__input qty">
+          <input type="text" value="1" class="product-form__input qty">
           <a class="qtyBtn plus" href="javascript:void(0);">
             <i class="fa anm anm-plus-r" aria-hidden="true"></i>
           </a>

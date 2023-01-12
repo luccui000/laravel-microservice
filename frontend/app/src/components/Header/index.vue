@@ -222,8 +222,9 @@
                 </div>
               </li>
               <li class="lvl1 parent megamenu">
-                <a href="#">Product <i class="anm anm-angle-down-l"></i>
-                </a>
+                <router-link to="/products">
+                  Product <i class="anm anm-angle-down-l"></i>
+                </router-link>  
                 <div class="megamenu style2">
                   <ul class="grid mmWrapper">
                     <li class="grid__item one-whole">
@@ -464,7 +465,7 @@
                         <a class="qtyBtn minus" href="javascript:void(0);">
                           <i class="fa anm anm-minus-r" aria-hidden="true"></i>
                         </a>
-                        <input type="text" id="Quantity" name="quantity" value="1" class="product-form__input qty">
+                        <input type="text" value="1" class="product-form__input qty">
                         <a class="qtyBtn plus" href="javascript:void(0);">
                           <i class="fa anm anm-plus-r" aria-hidden="true"></i>
                         </a>
@@ -496,7 +497,7 @@
                         <a class="qtyBtn minus" href="javascript:void(0);">
                           <i class="fa anm anm-minus-r" aria-hidden="true"></i>
                         </a>
-                        <input type="text" id="Quantity" name="quantity" value="1" class="product-form__input qty">
+                        <input type="text" value="1" class="product-form__input qty">
                         <a class="qtyBtn plus" href="javascript:void(0);">
                           <i class="fa anm anm-plus-r" aria-hidden="true"></i>
                         </a>
@@ -537,32 +538,32 @@
 </template>
 
 <script>
-import { computed, reactive } from 'vue';
+
 export default {
   name: 'NavHeader',
-  setup() {
-    const products = reactive([
-      {
-        id: 1,
-        name: 'Sleeve Kimono Dress',
-        variant_type: 'Gray / XXL',
-        quantity: 4,
-        price: 745.2
-      },
-      {
-        id: 2,
-        name: 'Sleeve Kimono Dress',
-        variant_type: 'Gray / XXL',
-        quantity: 1,
-        price: 745.2
-      },
-    ]);
-
-    const totalPrice = computed(() => products.reduce((total, curr) => total + curr.price * curr.quantity))
-
+  data() {
     return {
-      products,
-      totalPrice
+      products: [
+        {
+          id: 1,
+          name: 'Sleeve Kimono Dress',
+          variant_type: 'Gray / XXL',
+          quantity: 4,
+          price: 745.2
+        },
+        {
+          id: 2,
+          name: 'Sleeve Kimono Dress',
+          variant_type: 'Gray / XXL',
+          quantity: 1,
+          price: 745.2
+        },
+      ]
+    }
+  },
+  computed: {
+    totalPrice() {
+      return this.products.reduce((total, curr) => total + curr.price * curr.quantity);
     }
   }
 }

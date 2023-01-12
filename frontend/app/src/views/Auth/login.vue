@@ -9,42 +9,54 @@
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
           <div class="mb-4">
-              <form method="post" action="#" id="CustomerLoginForm" accept-charset="UTF-8" class="contact-form">	
-                <div class="row">
-                  <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                      <div class="form-group">
-                          <label for="CustomerEmail">Email</label>
-                          <input type="email" name="customer[email]" placeholder="" id="CustomerEmail" class="" autocorrect="off" autocapitalize="off" autofocus="">
-                      </div>
+            <div class="row">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="form-group">
+                      <label for="CustomerEmail">Email</label>
+                      <input v-model="email" type="email" value="minhluc@gmail.com" placeholder="Email" class="" autocorrect="off" autocapitalize="off" autofocus="">
                   </div>
-                  <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                      <div class="form-group">
-                          <label for="CustomerPassword">Mật khẩu</label>
-                          <input type="password" value="" name="customer[password]" placeholder="" id="CustomerPassword" class="">                        	
-                      </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="form-group">
+                      <label for="CustomerPassword">Mật khẩu</label>
+                      <input v-model="password" type="password" value="Pass@123" placeholder="" class="">                        	
                   </div>
-                </div>
-                <div class="row">
-                  <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12">
-                      <input type="submit" class="btn mb-3" value="Đăng nhập">
-                      <p class="mb-4">
-                        <router-link to="/forgot-password" id="RecoverPassword">Quên mật khẩu ?</router-link> &nbsp; | &nbsp;
-                        <router-link to="/register" id="customer_register_link">Đăng ký tài khoản</router-link>
-                      </p>
-                  </div>
-                </div>
-              </form>
+              </div>
             </div>
+            <div class="row">
+              <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12">
+                  <button @click="login" class="btn mb-3" >Đăng nhập</button>
+                  <p class="mb-4">
+                    <router-link to="/forgot-password" >Quên mật khẩu ?</router-link> &nbsp; | &nbsp;
+                    <router-link to="/register" id="customer_register_link">Đăng ký tài khoản</router-link>
+                  </p>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
     </div>
   </div>
 </template>
 
-<script>
+<script> 
 
 export default {
-  name: 'LoginView'
+  name: 'LoginView',
+  data() {
+    return {
+      email: 'minhluc@gmail.com',
+      password: 'Pass@123'
+    }
+  },
+  methods: {
+    login() { 
+      this.$store.dispatch('auth/login', {
+        email: this.email, 
+        password: this.password
+      });
+    }
+  }
 }
 
 </script>
