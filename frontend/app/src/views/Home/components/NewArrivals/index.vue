@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import NewArrivalsItem from '@/components/NewArrivals/Item.vue';
+import NewArrivalsItem from '@/views/Home/components/NewArrivals/Item.vue';
 
 export default {
   name: 'NewArrivals',

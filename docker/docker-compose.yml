@@ -1,0 +1,9 @@
+supervisor:
+  build:
+    context: .
+    dockerfile: .
+  container_name: supervisor
+  volumes:
+    - ./src:/var/www/html
+  networks:
+    - laravel

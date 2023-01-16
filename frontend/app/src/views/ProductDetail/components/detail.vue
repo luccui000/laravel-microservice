@@ -101,7 +101,7 @@
           </div>
           <div class="infolinks">
             <div @click="showSizeGuide = true" class="sizelink btn">Tham khảo kích cỡ</div>
-            <div class="emaillink btn"> Ask About this Product</div>
+            <div @click="showContact = true" class="emaillink btn"> Liên hệ</div>
           </div>
           <!-- Product Action -->
           <div class="product-action clearfix">
@@ -181,6 +181,11 @@
       v-if="showSizeGuide"
       @close="closeSizeGuide"
     />
+    <ask-product 
+      :product="product"
+      v-if="showContact"
+      @close="closeContact"
+    />
   </div>
 </template>
 
@@ -188,6 +193,7 @@
 import ProductVariantColor from './color.vue';
 import ProductVariantSize from './size.vue';
 import SizeGuide from './size-guide.vue';
+import AskProduct from './ask.vue'
 import moment from 'moment';
 
 export default {
@@ -196,6 +202,7 @@ export default {
     ProductVariantColor,
     ProductVariantSize,
     SizeGuide,
+    AskProduct,
   },
   beforeMount(){
     const { id: productId } = this.$route.params;
@@ -212,6 +219,7 @@ export default {
       color: null,
       size: null,
       showSizeGuide: false,
+      showContact: false,
     }
   },
   computed: {
@@ -253,6 +261,9 @@ export default {
     },
     closeSizeGuide() {
       this.showSizeGuide = false;
+    },
+    closeContact() {
+      this.showContact = false;
     },
     async addToCart() { 
       await this.$store.dispatch('cart/addToCart', {

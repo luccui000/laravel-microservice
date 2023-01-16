@@ -107,4 +107,10 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
             ->paginate();
     }
 
+    public function newArrival($limit = 5)
+    {
+        return $this->model->latest()
+            ->take($limit)
+            ->get();
+    }
 }

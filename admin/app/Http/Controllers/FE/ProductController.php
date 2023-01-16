@@ -2,24 +2,31 @@
 
 namespace App\Http\Controllers\FE;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\FE\RateRequest;
-use Illuminate\Http\JsonResponse;
+use App\Jobs\CommentProduct;
 use Illuminate\Http\Request;
-use Luccui\ShareData\Repositories\Product\ProductRepository;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\FE\AddToCartProductRequest;
+use App\Http\Requests\FE\RateRequest;
+use App\Http\Requests\FE\AskProducRequest;
 use Luccui\ShareData\Repositories\Rate\RateRepository;
+use Luccui\ShareData\Repositories\ProductContact\ProductContactRepository;
+use Luccui\ShareData\Repositories\Product\ProductRepository;
 
 class ProductController extends Controller
 {
     private $_productRepo;
     private $_rateRepo;
+    private $_productContactRepo;
 
     public function __construct(
         ProductRepository $productRepository,
-        RateRepository $rateRepository
+        RateRepository $rateRepository,
+        ProductContactRepository $productContactRepository
     ) {
         $this->_productRepo = $productRepository;
         $this->_rateRepo = $rateRepository;
+        $this->_productContactRepo = $productContactRepository;
     }
 
     public function index(Request $request): JsonResponse
@@ -91,19 +98,50 @@ class ProductController extends Controller
 
             $rate = $this->_rateRepo->where([
                 'product_id' => $id,
-                'user_id' => $user_id
-            ]);
-            if($rate->exists())
+                'customer_id' => $user_id
+            ])->first();
+
+            if(!$rate)
                 return $this->jsonMessage('User voted');
 
-            $rate = $this->_rateRepo->create([
+            CommentProduct::dispatch([
                 'product_id'    => $id,
-                'user_id'       => $user_id,
-                'vote'          => $request->vote,
-                'comment'       => $request->comment,
-            ]);
+                'customer_id'   => $user_id,
+                'vote'          => $request->get('vote'),
+                'comment'       => $request->get('comment'),
+            ])->onQueue('product_queue');
 
             return $this->jsonData($rate);
+        } catch (\Exception $ex) {
+            return $this->jsonError($ex->getMessage());
+        }
+    }
+
+    public function newArrival()
+    {
+        try {
+            $products = $this->_productRepo->newArrival(8);
+            return $this->jsonData($products);
+        }  catch (\Exception $ex) {
+            return $this->jsonError($ex->getMessage());
+        }
+    }
+
+    public function ask(AskProducRequest $request)
+    {
+        try {
+            $productContact = $this->_productContactRepo->store($request);
+            return $this->jsonData($productContact);
+        } catch (\Exception $ex) {
+            return $this->jsonError($ex->getMessage());
+        }
+    }
+
+    public function addToCart(AddToCartProductRequest $request)
+    {
+        try {
+            dd($request->all());
+            // $carts = $this
         } catch (\Exception $ex) {
             return $this->jsonError($ex->getMessage());
         }

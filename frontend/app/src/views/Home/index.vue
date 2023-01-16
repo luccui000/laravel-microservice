@@ -22,7 +22,7 @@
 import PageSlider from '@/components/Slider';
 import WeeklyBestseller from '@/components/WeeklyBestseller';
 import Advertisement from '@/components/Advertisement';
-import NewArrivals from '@/components/NewArrivals';
+import NewArrivals from '@/views/Home/components/NewArrivals';
 import MostLovedBrands from '@/components/MostLovedBrands';
 import NewLetter from '@/components/NewLetter';
 import PageFooter from '@/components/Footer';
@@ -30,7 +30,6 @@ import PageFooter from '@/components/Footer';
 export default {
   name: 'HomePage',
   components: {
-    
     PageSlider,
     WeeklyBestseller,
     Advertisement,

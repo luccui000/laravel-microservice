@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderStoreRequest;
 use App\Jobs\AddDetailProductItem;
 use App\Jobs\MonitorOrder;
 use App\Jobs\SendMailConfirmOrder;
@@ -37,12 +38,6 @@ class OrderController extends Controller
             return $this->jsonError($ex->getMessage());
         }
     }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
     public function orderProduct(Request $request, $productId)
     {
         try {
@@ -54,7 +49,7 @@ class OrderController extends Controller
         }
     }
 
-    public function makeOrder(Request $request)
+    public function store(OrderStoreRequest $request)
     {
         try {
             $minute = config('constants.minute_decline');

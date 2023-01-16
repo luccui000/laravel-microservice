@@ -34,10 +34,10 @@ class CommentProduct implements ShouldQueue
     public function handle()
     {
         Rate::create([
-            'product_id' => $this->data['product_id'],
-            'customer_id' => $this->data['customer_id'],
-            'comment' => $this->data['comment'],
-            'vote' => $this->data['vote'],
+            'product_id'    => $this->data['product_id'],
+            'customer_id'   => $this->data['customer_id'],
+            'comment'       => $this->data['comment'],
+            'vote'          => $this->data['vote'],
         ]);
     }
 }
