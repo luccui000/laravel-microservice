@@ -113,4 +113,22 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
             ->take($limit)
             ->get();
     }
+
+    public function popularProduct($limit = 5)
+    { 
+        return $this->model
+            ->withCount(['sold'])
+            ->orderBy('sold_count', 'DESC')
+            ->take($limit)
+            ->get();
+    }
+
+    public function relatedProduct($request)
+    {
+        $categoryId = $request->get('category_id');
+
+        return $this->model
+            ->where('category_id', $categoryId)
+            ->get();
+    }
 }

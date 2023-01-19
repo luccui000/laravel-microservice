@@ -9,7 +9,7 @@ class GeneralController extends Controller {
 
     public function __construct($repo)
     {
-
+        $this->_repo = $repo;
     }
     public function index()
     {

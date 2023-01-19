@@ -146,4 +146,26 @@ class ProductController extends Controller
             return $this->jsonError($ex->getMessage());
         }
     }
+
+    public function popular(Request $request)
+    {
+        try {
+            $limit = $request->get('limit', 3);
+            $products = $this->_productRepo->popularProduct($limit);
+
+            return $this->jsonData($products);
+        } catch (\Exception $ex) {
+            return $this->jsonError($ex->getMessage());
+        }
+    }
+
+    public function related(Request $request)
+    {
+        try {
+            $products = $this->_productRepo->relatedProduct($request);
+            return $this->jsonData($products);
+        } catch (\Exception $ex) {
+            return $this->jsonError($ex->getMessage());
+        }
+    }
 }

@@ -19,6 +19,8 @@ Route::group(['prefix' => 'products'], function () {
     Route::post('best-seller', [ProductController::class, 'top10BestSeller']);
     Route::post('new-arrival', [ProductController::class, 'newArrival']);
     Route::post('ask', [ProductController::class, 'ask']);
+    Route::post('popular', [ProductController::class, 'popular']);
+    Route::post('related', [ProductController::class, 'related']);
 
     Route::post('{id}/add-to-cart', [ProductController::class, 'addToCart']);
 

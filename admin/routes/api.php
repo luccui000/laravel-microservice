@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BrandController as CMSBrandController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FE\CategoryController;
 use App\Http\Controllers\FE\BrandController;
 use App\Http\Controllers\FE\CouponController;
 use App\Http\Controllers\FE\PostController;
+
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BrandController as CMSBrandController;
+use App\Http\Controllers\CategoryController as CMSCategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReportController;
@@ -23,7 +25,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::group(['as' => 'cms.'], function() {
     Route::apiResource('user', UserController::class);
     Route::apiResource('products', ProductController::class);
-    Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('categories', CMSCategoryController::class);
     Route::apiResource('brands', CMSBrandController::class);
     Route::apiResource('comments', CommentController::class);
 
@@ -36,6 +38,15 @@ Route::group(['as' => 'cms.'], function() {
 Route::group(['prefix' => 'fe', 'as' => 'fe.'], function() {
     Route::apiResource('brands', BrandController::class);
     Route::apiResource('posts', PostController::class);
+    Route::apiResource('categories', CategoryController::class);
+
+    Route::post('{id}/add-to-cart', [ProductController::class, 'addToCart']);
+
+    Route::post('{id}', [ProductController::class, 'show']);
+
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::post('{id}/rate', [ProductController::class, 'rate']);
+    });
 
     Route::group(['prefix' => 'coupon'], function() {
         Route::post('apply', [CouponController::class, 'applyCoupon']);
