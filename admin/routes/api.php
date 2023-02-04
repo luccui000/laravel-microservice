@@ -8,6 +8,9 @@ use App\Http\Controllers\FE\PostController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController as CMSBrandController;
 use App\Http\Controllers\CategoryController as CMSCategoryController;
+use App\Http\Controllers\SupplierController as CMSSupplierController;
+use App\Http\Controllers\DiscountController as CMSDiscountController;
+use App\Http\Controllers\CouponController as CMSCouponController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -16,18 +19,27 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZaloController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::get('zalo', [ZaloController::class, 'callback']);
-Route::get('me', [AuthController::class, 'me'])->middleware('auth:sanctum');
-Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::get('zalo', [ZaloController::class, 'callback']);
+Route::post('me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+Route::post('register', [AuthController::class, 'register']);
 
 Route::group(['as' => 'cms.'], function() {
     Route::apiResource('user', UserController::class);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('categories', CMSCategoryController::class);
     Route::apiResource('brands', CMSBrandController::class);
+    Route::apiResource('suppliers', CMSSupplierController::class);
     Route::apiResource('comments', CommentController::class);
+    Route::apiResource('discounts', CMSDiscountController::class);
+    Route::apiResource('coupons', CMSCouponController::class);
+
+    Route::post('get-attribute', [ProductController::class, 'getAttribute']);
+
+    Route::group(['prefix' => 'products'], function() {
+        Route::post('get-all', [ProductController::class, 'getAll']);
+        Route::post('create', [ProductController::class, 'create']);
+    });
 
     Route::group(['prefix' => 'report'], function () {
         Route::post('overview', [ReportController::class, 'overview']);

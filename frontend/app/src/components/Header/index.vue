@@ -15,14 +15,13 @@
               <i class="icon anm anm-times-l"></i>
               <i class="anm anm-bars-r"></i>
             </button>
-          </div>
+          </div> 
           <!--Desktop Menu-->
           <nav class="grid__item" id="AccessibleNav">
             <!-- for mobile -->
             <ul id="siteNav" class="site-nav medium center hidearrow">
               <li class="lvl1 parent megamenu">
-                <a href="#">Home <i class="anm anm-angle-down-l"></i>
-                </a>
+                <router-link to="/">Trang chủ <i class="anm anm-angle-down-l"></i></router-link> 
                 <div class="megamenu style1">
                   <ul class="grid mmWrapper">
                     <li class="grid__item large-up--one-whole">
@@ -222,109 +221,32 @@
                 </div>
               </li>
               <li class="lvl1 parent megamenu">
-                <router-link to="/products">
-                  Product <i class="anm anm-angle-down-l"></i>
+                <router-link to="/products">Sản phẩm<i class="anm anm-angle-down-l"></i>
                 </router-link>  
                 <div class="megamenu style2">
                   <ul class="grid mmWrapper">
                     <li class="grid__item one-whole">
                       <ul class="grid">
-                        <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                          <a href="#" class="site-nav lvl-1">Product Page</a>
+                        <li
+                          class="grid__item lvl-1 col-md-3 col-lg-3" 
+                          v-for="group in productData"
+                          :key="group.id" 
+                        >
+                          <a href="#" class="site-nav lvl-1">{{  group.name  }}</a>
                           <ul class="subLinks">
-                            <li class="lvl-2">
-                              <a href="product-layout-1.html" class="site-nav lvl-2">Product Layout 1</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-layout-2.html" class="site-nav lvl-2">Product Layout 2</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-layout-3.html" class="site-nav lvl-2">Product Layout 3</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-with-left-thumbs.html" class="site-nav lvl-2">Product With Left Thumbs</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-with-right-thumbs.html" class="site-nav lvl-2">Product With Right Thumbs</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-with-bottom-thumbs.html" class="site-nav lvl-2">Product With Bottom Thumbs</a>
-                            </li>
+                            <li 
+                            class="lvl-2" 
+                              v-for="product in group.products" 
+                              :key="product.id" >
+                              <router-link 
+                                :to="{ name: 'products.show', params: { id: product.id } }"
+                                class="site-nav lvl-2"
+                                style="max-width: 200px; overflow: hidden"
+                                >{{ product.name }}
+                              </router-link> 
+                            </li> 
                           </ul>
-                        </li>
-                        <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                          <a href="#" class="site-nav lvl-1">Product Features</a>
-                          <ul class="subLinks">
-                            <li class="lvl-2">
-                              <a href="short-description.html" class="site-nav lvl-2">Short Description</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-countdown.html" class="site-nav lvl-2">Product Countdown</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-video.html" class="site-nav lvl-2">Product Video</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-quantity-message.html" class="site-nav lvl-2">Product Quantity Message</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-visitor-sold-count.html" class="site-nav lvl-2">Product Visitor/Sold Count <span class="lbl nm_label3">Hot</span>
-                              </a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-zoom-lightbox.html" class="site-nav lvl-2">Product Zoom/Lightbox <span class="lbl nm_label1">New</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                          <a href="#" class="site-nav lvl-1">Product Features</a>
-                          <ul class="subLinks">
-                            <li class="lvl-2">
-                              <a href="product-with-variant-image.html" class="site-nav lvl-2">Product with Variant Image</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-with-color-swatch.html" class="site-nav lvl-2">Product with Color Swatch</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-with-image-swatch.html" class="site-nav lvl-2">Product with Image Swatch</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-with-dropdown.html" class="site-nav lvl-2">Product with Dropdown</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-with-rounded-square.html" class="site-nav lvl-2">Product with Rounded Square</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="swatches-style.html" class="site-nav lvl-2">Product Swatches All Style</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                          <a href="#" class="site-nav lvl-1">Product Features</a>
-                          <ul class="subLinks">
-                            <li class="lvl-2">
-                              <a href="product-accordion.html" class="site-nav lvl-2">Product Accordion</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-pre-orders.html" class="site-nav lvl-2">Product Pre-orders <span class="lbl nm_label1">New</span>
-                              </a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-labels-detail.html" class="site-nav lvl-2">Product Labels</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-discount.html" class="site-nav lvl-2">Product Discount In %</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="product-shipping-message.html" class="site-nav lvl-2">Product Shipping Message</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="size-guide.html" class="site-nav lvl-2">Size Guide <span class="lbl nm_label1">New</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </li>
+                        </li> 
                       </ul>
                     </li>
                     <li class="grid__item large-up--one-whole imageCol">
@@ -336,7 +258,7 @@
                 </div>
               </li>
               <li class="lvl1 parent dropdown">
-                <a href="#">Pages <i class="anm anm-angle-down-l"></i>
+                <a href="#">Giới thiệu <i class="anm anm-angle-down-l"></i>
                 </a>
                 <ul class="dropdown">
                   <li>
@@ -420,7 +342,7 @@
               </li>
               <li class="lvl1">
                 <a href="#">
-                  <b>Buy Now!</b>
+                  <b>Mua ngay!</b>
                   <i class="anm anm-angle-down-l"></i>
                 </a>
               </li>
@@ -561,9 +483,15 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.$store.dispatch('header/getProducts')
+  },
   computed: {
     totalPrice() {
       return this.products.reduce((total, curr) => total + curr.price * curr.quantity);
+    },
+    productData() {
+      return this.$store.state.header.products;
     }
   }
 }

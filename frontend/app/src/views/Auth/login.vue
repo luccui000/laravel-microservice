@@ -11,10 +11,10 @@
           <div class="mb-4">
             <div class="row">
               <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                  <div class="form-group">
-                      <label for="CustomerEmail">Email</label>
-                      <input v-model="email" type="email" value="minhluc@gmail.com" placeholder="Email" class="" autocorrect="off" autocapitalize="off" autofocus="">
-                  </div>
+                <div class="form-group">
+                  <label for="CustomerEmail">Email</label>
+                  <input v-model="email" type="email" value="minhluc@gmail.com" placeholder="Email" class="" autocorrect="off" autocapitalize="off" autofocus="">
+                </div>
               </div>
               <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                   <div class="form-group">
@@ -45,7 +45,7 @@ export default {
   name: 'LoginView',
   data() {
     return {
-      email: 'minhluc@gmail.com',
+      email: 'customer@minhluc.com',
       password: 'Pass@123'
     }
   },

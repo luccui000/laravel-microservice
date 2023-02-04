@@ -3,21 +3,23 @@
 namespace Luccui\ShareData\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Customer extends User
+class Customer extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens;
 
     protected $fillable = [
+        'phone',
+        'email',
+        'password',
         'first_name',
         'last_name',
-        'phone',
         'address_1',
         'address_2',
         'city',
         'country',
-        'email',
         'billing_address',
         'billing_region',
         'billing_postalcode',
@@ -25,12 +27,20 @@ class Customer extends User
         'ship_address',
         'ship_region',
         'ship_postalcode',
-        'ship_country',
-        'user_id',
+        'ship_country'
     ];
 
-    public function user()
+    protected $appends = ['name'];
+
+    protected $hidden = ['password'];
+
+    public function orders()
     {
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->hasMany(Order::class);
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->attributes['first_name'] . " " . $this->attributes['last_name'];
     }
 }

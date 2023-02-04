@@ -14,7 +14,7 @@ class BrandController extends Controller
     ) {
         $this->_brandRepo = $brandRepository;
     }
-    public function index()
+    public function index(Request $request)
     {
         try {
             $brands = $this->_brandRepo->all();

@@ -6,12 +6,13 @@ use App\Jobs\CommentProduct;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\FE\AddToCartProductRequest;
 use App\Http\Requests\FE\RateRequest;
 use App\Http\Requests\FE\AskProducRequest;
+use RecentlyViewed\Facades\RecentlyViewed;
+use App\Http\Requests\FE\AddToCartProductRequest;
 use Luccui\ShareData\Repositories\Rate\RateRepository;
-use Luccui\ShareData\Repositories\ProductContact\ProductContactRepository;
 use Luccui\ShareData\Repositories\Product\ProductRepository;
+use Luccui\ShareData\Repositories\ProductContact\ProductContactRepository;
 
 class ProductController extends Controller
 {
@@ -44,6 +45,8 @@ class ProductController extends Controller
     {
         try {
             $product = $this->_productRepo->find($id);
+
+            RecentlyViewed::add($product);
 
             return $this->jsonData($product);
         } catch (\Exception $ex) {

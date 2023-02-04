@@ -15,15 +15,23 @@ class Sku extends Model
         'sku',
         'price',
         'product_id',
+        'color_id',
+        'size_id',
     ];
 
-    public function variants()
+    public function product()
     {
-        return $this->belongsToMany(ProductVariant::class, 'sku_product_variant_options');
+        return $this->belongsTo(Product::class);
     }
 
-    public function options()
+    public function color()
     {
-        return $this->belongsToMany(ProductVariantOption::class, 'sku_product_variant_options');
+        return $this->belongsTo(Color::class);
+    }
+
+    public function size()
+    {
+        return $this->belongsTo(Size::class);
     }
 }
+

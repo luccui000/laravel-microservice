@@ -7,7 +7,7 @@ class Auth extends Resource {
   }
   login(email, password) {
     return request({
-      url: 'login',
+      url: '/fe/login',
       method: 'POST',
       data: {
         email,
@@ -17,8 +17,23 @@ class Auth extends Resource {
   }
   me() {
     return request({
-      url: 'me',
-      method: 'GET',
+      url: '/fe/me',
+      method: 'POST',
+    });
+  }
+  updateProfile(data) {
+    return request({
+      url: '/fe/update-profile',
+      method: 'POST',
+      data,
+    });
+  }
+
+  updateAddress(data) {
+    return request({
+      url: '/fe/update-address',
+      method: 'POST',
+      data,
     });
   }
 }

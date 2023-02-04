@@ -16,12 +16,17 @@ export default {
   },
   actions: {
     async getAllProduct({ commit }) {
-      try {
-        const response = await product.all();
-        commit('SET_PRODUCTS', response.data.data.data);
-      } catch (error) {
-        console.log(error);
-      }
+      return new Promise((resolve, reject) => {
+        product
+          .all()
+          .then((response) => {
+            const { data } = response;
+            console.log(data);
+            commit('SET_PRODUCTS', data.data.data);
+            resolve(data.data.data);
+          })
+          .catch((error) => reject(error));
+      });
     },
     async getProductById({ commit }, id) {
       try {
@@ -35,8 +40,8 @@ export default {
       }
     },
     async viewProduct(_, product) {
-      console.log(product)
-    }
+      console.log(product);
+    },
   },
   mutations: {
     SET_PRODUCTS(state, products) {

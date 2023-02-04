@@ -1,7 +1,10 @@
 <template>
   <div>
     <div id="page-content">
-      <banner></banner>
+      <banner
+        :image="banner.image"
+        :title="banner.title"
+      />
       <div class="container">
         <div class="row">
           <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar filterbar">
@@ -83,15 +86,24 @@ export default {
       isGridView: true,
       products: [],
       product: null,
+      banner: {
+        image: {
+          dataSrc: '',
+          src: 'assets/images/cat-women1.jpg'
+        },
+        title: 'Danh sách sản phẩm'
+      }
     }
   },
   mounted() {
     this.getAllProduct();
   },
   methods: {
-    async getAllProduct() {
-      await this.$store.dispatch('product/getAllProduct')
-      this.products = this.$store.getters['product/all']; 
+    getAllProduct() {
+      this.$store.dispatch('product/getAllProduct')
+        .then(products => {
+          this.products = products;
+        })
     },
     setView() {
       this.isGridView = !this.isGridView;

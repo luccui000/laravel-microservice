@@ -1,6 +1,7 @@
 import LoginView from '@/views/Auth/login.vue';
 import RegisterView from '@/views/Auth/register.vue';
 import WishlistView from '@/views/Auth/wishlist.vue';
+import AccountView from '@/views/Account/index.vue';
 
 const auth = [
   {
@@ -33,7 +34,7 @@ const auth = [
   {
     path: '/me',
     name: 'me.index',
-    component: WishlistView,
+    component: AccountView,
     meta: {
       // layout: 'auth',
       title: 'Danh sách yêu thích',

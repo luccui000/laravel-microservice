@@ -38,8 +38,7 @@ export default {
       isShow: false
     }
   },
-  mounted() {
-    this.getAllProduct();
+  mounted() { 
   },
   methods: { 
     selectProduct(product) {

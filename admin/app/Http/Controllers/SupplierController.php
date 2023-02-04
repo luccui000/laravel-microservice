@@ -44,7 +44,7 @@ class SupplierController extends Controller
         }
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         try {
             $this->_supplier->destroy($id);

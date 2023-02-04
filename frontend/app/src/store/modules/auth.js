@@ -23,11 +23,33 @@ const actions = {
   },
   async getInfo({ commit }) {
     try {
-      const response = await auth.me();
-      if (response.data.success) commit('SET_USER', response.data.data.user);
+      const { data } = await auth.me();
+      if (data.success) commit('SET_USER', data.data);
     } catch (error) {
       console.log(error);
     }
+  },
+  updateProfile({ commit }, user) {
+    return new Promise((resolve, reject) => {
+      auth.updateProfile(user).then((response) => {
+        const { data } = response;
+
+        if (data.success) {
+          commit('SET_USER', data.data);
+          resolve();
+        } else {
+          reject(new Error('Error'));
+        }
+      });
+    });
+  },
+  updateAddress(_, address) {
+    return new Promise((resolve, reject) => {
+      auth
+        .updateAddress(address)
+        .then((response) => resolve(response))
+        .catch((error) => reject(error));
+    });
   },
   setToken({ commit }, token) {
     commit('SET_TOKEN', token);

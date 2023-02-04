@@ -17,9 +17,9 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "luccui/share-data": "*",
         "php-amqplib/php-amqplib": "^3.4",
-        "vladimir-yuldashev/laravel-queue-rabbitmq": "^11.3",
-        "luccui/share-data": "*"
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "^11.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
@@ -35,7 +35,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/helper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

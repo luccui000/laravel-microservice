@@ -24,6 +24,7 @@ trait ApiResponser
         return response()->json([
             'success' => true,
             'data' => $data,
+            'code' => $status
         ], $status);
     }
 
@@ -38,6 +39,7 @@ trait ApiResponser
             'success' => true,
             'data' => $data['data'],
             'count' => $data['total'],
+            'code' => $status
         ], $status);
     }
 
@@ -63,6 +65,7 @@ trait ApiResponser
             'message' => $message,
             'file' => $file,
             'line' => $line,
+            'code' => $status
         ], $status);
     }
 
@@ -77,6 +80,7 @@ trait ApiResponser
         return response()->json([
             'success' => $success,
             'message' => $message,
+            'code' => $status
         ], $status);
     }
 }

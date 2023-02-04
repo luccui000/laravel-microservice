@@ -72,7 +72,7 @@ class AuthController extends Controller
     {
         try {
             $user = $request->user();
-            $user->load('customer');
+
             return $this->jsonData([
                'user' => $user
             ]);

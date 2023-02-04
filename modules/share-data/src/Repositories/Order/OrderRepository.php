@@ -52,7 +52,7 @@ class OrderRepository extends EloquentRepository implements OrderRepositoryInter
 
     public function makeOrder($request)
     {
-        $subTotal = $request->get('sub_total');
+        $subTotal = $request->get('sub_total', 0);
         $discount = $request->get('discount', 0);
         $total = $subTotal - $discount;
 

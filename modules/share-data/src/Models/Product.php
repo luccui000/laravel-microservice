@@ -2,12 +2,14 @@
 
 namespace Luccui\ShareData\Models;
 
+use Illuminate\Database\Eloquent\Model; 
+use RecentlyViewed\Models\Contracts\Viewable;
+use RecentlyViewed\Models\Traits\CanBeViewed;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Product extends Model implements Viewable
 {
-    use HasFactory;
+    use HasFactory, CanBeViewed;
 
     protected $fillable = [
         'name',
@@ -21,22 +23,33 @@ class Product extends Model
         'stock',
         'is_hot',
         'is_new',
+        'sell_price', 
         'is_unlimited',
         'category_id',
         'supplier_id',
         'brand_id',
     ];
 
-    public $appends = [
+    protected $appends = [
         'min_price',
-        'max_price'
+        'max_price',
+        'image_origin'
     ];
+
+    protected $casts = [
+        'has_variant' => 'boolean'
+    ];
+
+    public function getImageOriginAttribute()
+    {
+        return url($this->image);
+    }
 
     public function getMinPriceAttribute()
     {
         return $this->skus->min('price');
     }
-
+ 
     public function getMaxPriceAttribute()
     {
         return $this->skus->max('price');
@@ -56,16 +69,7 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class);
     }
-    public function variants()
-    {
-        return $this->hasMany(ProductVariant::class);
-    }
-
-    public function skus()
-    {
-        return $this->hasMany(Sku::class);
-    }
-
+    
     public function invoices()
     {
         return $this->belongsToMany(Invoice::class, 'invoice_details');
@@ -93,14 +97,17 @@ class Product extends Model
 
     public function colors()
     {
-        return $this->hasManyThrough(ProductVariantOption::class, ProductVariant::class)
-            ->where('product_variants.name', 'Color');
+        return $this->belongsToMany(Color::class, 'product_colors');
     }
 
     public function sizes()
     {
-        return $this->hasManyThrough(ProductVariantOption::class, ProductVariant::class)
-            ->where('product_variants.name', 'Size');
+        return $this->belongsToMany(Size::class, 'product_sizes');
+    }
+    
+    public function skus()
+    {
+        return $this->hasMany(Sku::class);
     }
 
     public function tags()

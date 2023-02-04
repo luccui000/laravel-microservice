@@ -12,11 +12,11 @@
               />
             </div>
             <div class="product-labels">
-              <span class="lbl on-sale">Sale</span>
-              <span class="lbl pr-label1">new</span>
+              <span class="lbl on-sale">Giảm giá</span>
+              <span class="lbl pr-label1">Sản phẩm mới</span>
             </div>
             <div class="product-buttons">
-              <a href="#" class="btn popup-video" title="View Video">
+              <a href="#" class="btn popup-video" title="Xem video">
                 <i class="icon anm anm-play-r" aria-hidden="true"></i>
               </a>
               <a href="#" class="btn prlightbox" title="Zoom">
@@ -36,10 +36,10 @@
           </div>
           <div class="prInfoRow">
             <div class="product-stock">
-              <span class="instock ">In Stock</span>
-              <span class="outstock hide">Unavailable</span>
+              <span class="instock ">Còn hàng</span>
+              <span class="outstock hide">Hết hàng</span>
             </div>
-            <div class="product-sku">SKU: <span class="variant-sku">{{ product.sku }}</span>
+            <div class="product-sku">SKU: <span class="variant-sku">{{ item.sku }}</span>
             </div>
             <div class="product-review">
               <a class="reviewLink" href="#tab2">
@@ -59,7 +59,7 @@
             </s>
             <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
               <span id="ProductPrice-product-template">
-                <span class="money">$500.00</span>
+                <span class="money">{{ item.price | vietnamdong  }}</span>
               </span>
             </span> 
           </p>
@@ -144,7 +144,7 @@
             <div class="social-sharing">
               <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-facebook" title="Share on Facebook">
                 <i class="fa fa-facebook-square" aria-hidden="true"></i>
-                <span class="share-title" aria-hidden="true">Share</span>
+                <span class="share-title" aria-hidden="true">Chia sẻ</span>
               </a>
               <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-twitter" title="Tweet on Twitter">
                 <i class="fa fa-twitter" aria-hidden="true"></i>
@@ -153,11 +153,7 @@
               <a href="#" title="Share on google+" class="btn btn--small btn--secondary btn--share">
                 <i class="fa fa-google-plus" aria-hidden="true"></i>
                 <span class="share-title" aria-hidden="true">Google+</span>
-              </a>
-              <a target="_blank" href="#" class="btn btn--small btn--secondary btn--share share-pinterest" title="Pin on Pinterest">
-                <i class="fa fa-pinterest" aria-hidden="true"></i>
-                <span class="share-title" aria-hidden="true">Pin it</span>
-              </a>
+              </a> 
               <a href="#" class="btn btn--small btn--secondary btn--share share-pinterest" title="Share by Email" target="_blank">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
                 <span class="share-title" aria-hidden="true">Email</span>
@@ -220,6 +216,13 @@ export default {
       size: null,
       showSizeGuide: false,
       showContact: false,
+      price: 0,
+      item: {
+       color: null,
+       size: null,
+       sku: null,
+       price: null,
+      }
     }
   },
   computed: {
@@ -237,7 +240,10 @@ export default {
       this.product = this.$store.getters['product/getProduct'];
       if(this.product) {
         this.color = this.product.colors[0]?.name;
+        this.item.color = this.product.colors[0]?.id;
         this.size = this.product.sizes[0]?.name;
+        this.item.size = this.product.sizes[0]?.id;
+        this.calcSku();
       }
     },
     increment() {
@@ -253,11 +259,25 @@ export default {
         return;
       this.quantity--;
     },
-    setColor(color) { 
+    setColor(color) {  
       this.color = color.name;
+      this.item.color = color.id;
+      this.calcSku();
     },
-    setSize(size) { 
+    setSize(size) {   
       this.size = size.name;
+      this.item.size = size.id;
+      this.calcSku();
+    },
+    calcSku() {
+      if(this.product.has_variant) { 
+        const skus = this.product.skus;  
+        const founded = skus.filter(el => el.color_id == this.item.color && el.size_id == this.item.size);
+        if(founded.length) {
+          this.item.sku = founded[0].sku;
+          this.item.price = founded[0].price;
+        }
+      }
     },
     closeSizeGuide() {
       this.showSizeGuide = false;
@@ -282,7 +302,7 @@ export default {
           this.quantity = 1;
         }
       }
-    }
+    },
   }
 }
 </script>
