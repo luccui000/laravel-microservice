@@ -27,7 +27,9 @@ class Customer extends Authenticatable
         'ship_address',
         'ship_region',
         'ship_postalcode',
-        'ship_country'
+        'ship_country',
+        'verify_token',
+        'is_verify'
     ];
 
     protected $appends = ['name'];
@@ -42,5 +44,10 @@ class Customer extends Authenticatable
     public function getNameAttribute()
     {
         return $this->attributes['first_name'] . " " . $this->attributes['last_name'];
+    }
+
+    public function isVerified()
+    {
+        return $this->is_verify == 1;
     }
 }

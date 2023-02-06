@@ -5,6 +5,17 @@ import router from '@/router';
 import '@/utils/style';
 import '@/utils/globalComponent';
 import '@/filters';
+import Alert from '@/libs/components/Alert';
+import { ValidationProvider, ValidationObserver } from 'vee-validate';
+import '@/utils/rules';
+import { localize } from 'vee-validate';
+
+localize('vi');
+
+Vue.use(Alert);
+Vue.component('validation-provider', ValidationProvider);
+Vue.component('validation-observer', ValidationObserver);
+
 
 Vue.config.productionTip = false;
 

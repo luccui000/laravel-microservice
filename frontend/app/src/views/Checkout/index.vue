@@ -3,16 +3,20 @@
     <div class="page section-header text-center">
       <div class="page-title">
         <div class="wrapper">
-          <h1 class="page-width">Checkout</h1>
+          <h1 class="page-width">Thanh toán đơn hàng</h1>
         </div>
       </div>
-    </div>
+    </div> 
     <div class="container">
       <div class="row">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3">
           <div class="customer-box returning-customer">
             <h3>
-              <i class="icon anm anm-user-al"></i> Returning customer? <a href="#customer-login" id="customer" class="text-white text-decoration-underline" data-toggle="collapse">Click here to login</a>
+              <i class="icon anm anm-user-al"></i> 
+                Returning customer ? 
+                <a href="#customer-login" id="customer" class="text-white text-decoration-underline" data-toggle="collapse">
+                  Click here to login
+                </a>
             </h3>
             <div id="customer-login" class="collapse customer-content">
               <div class="customer-info">
@@ -46,126 +50,107 @@
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3">
           <div class="customer-box customer-coupon">
             <h3 class="font-15 xs-font-13">
-              <i class="icon anm anm-gift-l"></i> Have a coupon? <a href="#have-coupon" class="text-white text-decoration-underline" data-toggle="collapse">Click here to enter your code</a>
+              <i class="icon anm anm-gift-l"></i> 
+              Bạn có mã giảm giá ? 
+              <a class="text-white text-decoration-underline show-coupon" @click="showCouponBox = !showCouponBox">
+                Ấn vào đây để áp dụng mã giảm giá
+              </a>
             </h3>
-            <div id="have-coupon" class="collapse coupon-checkout-content">
+            <div id="have-coupon" class="coupon-checkout-content" :class=" { 'collapse': showCouponBox }">
               <div class="discount-coupon">
                 <div id="coupon" class="coupon-dec tab-pane active">
-                  <p class="margin-10px-bottom">Enter your coupon code if you have one.</p>
+                  <p class="margin-10px-bottom">Nhập vào mã giảm giá của bạn.</p>
                   <label class="required get" for="coupon-code">
-                    <span class="required-f">*</span> Coupon </label>
+                    <span class="required-f">*</span> Mã giảm giá </label>
                   <input id="coupon-code" required="" type="text" class="mb-3">
-                  <button class="coupon-btn btn" type="submit">Apply Coupon</button>
+                  <button class="coupon-btn btn" type="submit">Áp dụng</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row billing-fields">
+      </div> 
+      <div class="row billing-fields"> 
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
           <div class="create-ac-content bg-light-gray padding-20px-all">
             <form>
               <fieldset>
-                <h2 class="login-title mb-3">Billing details</h2>
+                <h2 class="login-title mb-3">Thông tin thanh toán</h2>
                 <div class="row">
                   <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                    <label for="input-firstname">First Name <span class="required-f">*</span>
+                    <label for="input-firstname">Họ <span class="required-f">*</span>
                     </label>
-                    <input name="firstname" value="" id="input-firstname" type="text">
+                    <input :value="user.first_name" type="text" id="input-firstname">
                   </div>
                   <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                    <label for="input-lastname">Last Name <span class="required-f">*</span>
+                    <label for="input-lastname">Tên <span class="required-f">*</span>
                     </label>
-                    <input name="lastname" value="" id="input-lastname" type="text">
+                    <input :value="user.last_name" id="input-lastname" type="text">
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                    <label for="input-email">E-Mail <span class="required-f">*</span>
+                    <label for="input-email">Email <span class="required-f">*</span>
                     </label>
-                    <input name="email" value="" id="input-email" type="email">
+                    <input :value="user.email" :readonly="user.email.length > 0" id="input-email" type="email">
                   </div>
                   <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                    <label for="input-telephone">Telephone <span class="required-f">*</span>
+                    <label for="input-telephone">Số điện thoại <span class="required-f">*</span>
                     </label>
-                    <input name="telephone" value="" id="input-telephone" type="tel">
+                    <input :value="user.phone" id="input-telephone" type="tel">
                   </div>
                 </div>
               </fieldset>
-              <fieldset>
-                <div class="row">
-                  <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                    <label for="input-company">Company</label>
-                    <input name="company" value="" id="input-company" type="text">
+              <fieldset> 
+                <div class="row"> 
+                  <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                    <label for="input-country">Tỉnh/Thành phố <span class="required-f">*</span>
+                    </label>
+                    <select v-model="province">
+                      <option value=""> --- Chọn tỉnh/thành phố --- </option>
+                      <option 
+                        v-for="province in provinces"
+                        :key="province.id"
+                        :value="province.id"
+                      >
+                        {{ province.name }}
+                      </option>
+                    </select>
                   </div>
                   <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                    <label for="input-address-1">Address <span class="required-f">*</span>
-                    </label>
-                    <input name="address_1" value="" id="input-address-1" type="text">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                    <label for="input-address-2">Apartment <span class="required-f">*</span>
-                    </label>
-                    <input name="address_2" value="" id="input-address-2" type="text">
-                  </div>
-                  <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                    <label for="input-city">City <span class="required-f">*</span>
-                    </label>
-                    <input name="city" value="" id="input-city" type="text">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                    <label for="input-postcode">Post Code <span class="required-f">*</span>
-                    </label>
-                    <input name="postcode" value="" id="input-postcode" type="text">
-                  </div>
-                  <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                    <label for="input-country">Country <span class="required-f">*</span>
-                    </label>
-                    <select name="country_id" id="input-country">
-                      <option value=""> --- Please Select --- </option>
-                      <option value="244">Aaland Islands</option>
-                      <option value="1">Afghanistan</option>
-                      <option value="2">Albania</option>
-                      <option value="3">Algeria</option>
-                      <option value="4">American Samoa</option>
-                      <option value="5">Andorra</option>
-                      <option value="6">Angola</option>
+                    <label for="input-zone">Quận/Huyện <span class="required-f">*</span></label>
+                    <select v-model="district">
+                      <option value=""> --- Chọn quận/huyện --- </option> 
+                      <option 
+                        v-for="district in districts"
+                        :key="district.id"
+                        :value="district.id"
+                      >
+                        {{ district.name }}
+                      </option>
                     </select>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                    <label for="input-zone">Region / State <span class="required-f">*</span>
-                    </label>
-                    <select name="zone_id" id="input-zone">
-                      <option value=""> --- Please Select --- </option>
-                      <option value="3513">Aberdeen</option>
-                      <option value="3514">Aberdeenshire</option>
-                      <option value="3515">Anglesey</option>
-                      <option value="3516">Angus</option>
+                    <label for="input-zone">Phường/Xã <span class="required-f">*</span></label>
+                    <select v-model="ward">
+                      <option value=""> --- Chọn phường/xã --- </option> 
+                      <option 
+                        v-for="ward in wards"
+                        :key="ward.id"
+                        :value="ward.id"
+                      >
+                        {{ ward.name }}
+                      </option>
                     </select>
                   </div>
                 </div>
-              </fieldset>
-              <fieldset>
-                <div class="row">
-                  <div class="form-group form-check col-md-12 col-lg-12 col-xl-12">
-                    <label class="form-check-label padding-15px-left">
-                      <input type="checkbox" class="form-check-input" value="">
-                      <strong>Create an account ?</strong>
-                    </label>
-                  </div>
-                </div>
-              </fieldset>
+              </fieldset> 
               <fieldset>
                 <div class="row">
                   <div class="form-group col-md-12 col-lg-12 col-xl-12">
-                    <label for="input-company">Order Notes <span class="required-f">*</span>
+                    <label for="input-company">Ghi chú cho đơn hàng <span class="required-f">*</span>
                     </label>
                     <textarea class="form-control resize-both" rows="3"></textarea>
                   </div>
@@ -177,49 +162,35 @@
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
           <div class="your-order-payment">
             <div class="your-order">
-              <h2 class="order-title mb-4">Your Order</h2>
+              <h2 class="order-title mb-4">Thông tin đơn hàng</h2>
               <div class="table-responsive-sm order-table">
-                <table class="bg-white table table-bordered table-hover text-center">
+                <table v-if="cart" class="bg-white table table-bordered table-hover text-center">
                   <thead>
                     <tr>
-                      <th class="text-left">Product Name</th>
-                      <th>Price</th>
-                      <th>Size</th>
-                      <th>Qty</th>
-                      <th>Subtotal</th>
+                      <th class="text-left">Tên sản phẩm</th>
+                      <th>Giá</th> 
+                      <th>SL</th>
+                      <th>Thành tiền</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td class="text-left">Spike Jacket</td>
-                      <td>$99</td>
-                      <td>S</td>
-                      <td>1</td>
-                      <td>$99</td>
-                    </tr>
-                    <tr>
-                      <td class="text-left">Argon Sweater</td>
-                      <td>$199</td>
-                      <td>M</td>
-                      <td>2</td>
-                      <td>$298</td>
-                    </tr>
-                    <tr>
-                      <td class="text-left">Babydoll Bow Dress</td>
-                      <td>$299</td>
-                      <td>XL</td>
-                      <td>3</td>
-                      <td>$398</td>
-                    </tr>
+                    <tr v-for="item in cart.details" :key="item.id">
+                      <td class="text-left">{{ item.name  }}</td>
+                      <td>{{  item.price | vietnamdong }}</td>
+                      <td>{{  item.quantity }}</td>
+                      <td>{{  item.total | vietnamdong }}</td> 
+                    </tr> 
                   </tbody>
                   <tfoot class="font-weight-600">
                     <tr>
-                      <td colspan="4" class="text-right">Shipping </td>
+                      <td colspan="4" class="text-right">Phí vận chuyển </td>
                       <td>$50.00</td>
                     </tr>
                     <tr>
-                      <td colspan="4" class="text-right">Total</td>
-                      <td>$845.00</td>
+                      <td colspan="4" class="text-right">Tổng thanh toán</td>
+                      <td>
+                        <b>{{  cart.total | vietnamdong }}</b>
+                      </td>
                     </tr>
                   </tfoot>
                 </table>
@@ -227,18 +198,20 @@
             </div>
             <hr />
             <div class="your-payment">
-              <h2 class="payment-title mb-3">payment method</h2>
+              <h2 class="payment-title mb-3">Phương thức thanh toán</h2>
               <div class="payment-method">
                 <div class="payment-accordion">
                   <div id="accordion" class="payment-section">
-                    <l-dropdown-content title="Data transfer">
-                      <p class="no-margin font-15">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won't be shipped until the funds have cleared in our account.</p>
+                    <l-dropdown-content title="Thanh toán khi nhận hàng">
+                      <p class="no-margin font-15">
+                        Thực hiện thanh toán trực tiếp sau khi nhận được hàng từ phía bên vận chuyển 
+                      </p> 
                     </l-dropdown-content>
-                    <l-dropdown-content title="Data transfer">
+                    <l-dropdown-content title="Thanh toán online">
                       <fieldset>
                         <div class="row">
                           <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                            <label for="input-cardname">Name on Card <span class="required-f">*</span>
+                            <label for="input-cardname">Tên chủ thẻ<span class="required-f">*</span>
                             </label>
                             <input name="cardname" value="" placeholder="Card Name" id="input-cardname" class="form-control" type="text">
                           </div>
@@ -256,19 +229,19 @@
                         </div>
                         <div class="row">
                           <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                            <label for="input-cardno">Credit Card Number <span class="required-f">*</span>
+                            <label for="input-cardno">Mã số thẻ <span class="required-f">*</span>
                             </label>
                             <input name="cardno" value="" placeholder="Credit Card Number" id="input-cardno" class="form-control" type="text">
                           </div>
                           <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                            <label for="input-cvv">CVV Code <span class="required-f">*</span>
+                            <label for="input-cvv">Mã CVV <span class="required-f">*</span>
                             </label>
                             <input name="cvv" value="" placeholder="Card Verification Number" id="input-cvv" class="form-control" type="text">
                           </div>
                         </div>
                         <div class="row">
                           <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                            <label>Expiration Date <span class="required-f">*</span>
+                            <label>Ngày hết hạn <span class="required-f">*</span>
                             </label>
                             <input type="date" name="exdate" class="form-control">
                           </div>
@@ -281,7 +254,7 @@
                   </div>
                 </div>
                 <div class="order-button-payment">
-                  <button class="btn" value="Place order" type="submit">Place order</button>
+                  <button class="btn" value="Place order">Thanh toán</button>
                 </div>
               </div>
             </div>
@@ -295,7 +268,70 @@
 <script>
 
 export default {
-  name: 'CheckoutView'
+  name: 'CheckoutView',
+  data() {
+    return {
+      showCouponBox: true,
+      province: null,
+      district: null,
+      ward: null, 
+    }
+  },
+  beforeMount() { 
+    this.$store.dispatch('cart/getCarts');
+    this.$store.dispatch('address/provinces');
+  },
+  computed: {
+    cart() {
+      return this.$store.state.cart.carts; 
+    },
+    provinces() {
+      return this.$store.state.address.provinces;
+    },
+    districts() {
+      return this.$store.state.address.districts;
+    },
+    wards() {
+      return this.$store.state.address.wards;
+    },
+    user() {
+      return this.$store.state.auth.user;
+    }
+  },
+  watch: {
+    province: {
+      handler: function(value) {
+        this.$store.commit('address/SET_PROVINCE', value)
+        this.$store.commit('address/SET_DISTRICTS', [])
+        this.$store.commit('address/SET_WARDS', [])
+        this.$store.dispatch('address/districts');
+      }
+    },
+    district: {
+      handler: function(value) {
+        this.$store.commit('address/SET_DISTRICT', value)
+      }
+    },
+    ward: {
+      handler: function(value) {
+        this.$store.commit('address/SET_WARD', value) 
+        this.$store.dispatch('address/wards');
+      }
+    }
+  }
 }
 
 </script>
+
+<style>
+
+.order-button-payment button {
+  padding: 10px !important;
+  font-size: 0.9rem !important;
+}
+
+.show-coupon {
+  cursor: pointer;
+}
+
+</style>

@@ -6,6 +6,8 @@ import cart from '@/store/modules/cart';
 import order from '@/store/modules/order';
 import address from '@/store/modules/address';
 import header from '@/store/modules/header';
+import category from '@/store/modules/category';
+import user from '@/store/modules/user';
 
 Vue.use(Vuex);
 
@@ -32,5 +34,7 @@ export default new Vuex.Store({
     order,
     address,
     header,
+    category,
+    user,
   },
 });

@@ -21,6 +21,18 @@ const actions = {
     dispatch('setToken', response.data.data.token);
     dispatch('getInfo');
   },
+  register(_, account) {
+    return new Promise((resolve, reject) => {
+      auth
+        .register(account)
+        .then((response) => {
+          console.log(response)
+          const { data } = response;
+          resolve(data.data);
+        })
+        .catch((error) => reject(error));
+    });
+  },
   async getInfo({ commit }) {
     try {
       const { data } = await auth.me();
@@ -28,6 +40,18 @@ const actions = {
     } catch (error) {
       console.log(error);
     }
+  },
+  logout({ commit }) {
+    return new Promise((resolve, reject) => {
+      auth
+        .logout()
+        .then((response) => {
+          commit('SET_TOKEN', null);
+          commit('SET_USER', null);
+          resolve(response.data);
+        })
+        .catch((error) => reject(error));
+    });
   },
   updateProfile({ commit }, user) {
     return new Promise((resolve, reject) => {

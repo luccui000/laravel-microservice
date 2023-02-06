@@ -38,7 +38,8 @@ class AuthController extends Controller
                 ]);
 
                 $request->merge([
-                    'password' => Hash::make($request->password)
+                    'password' => Hash::make($request->password),
+                    'phone' => str_replace('0', '+84', $request->get('phone'))
                 ]);
                 $this->_userRepo->store($request);
             });

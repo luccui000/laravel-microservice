@@ -9,8 +9,16 @@ class Order extends Resource {
   getOrder() {
     return request({
       url: '/fe/get-order',
-      method: 'POST'
-    })
+      method: 'POST',
+    });
+  }
+
+  addToCart(data) {
+    return request({
+      url: '/fe/add-to-cart',
+      method: 'POST',
+      data,
+    });
   }
 }
 

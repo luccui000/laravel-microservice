@@ -1,11 +1,17 @@
 <template>
-  <div class="col-6 col-sm-6 col-md-4 col-lg-3 item"> 
+  <div class="col-6 col-sm-6 col-md-4 col-lg-3 item" v-if="product"> 
     <div class="product-image"> 
-      <router-link :to="{ name: 'products.show', params: { id: product.id} }">
-        <img class="primary lazyload" data-src="assets/images/product-images/product-image1.jpg" src="assets/images/product-images/product-image1.jpg" alt="image" title="product"> 
+      <router-link :to="{ name: 'products.show', params: { id: product.id} }"> 
+        <img 
+          class="primary lazyload" 
+          :data-src="'assets/images/product-images/product-image1-1.jpg'"
+          :src="'assets/images/product-images/product-image1-1.jpg'"
+          alt="image" 
+          title="product"
+        > 
         <img class="hover lazyload" data-src="assets/images/product-images/product-image1-1.jpg" src="assets/images/product-images/product-image1-1.jpg" alt="image" title="product"> 
         <div class="product-labels rectangular">
-          <span class="lbl on-sale">-16%</span>
+          <span class="lbl on-sale">HOT</span>
           <span class="lbl pr-label1">new</span>
         </div>
       </router-link> 
@@ -50,14 +56,14 @@
         </router-link> 
       </div>
       <div class="product-price" > 
-        <div v-if="hasMinMaxPrice">
+        <div v-if="hasVariant">
           <span class="price">{{ product.min_price | vietnamdong }}</span>
           <span> - </span>
           <span class="price">{{ product.max_price | vietnamdong }}</span>
         </div>
         <div v-else>
           <span class="price">
-            {{ product.price | vietnamdong }}
+            {{ product.sell_price | vietnamdong }}
           </span>
         </div>
       </div> 
@@ -78,16 +84,22 @@ export default {
   name: 'ProductGridviewItem',
   props: ['product'],
   computed: {
-    hasMinMaxPrice() {
-      return this.product.min_price && this.product.max_price;
+    hasVariant() {
+      return this.product.has_variant;
     }
   },
   methods: {
     quickViewProduct() {
       this.$emit('quick-view', this.product);
     },
-    addToCart() {
-      console.log(this.product);
+    addToCart() { 
+      this.$store.dispatch('order/addToCart', {
+        product_id: this.product.id,
+        sku_id: this.product.skus[0]?.id,
+        qty: 1
+      }).then(response => {
+        console.log(response)
+      })
     },
     addToWishlist() {
       console.log(this.product);

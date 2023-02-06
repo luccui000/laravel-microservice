@@ -20,4 +20,9 @@ class Discount extends Model
     {
         return $this->belongsTo(CustomerCategory::class);
     }
+
+    public function customers()
+    {
+        return $this->hasMany(Customer::class, 'customer_category_id', 'customer_category_id');
+    }
 }

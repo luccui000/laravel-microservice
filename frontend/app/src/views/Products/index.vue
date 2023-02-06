@@ -23,20 +23,20 @@
                     </div>
                   </div>
                   <div class="col-4 col-md-4 col-lg-4 text-center filters-toolbar__item filters-toolbar__item--count d-flex justify-content-center align-items-center">
-                    <span class="filters-toolbar__product-count">Showing: 22</span>
+                    <span class="filters-toolbar__product-count">Hiển thị: 22</span>
                   </div>
                   <div class="col-4 col-md-4 col-lg-4 text-right">
                     <div class="filters-toolbar__item">
                       <label for="SortBy" class="hidden">Sort</label>
                       <select name="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
-                        <option value="title-ascending" selected="selected">Sort</option>
-                        <option>Best Selling</option>
-                        <option>Alphabetically, A-Z</option>
-                        <option>Alphabetically, Z-A</option>
-                        <option>Price, low to high</option>
-                        <option>Price, high to low</option>
-                        <option>Date, new to old</option>
-                        <option>Date, old to new</option>
+                        <option value="0" selected="selected">Lọc theo</option>
+                        <option value="1">Bán chạy nhất</option>
+                        <option value="2">Chữ cái, A-Z</option>
+                        <option value="3">Chữ cái, Z-A</option>
+                        <option value="4">Giá, thấp đến cao</option>
+                        <option value="5" >Giá, cao xuống thấp</option>
+                        <option value="6">Ngày, Mới nhất</option>
+                        <option value="7">Ngày, cũ nhất</option>
                       </select>
                       <input class="collection-header__default-sort" type="hidden" value="manual">
                     </div>
@@ -83,8 +83,7 @@ export default {
   },
   data() {
     return {
-      isGridView: true,
-      products: [],
+      isGridView: true, 
       product: null,
       banner: {
         image: {
@@ -100,13 +99,15 @@ export default {
   },
   methods: {
     getAllProduct() {
-      this.$store.dispatch('product/getAllProduct')
-        .then(products => {
-          this.products = products;
-        })
+      this.$store.dispatch('product/getAllProduct');
     },
     setView() {
       this.isGridView = !this.isGridView;
+    }
+  },
+  computed: {
+    products() {
+      return this.$store.state.product.products;
     }
   }
 }

@@ -5,10 +5,11 @@ export default class Resource {
     this.uri = uri;
   }
 
-  all() {
+  all(params = {}) {
     return request({
       url: this.uri,
       method: 'GET',
+      data: params,
     });
   }
 

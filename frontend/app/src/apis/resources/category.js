@@ -2,7 +2,7 @@ import Resource from '@/apis/resource';
 
 class Category extends Resource {
   constructor() {
-    super('categories');
+    super('/categories');
   }
 }
 

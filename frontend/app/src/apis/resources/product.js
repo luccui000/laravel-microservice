@@ -6,11 +6,26 @@ class Product extends Resource {
     super('products');
   }
 
+  getAll(data) {
+    return request({
+      url: '/products/get-all',
+      method: 'POST',
+      data,
+    });
+  }
+
   addToCart(data) {
     return request({
       uri: '/fe/add-to-cart',
       method: 'POST',
       data,
+    });
+  }
+
+  getAttributes() {
+    return request({
+      url: '/get-attribute',
+      method: 'POST',
     });
   }
 }

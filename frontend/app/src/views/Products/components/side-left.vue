@@ -7,58 +7,16 @@
       <!--Categories-->
       <div class="sidebar_widget categories filter-widget">
         <div class="widget-title">
-          <h2>Categories</h2>
+          <h2>Danh mục</h2>
         </div>
         <div class="widget-content">
-          <ul class="sidebar_categories">
-            <li class="level1 sub-level">
-              <a href="#;" class="site-nav">Clothing</a>
-              <ul class="sublinks">
-                <li class="level2">
-                  <a href="#;" class="site-nav">Men</a>
-                </li>
-                <li class="level2">
-                  <a href="#;" class="site-nav">Women</a>
-                </li>
-                <li class="level2">
-                  <a href="#;" class="site-nav">Child</a>
-                </li>
-                <li class="level2">
-                  <a href="#;" class="site-nav">View All Clothing</a>
-                </li>
-              </ul>
-            </li>
-            <li class="level1 sub-level">
-              <a href="#;" class="site-nav">Jewellery</a>
-              <ul class="sublinks">
-                <li class="level2">
-                  <a href="#;" class="site-nav">Ring</a>
-                </li>
-                <li class="level2">
-                  <a href="#;" class="site-nav">Neckalses</a>
-                </li>
-                <li class="level2">
-                  <a href="#;" class="site-nav">Eaarings</a>
-                </li>
-                <li class="level2">
-                  <a href="#;" class="site-nav">View All Jewellery</a>
-                </li>
-              </ul>
-            </li>
-            <li class="lvl-1">
-              <a href="#;" class="site-nav">Shoes</a>
-            </li>
-            <li class="lvl-1">
-              <a href="#;" class="site-nav">Accessories</a>
-            </li>
-            <li class="lvl-1">
-              <a href="#;" class="site-nav">Collections</a>
-            </li>
-            <li class="lvl-1">
-              <a href="#;" class="site-nav">Sale</a>
-            </li>
-            <li class="lvl-1">
-              <a href="#;" class="site-nav">Page</a>
+          <ul class="sidebar_categories" v-if="categories"> 
+            <li 
+              class="lvl-1"
+              v-for="category in categories"
+              :key="category.id"
+            >
+              <span @click="setCategory(category)" class="site-nav">{{ category.name }}</span>
             </li>
           </ul>
         </div>
@@ -67,132 +25,82 @@
       <!--Price Filter-->
       <div class="sidebar_widget filterBox filter-widget">
         <div class="widget-title">
-          <h2>Price</h2>
+          <h2>Theo mức giá</h2>
         </div>
-        <form action="#" method="post" class="price-filter">
+        <div class="price-filter">
           <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
             <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
             <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
             <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
           </div>
           <div class="row">
-            <div class="col-6">
+            <div class="col-4">
               <p class="no-margin">
-                <input id="amount" type="text">
+                <input v-model="price.from" type="text">
               </p>
             </div>
-            <div class="col-6 text-right margin-25px-top">
-              <button class="btn btn-secondary btn--small">filter</button>
+            <div class="col-4 text-right margin-25px-top">
+              <input v-model="price.to" type="text">
+            </div>
+            <div class="col-4 text-right margin-25px-top"> 
+              <button @click="setPrice" type="button" class="btn btn-secondary btn--small">Lọc</button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
       <!--End Price Filter-->
       <!--Size Swatches-->
-      <div class="sidebar_widget filterBox filter-widget size-swacthes">
+      <div class="sidebar_widget filterBox filter-widget size-swacthes" v-if="sizes">
         <div class="widget-title">
-          <h2>Size</h2>
+          <h2>Kích cỡ</h2>
         </div>
         <div class="filter-color swacth-list">
           <ul>
-            <li>
-              <span class="swacth-btn checked">X</span>
-            </li>
-            <li>
-              <span class="swacth-btn">XL</span>
-            </li>
-            <li>
-              <span class="swacth-btn">XLL</span>
-            </li>
-            <li>
-              <span class="swacth-btn">M</span>
-            </li>
-            <li>
-              <span class="swacth-btn">L</span>
-            </li>
-            <li>
-              <span class="swacth-btn">S</span>
-            </li>
-            <li>
-              <span class="swacth-btn">XXXL</span>
-            </li>
-            <li>
-              <span class="swacth-btn">XXL</span>
-            </li>
-            <li>
-              <span class="swacth-btn">XS</span> 
-            </li>
+            <li 
+              v-for="size in sizes" 
+              :key="size.id"
+              @click="setSize(size)"
+            >
+              <span class="swacth-btn">{{ size.name }}</span>
+            </li> 
           </ul>
         </div>
       </div>
       <!--End Size Swatches-->
       <!--Color Swatches-->
-      <div class="sidebar_widget filterBox filter-widget">
+      <div class="sidebar_widget filterBox filter-widget" v-if="colors"> 
         <div class="widget-title">
-          <h2>Color</h2>
+          <h2>Màu sắc</h2>
         </div>
         <div class="filter-color swacth-list clearfix">
-          <span class="swacth-btn black"></span>
-          <span class="swacth-btn white checked"></span>
-          <span class="swacth-btn red"></span>
-          <span class="swacth-btn blue"></span>
-          <span class="swacth-btn pink"></span>
-          <span class="swacth-btn gray"></span>
-          <span class="swacth-btn green"></span>
-          <span class="swacth-btn orange"></span>
-          <span class="swacth-btn yellow"></span>
-          <span class="swacth-btn blueviolet"></span>
-          <span class="swacth-btn brown"></span>
-          <span class="swacth-btn darkGoldenRod"></span>
-          <span class="swacth-btn darkGreen"></span>
-          <span class="swacth-btn darkRed"></span>
-          <span class="swacth-btn dimGrey"></span>
-          <span class="swacth-btn khaki"></span>
+          <span  
+            v-for="color in colors"
+            :key="color.id"
+            :class="`swacth-btn ${color.name}`"
+            @click="setColor(color)"
+          ></span> 
         </div>
       </div>
       <!--End Color Swatches-->
       <!--Brand-->
-      <div class="sidebar_widget filterBox filter-widget">
+      <div class="sidebar_widget filterBox filter-widget" v-if="brands">
         <div class="widget-title">
-          <h2>Brands</h2>
+          <h2>Thương hiệu</h2>
         </div>
         <ul>
-          <li>
-            <input type="checkbox" value="allen-vela" id="check1">
-            <label for="check1">
-              <span>
-                <span></span>
-              </span>Allen Vela </label>
-          </li>
-          <li>
-            <input type="checkbox" value="oxymat" id="check3">
-            <label for="check3">
-              <span>
-                <span></span>
-              </span>Oxymat </label>
-          </li>
-          <li>
-            <input type="checkbox" value="vanelas" id="check4">
-            <label for="check4">
-              <span>
-                <span></span>
-              </span>Vanelas </label>
-          </li>
-          <li>
-            <input type="checkbox" value="pagini" id="check5">
-            <label for="check5">
-              <span>
-                <span></span>
-              </span>Pagini </label>
-          </li>
-          <li>
-            <input type="checkbox" value="monark" id="check6">
-            <label for="check6">
-              <span>
-                <span></span>
-              </span>Monark </label>
-          </li>
+          <li 
+            v-for="brand in brands"
+            :key="brand.id" 
+            >
+            <input type="checkbox" v-model="brandIds" :value="brand.id" :id="`check-${brand.id}`">
+            <label :for="`check-${brand.id}`">
+              <span> 
+              </span>{{ brand.name }}</label>
+          </li> 
         </ul>
+      </div>
+      <div class="d-flex mb-4 justify-content-end"> 
+        <button @click="resetFilter" class="btn">Xóa bộ lọc</button>
       </div>
       <!--End Brand-->
       <!--Popular Products-->
@@ -274,12 +182,7 @@
             </div>
           </div>
         </div>
-      </div>
-      <!--End Popular Products-->
-      <!--Banner-->
-      <div class="sidebar_widget static-banner">
-        <img src="assets/images/side-banner-2.jpg" alt="" />
-      </div>
+      </div> 
       <!--Banner-->
       <!--Information-->
       <div class="sidebar_widget">
@@ -287,7 +190,7 @@
           <h2>Information</h2>
         </div>
         <div class="widget-content">
-          <p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>
+          <p>Sử dụng văn bản này để chia sẻ thông tin về thương hiệu của bạn với khách hàng. </p>
         </div>
       </div>
       <!--end Information-->
@@ -382,7 +285,7 @@
           </ul>
           <span class="btn btn--small btnview">View all</span>
         </div>
-      </div>
+      </div> 
       <!--end Product Tags-->
     </div>
   </div>  
@@ -393,5 +296,81 @@
 
 export default {
   name: 'ProductSidebar',
+  data() {
+    return {
+      filter: {
+        category_id: null,
+        size_id: 0,
+      },
+      price: {
+        from: 0,
+        to: 10000000
+      },
+      brandIds: []
+    }
+  },
+  mounted() {
+    this.$store.dispatch('category/getAll')
+    this.$store.dispatch('product/getAttributes')
+  },
+  computed: {
+    categories() {
+      return this.$store.state.category.categories;
+    },
+    sizes() {
+      return this.$store.state.product.sizes;
+    },
+    colors() {
+      return this.$store.state.product.colors.map(el => {
+        el.name = el.name.toLowerCase();
+        return el;
+      });
+    },
+    tags() {
+      return this.$store.state.product.tags;
+    },
+    brands() {
+      return this.$store.state.product.brands;
+    },
+  },
+  methods: {
+    setCategory(cate) {
+      this.filter.category_id = cate.id;
+      this.$store.commit('product/SET_CATEGORY', cate.id)
+      this.$store.dispatch('product/getAllProduct')
+    },
+    setColor(color) {
+      this.$store.commit('product/SET_COLOR', color.id)
+      this.$store.dispatch('product/getAllProduct')
+    },
+    setSize(size) {
+      this.$store.commit('product/SET_SIZE', size.id)
+      this.$store.dispatch('product/getAllProduct')
+    },
+    setPrice() {
+      this.$store.commit('product/SET_PRICE', this.price)
+      this.$store.dispatch('product/getAllProduct')
+    },
+    resetFilter() {
+      this.$store.commit('product/RESET_FILTER');
+      this.$store.dispatch('product/getAllProduct')
+    }
+  },
+  watch: {
+    brandIds: {
+      handler(value) {
+        this.$store.commit('product/SET_BRAND', value)
+        this.$store.dispatch('product/getAllProduct')
+      }
+    },
+  }
 }
 </script>
+
+<style>
+
+.site-nav {
+  cursor: pointer;
+}
+
+</style>

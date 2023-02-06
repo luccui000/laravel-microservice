@@ -100,4 +100,16 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function addToCart()
+    {
+        try {
+            DB::beginTransaction();
+
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return $this->jsonError($ex->getMessage());
+        }
+    }
 }

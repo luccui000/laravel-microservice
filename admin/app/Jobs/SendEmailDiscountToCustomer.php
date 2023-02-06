@@ -8,9 +8,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Luccui\ShareData\Models\Order;
+use Luccui\ShareData\Models\Customer;
+use Luccui\ShareData\Models\Discount;
 
-class SendMailConfirmOrder implements ShouldQueue
+class SendEmailDiscountToCustomer implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -19,12 +20,13 @@ class SendMailConfirmOrder implements ShouldQueue
      *
      * @return void
      */
+    public $customer;
+    public $discount;
 
-    public $order;
-
-    public function __construct(Order $order)
+    public function __construct(Discount $discount, Customer $customer)
     {
-        $this->order = $order;
+        $this->customer = $customer;
+        $this->discount = $discount;
     }
 
     /**
@@ -34,6 +36,6 @@ class SendMailConfirmOrder implements ShouldQueue
      */
     public function handle()
     {
-        info($this->order);
+        //
     }
 }

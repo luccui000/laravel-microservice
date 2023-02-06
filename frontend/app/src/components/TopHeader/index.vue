@@ -19,6 +19,9 @@
                 <ul class="customer-links list-inline" v-if="isLogin">
                   <li>
                     <router-link to="/me">{{ user.name }}</router-link>
+                    <ul class="sub-customer-links">
+                      <li>Test</li>
+                    </ul>
                   </li>
                 </ul>
                 <ul class="customer-links list-inline" v-else>

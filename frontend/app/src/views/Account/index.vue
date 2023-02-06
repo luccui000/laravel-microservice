@@ -37,6 +37,14 @@
                       :class="{ 'active': tab === 'address' }"
                     >Địa chỉ</a>
                   </li>
+                  <li class="info-item">
+                    <a 
+                      class="info-link"
+                      @click="logout"
+                    >
+                      Đăng xuất
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div> 
@@ -69,7 +77,7 @@
             </div>
             <div class="sidebar_widget tags-clouds">
               <div class="widget-title">
-                <h2>Tags Cloud</h2>
+                <h2>Tags</h2>
               </div>
               <div class="widget-content">
                 <ul>
@@ -166,6 +174,12 @@ export default {
     setTab(tab) {
       this.tab = tab;
     },
+    logout() {
+      this.$store.dispatch('auth/logout')
+        .then(() => {
+          this.$router.push('/')
+        })
+    }
   },
   computed  : { 
   }

@@ -4,6 +4,7 @@
       <component :is="layout" v-if="layout" ></component>
     </transition>
     <router-view />
+    <l-alert />
   </div>
 </template>
 

@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\FE;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Luccui\ShareData\Models\Sku;
+use Luccui\ShareData\Models\Order;
 use App\Http\Controllers\Controller;
+use Luccui\ShareData\Models\Product;
 use App\Http\Requests\FE\OrderRequest;
-use Luccui\ShareData\Repositories\DetailOrder\DetailOrderRepository;
+use Luccui\ShareData\Enums\StatusEnum;
+use Luccui\ShareData\Models\DetailOrder;
+use Luccui\ShareData\Enums\PaymentTypeEnum;
 use Luccui\ShareData\Repositories\Order\OrderRepository;
+use Luccui\ShareData\Repositories\DetailOrder\DetailOrderRepository;
 
 class OrderController extends Controller
 {
@@ -36,46 +43,98 @@ class OrderController extends Controller
     {
         try {
             $customer = $request->user();
+
+            \DB::beginTransaction();
+
+            $existOrder = Order::where([
+                'customer_id' => $customer->id,
+                'status' => StatusEnum::IN_CART
+            ])->first();
+
             $productId = $request->get('product_id');
             $skuId = $request->get('sku_id');
-            $qty = $request->get('qty');
+            $qty = $request->get('qty', 1);
 
+            $now = Carbon::now();
 
-            $$order = $this->_orderRepo->where('customer_id', $customer->id)
-                ->first();
+            if($existOrder) {
+                $existDetailOrder = DetailOrder::where([
+                    'order_id' => $existOrder->id,
+                    'product_id' => $productId
+                ])->first();
 
-            if($$order) {
-                $detailOrders = $this->_detailOrderRepo
-                    ->where('order_id', $order->id)
-                    ->where('product_id', $productId)
-                    ->get();
-
-                if($detailOrders) {
-                    $detailOrders->sku_id = $skuId;
-                    $detailOrders->quantity = $qty;
-                    $detailOrders->save();
-                } else {
-                    $this->_detailOrderRepo->makeOrderDetail([
-                        'order_id' => $order->id,
-                        'product_id' => $productId,
-                        'sku_id' => $skuId,
-                        'quantity' => $qty,
+                if($existDetailOrder) {
+                    $existDetailOrder->update([
+                        'quantity' => $qty + $existDetailOrder->quantity
                     ]);
+                } else {
+                    $this->createDetailOrderItem(
+                        $existOrder,
+                        $productId,
+                        $skuId,
+                        $qty
+                    );
                 }
+                // $existOrder->recalculateSubTotal();
 
+                \DB::commit();
+                return $this->jsonData($existOrder);
             } else {
-                $order = $this->_orderRepo->makeOrder($request);
-                $this->_detailOrderRepo->makeOrderDetail([
-                    'order_id' => $order->id,
-                    'product_id' => $productId,
-                    'sku_id' => $skuId,
-                    'quantity' => $qty,
+                $newOrder = Order::create([
+                    'customer_id' => $customer->id,
+                    'order_number' => \Str::random(10),
+                    'ship_date' => $now,
+                    'sub_total' => 0,
+                    'total' => 0,
+                    'discount' => $request->get('discount', 0),
+                    'status' => StatusEnum::IN_CART,
+                    'payment_type_id' => PaymentTypeEnum::THANH_TOAN_KHI_NHAN_HANG
                 ]);
+
+                $this->createDetailOrderItem(
+                    $newOrder,
+                    $productId,
+                    $skuId,
+                    $qty
+                );
+
+                // $newOrder->recalculateSubTotal();
+
+                \DB::commit();
+                return $this->jsonData($newOrder);
             }
 
-            return $this->jsonData($order);
         } catch(\Exception $e) {
+            \DB::rollBack();
             return $this->jsonError($e);
+        }
+    }
+
+    public function createDetailOrderItem($order, $productId, $skuId, $qty)
+    {
+        $product = Product::find($productId);
+
+        if($product) {
+            $price = 0;
+
+            if($product->has_variant) {
+                $sku = Sku::find($skuId);
+                if($sku) {
+                    $price = $sku->price;
+                }
+            } else {
+                $price = $product->sell_price;
+            }
+
+            DetailOrder::create([
+                'product_id' => $productId,
+                'order_id' => $order->id,
+                'sku_id' => $skuId,
+                'name' => $product->name,
+                'price' => $price,
+                'quantity' => $qty,
+                'total' => $price * $qty
+            ]);
         }
     }
 
@@ -83,10 +142,12 @@ class OrderController extends Controller
     {
         try {
             $customer = $request->user();
+
             $orders = $this->_orderRepo
                 ->where('customer_id', $customer->id)
-                ->with('details')
-                ->get();
+                ->with(['details.product', 'coupon'])
+                ->first();
+
             return $this->jsonData($orders);
         } catch(\Exception $e) {
             return $this->jsonError($e);

@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductRequest;
+use App\Models\ProductSize;
 use App\Jobs\CommentProduct;
 use App\Models\ProductColor;
-use App\Models\ProductSize;
 use Illuminate\Http\Request;
 use Luccui\ShareData\Models\Sku;
+use Luccui\ShareData\Models\Tag;
 use Illuminate\Http\JsonResponse;
 use Luccui\ShareData\Models\Size;
+use Illuminate\Support\Facades\DB;
 use Luccui\ShareData\Models\Brand;
 use Luccui\ShareData\Models\Color;
 use Luccui\ShareData\Models\Product;
+use App\Http\Requests\ProductRequest;
 use Luccui\ShareData\Models\Category;
 use Luccui\ShareData\Models\ProductTag;
 use Luccui\ShareData\Models\ProductVariant;
 use Luccui\ShareData\Models\ProductVariantOption;
 use Luccui\ShareData\Models\SkuProductVariantOption;
-use Luccui\ShareData\Models\Tag;
 use Luccui\ShareData\Repositories\Rate\RateRepository;
 use Luccui\ShareData\Repositories\Product\ProductRepository;
 use Luccui\ShareData\Repositories\ProductVariant\ProductVariantRepository;
@@ -50,10 +51,53 @@ class ProductController extends Controller
         }
     }
 
-    public function getAll()
+    public function getAll(Request $request)
     {
         try {
-            $products = Product::all();
+            $brands = $request->get('brands');
+            $categoryId = $request->get('category_id');
+            $colorId = $request->get('color_id');
+            $sizeId = $request->get('size_id');
+            $tags = $request->get('tags');
+
+            // DB::enableQueryLog();
+
+            $products = Product::with([
+                    'colors',
+                    'sizes',
+                    'brand',
+                    'supplier',
+                    'category',
+                    'skus',
+                    'tags'
+                ]);
+
+                if($colorId) {
+                    $products = $products->whereHas('colors', function($q) use ($colorId) {
+                        $q->where('color_id', $colorId);
+                    });
+                }
+
+                if($sizeId) {
+                    $products = $products->whereHas('sizes', function($q) use ($sizeId) {
+                        $q->where('size_id', $sizeId);
+                    });
+                }
+
+                if(count($brands) > 0) {
+                    $products = $products->where(function($q) use ($brands) {
+                        foreach($brands as $brand) {
+                            $q = $q->orWhere('brand_id', $brand);
+                        }
+                    });
+                }
+
+                $products = $products->when($categoryId, function($q) use ($categoryId) {
+                    $q->where('category_id', $categoryId);
+                })->paginate(16);
+
+            // info(DB::getQueryLog());
+
             return $this->jsonData($products);
         } catch (\Exception $ex) {
             return $this->jsonError($ex->getMessage());
@@ -371,11 +415,13 @@ class ProductController extends Controller
             $colors = Color::all();
             $sizes = Size::all();
             $tags = Tag::all();
+            $brands = Brand::all();
 
             return $this->jsonData([
                 'colors' => $colors,
                 'sizes' => $sizes,
-                'tags' => $tags
+                'tags' => $tags,
+                'brands' => $brands
             ]);
         } catch (\Exception $ex) {
             return $this->jsonError($ex->getMessage());

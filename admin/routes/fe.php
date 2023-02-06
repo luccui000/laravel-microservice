@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\FE\CartController;
 use App\Http\Controllers\FE\CustomerController;
 use App\Http\Controllers\FE\HeaderController;
 use App\Http\Controllers\FE\PostController;
@@ -19,8 +20,14 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::post('logout', [CustomerController::class, 'logout']);
 
     Route::post('add-to-cart', [OrderController::class, 'addToCart']);
-    Route::post('order', [OrderController::class, 'order']);
     Route::post('get-order', [OrderController::class, 'getOrder']);
+    Route::post('order', [OrderController::class, 'order']);
+
+    Route::group(['prefix' => 'cart'], function() {
+        Route::post('/apply-coupon', [CartController::class, 'applyCoupon']);
+        Route::post('/update/{detailId}/quantity', [CartController::class, 'updateQuantity']);
+        Route::post('/product/delete', [CartController::class, 'deleteProduct']);
+    });
 });
 
 Route::group(['prefix' => 'address'], function () {

@@ -6,6 +6,11 @@ const state = {
   provinces: [],
   districts: [],
   wards: [],
+  filter: {
+    province: null,
+    district: null,
+    ward: null,
+  },
 };
 const getters = {};
 const actions = {
@@ -15,31 +20,31 @@ const actions = {
         .provinces()
         .then((response) => {
           const { data } = response;
-          commit('SET_PROVINCE', data.data);
+          commit('SET_PROVINCES', data.data);
           resolve(data.data);
         })
         .catch((error) => reject(new Error(error)));
     });
   },
-  districts({ commit }, province) {
+  districts({ commit, state }) {
     return new Promise((resolve, reject) => {
       address
-        .districts(province)
+        .districts(state.filter.province)
         .then((response) => {
           const { data } = response;
-          commit('SET_DISTRICT', data.data);
+          commit('SET_DISTRICTS', data.data);
           resolve(data.data);
         })
         .catch((error) => reject(error));
     });
   },
-  wards({ commit }, district) {
+  wards({ commit, state }) {
     return new Promise((resolve, reject) => {
       address
-        .wards(district)
+        .wards(state.filter.district)
         .then((response) => {
           const { data } = response;
-          commit('SET_WARD', data.data);
+          commit('SET_WARDS', data.data);
           resolve(data.data);
         })
         .catch((error) => reject(error));
@@ -47,14 +52,26 @@ const actions = {
   },
 };
 const mutations = {
-  SET_PROVINCE(state, provinces) {
+  SET_PROVINCES(state, provinces) {
     state.provinces = provinces;
   },
-  SET_DISTRICT(state, districts) {
+  SET_DISTRICTS(state, districts) {
     state.districts = districts;
   },
-  SET_WARD(state, wards) {
-    this.wards = wards;
+  SET_WARDS(state, wards) {
+    state.wards = wards;
+  },
+  SET_PROVINCE(state, province) {
+    state.filter.province = province;
+  },
+  SET_DISTRICT(state, district) {
+    state.filter.district = district;
+  },
+  SET_WARD(state, ward) {
+    state.filter.ward = ward;
+  },
+  SET_FILTER(state, filter) {
+    state.filter = filter;
   },
 };
 

@@ -232,4 +232,5 @@ return [
 
     ],
 
+    'admin_url' => 'http:://admin.minhluc.com/'
 ];

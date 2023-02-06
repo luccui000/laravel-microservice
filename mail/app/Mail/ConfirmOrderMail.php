@@ -3,11 +3,12 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Luccui\ShareData\Models\Order;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CustomerCouponMail extends Mailable
+class ConfirmOrderMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,13 +17,11 @@ class CustomerCouponMail extends Mailable
      *
      * @return void
      */
-    public $customer;
-    public $discount;
+    public $order;
 
-    public function __construct($customer, $discount)
+    public function __construct(Order $order)
     {
-        $this->customer = $customer;
-        $this->discount = $discount;
+        $this->order = $order;
     }
 
     /**
@@ -32,6 +31,9 @@ class CustomerCouponMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.coupon');
+        return $this->markdown('emails.confirm-order')
+            ->with([
+                'order' => $this->order
+            ]);
     }
 }

@@ -124,9 +124,9 @@
               </button>
             </div>
             <div class="shopify-payment-button" data-shopify="payment-button">
-              <button class="shopify-payment-button__button shopify-payment-button__button--unbranded">
+              <router-link to="/cart" class="shopify-payment-button__button shopify-payment-button__button--unbranded">
                 Mua ngay
-              </button>
+              </router-link> 
             </div>
           </div>
           <!-- End Product Action -->
@@ -202,14 +202,25 @@ export default {
   },
   beforeMount(){
     const { id: productId } = this.$route.params;
+    this.$store.dispatch('cart/getCarts');
     
-    if(productId)
+    if(productId) {
       this.getProduct(productId)
+    }
+  },
+  mounted() {
+    let details = this.$store.getters['cart/detailCart'];
+    if(details && details.length) {
+      let product = details.filter(el => el.product_id == this.product.id);
+      if(product.length) { 
+        this.quantity = product[0].quantity; 
+        this.calcSku();
+      }
+    }
   },
   data() {
     return {
-      id: null,
-      product: null,
+      id: null, 
       quantity: 1,
       selectedColor: null,
       color: null,
@@ -222,6 +233,7 @@ export default {
        size: null,
        sku: null,
        price: null,
+       sku_id: null
       }
     }
   },
@@ -232,12 +244,14 @@ export default {
     },
     inStock() {
       return `Nhanh tay lên, chỉ còn lại <strong class="items">${this.product.stock}</strong> sản phẩm thôi`;
+    },
+    product() {
+      return this.$store.getters['product/getProduct'];
     }
   },
   methods: {
     async getProduct(productId) {
-      await this.$store.dispatch('product/getProductById', productId);
-      this.product = this.$store.getters['product/getProduct'];
+      await this.$store.dispatch('product/getProductById', productId); 
       if(this.product) {
         this.color = this.product.colors[0]?.name;
         this.item.color = this.product.colors[0]?.id;
@@ -276,6 +290,7 @@ export default {
         if(founded.length) {
           this.item.sku = founded[0].sku;
           this.item.price = founded[0].price;
+          this.item.sku_id = founded[0].id;
         }
       }
     },
@@ -285,11 +300,16 @@ export default {
     closeContact() {
       this.showContact = false;
     },
-    async addToCart() { 
-      await this.$store.dispatch('cart/addToCart', {
-        product: this.product,
-        quantity: this.quantity
-      });
+    addToCart() { 
+      let has_variant = this.product.has_variant;
+
+      this.$store.dispatch('order/addToCart', {
+        product_id: this.product.id,
+        sku_id: has_variant ? this.item.sku_id : null,
+        qty: this.quantity
+      }).then(() => {
+        this.$modal.alert('Thêm vào giỏ hàng thành công');
+      })
     }
   },
   watch: {

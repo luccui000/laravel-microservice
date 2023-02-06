@@ -2,7 +2,9 @@
 
 namespace App\Jobs;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
+use Luccui\ShareData\Models\Discount;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,13 +20,9 @@ class SendCouponToCustomerEmail implements ShouldQueue
      *
      * @return void
      */
-    public $customer;
-    public $discount;
 
-    public function __construct($customer, $discount)
+    public function __construct()
     {
-        $this->customer = $customer;
-        $this->discount = $discount;
     }
 
     /**

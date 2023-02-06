@@ -15,12 +15,29 @@ class Auth extends Resource {
       },
     });
   }
+
+  register(data) {
+    return request({
+      url: '/fe/register',
+      method: 'POST',
+      data,
+    });
+  }
+
   me() {
     return request({
       url: '/fe/me',
       method: 'POST',
     });
   }
+
+  logout() {
+    return request({
+      url: '/fe/logout',
+      method: 'POST',
+    });
+  }
+
   updateProfile(data) {
     return request({
       url: '/fe/update-profile',
