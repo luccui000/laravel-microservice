@@ -26,11 +26,15 @@ const actions = {
       auth
         .register(account)
         .then((response) => {
-          console.log(response)
           const { data } = response;
           resolve(data.data);
         })
         .catch((error) => reject(error));
+    });
+  },
+  getUser({ state }) {
+    return new Promise((resolve) => {
+      resolve(state);
     });
   },
   async getInfo({ commit }) {

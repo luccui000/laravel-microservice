@@ -310,6 +310,12 @@ export default {
       }).then(() => {
         this.$modal.alert('Thêm vào giỏ hàng thành công');
       })
+      this.$notify({
+        group: 'alert',
+        title: 'Thành công',
+        text: 'Thêm vào giỏ hàng thành công',
+        type: 'success'
+      })
     }
   },
   watch: {

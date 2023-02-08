@@ -29,10 +29,13 @@ class OrderController extends Controller
         $this->_detailOrderRepo = $detailOrderRepository;
     }
 
-    public function order(OrderRequest $request)
+    public function makeOrder(OrderRequest $request)
     {
         try {
+            $customer = $request->user();
+
             $order = $this->_orderRepo->store($request);
+
             return $this->jsonData($order);
         } catch(\Exception $e) {
             return $this->jsonError($e);

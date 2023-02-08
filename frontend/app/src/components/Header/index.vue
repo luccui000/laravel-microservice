@@ -27,7 +27,7 @@
                     <li class="grid__item large-up--one-whole">
                       <ul class="grid">
                         <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                          <a href="#" class="site-nav lvl-1">Home Group 1</a>
+                          <a href="#" class="site-nav lvl-1">Trang chủ 1</a>
                           <ul class="subLinks">
                             <li class="lvl-2">
                               <a href="#" class="site-nav lvl-2">Home 1 - Classic</a>
@@ -221,7 +221,8 @@
                 </div>
               </li>
               <li class="lvl1 parent megamenu">
-                <router-link to="/products">Sản phẩm<i class="anm anm-angle-down-l"></i>
+                <router-link to="/products">
+                  Sản phẩm<i class="anm anm-angle-down-l"></i>
                 </router-link>  
                 <div class="megamenu style2">
                   <ul class="grid mmWrapper">
@@ -363,10 +364,12 @@
           <div class="site-cart">
             <router-link class="site-header__cart" to="/cart">
               <i class="icon anm anm-bag-l"></i>
-              <span class="site-header__cart-count">2</span>
+              <span class="site-header__cart-count" @click="isShow = !isShow">
+                {{  cart.details.length  }}
+              </span>
             </router-link> 
             <!--Minicart Popup-->
-            <div id="header-cart" class="block block-cart">
+            <div class="block block-cart" v-show="isShow">
               <ul class="mini-products-list">
                 <li class="item">
                   <a class="product-image" href="#">
@@ -455,7 +458,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> 
   </div>
 </template>
 
@@ -480,7 +483,8 @@ export default {
           quantity: 1,
           price: 745.2
         },
-      ]
+      ],
+      isShow: false
     }
   },
   mounted() {
@@ -492,6 +496,9 @@ export default {
     },
     productData() {
       return this.$store.state.header.products;
+    },
+    cart() {
+      return this.$store.state.cart.carts;
     }
   }
 }

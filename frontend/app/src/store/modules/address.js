@@ -11,6 +11,7 @@ const state = {
     district: null,
     ward: null,
   },
+  fee: 0,
 };
 const getters = {};
 const actions = {
@@ -50,6 +51,19 @@ const actions = {
         .catch((error) => reject(error));
     });
   },
+  getFee({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      address
+        .getFee(state.filter)
+        .then((response) => {
+          const { data } = response;
+          console.log(data.data);
+          commit('SET_FEE', data.data);
+          resolve(data.data);
+        })
+        .catch((error) => reject(error));
+    });
+  },
 };
 const mutations = {
   SET_PROVINCES(state, provinces) {
@@ -72,6 +86,9 @@ const mutations = {
   },
   SET_FILTER(state, filter) {
     state.filter = filter;
+  },
+  SET_FEE(state, fee) {
+    state.fee = fee;
   },
 };
 

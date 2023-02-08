@@ -11,6 +11,7 @@ const auth = [
     meta: {
       // layout: 'auth',
       title: 'Đăng nhập',
+      middleware: 'guest'
     },
   },
   {
@@ -20,7 +21,9 @@ const auth = [
     meta: {
       // layout: 'auth',
       title: 'Đăng ký tài khoản',
+      middleware: 'guest'
     },
+    
   },
   {
     path: '/wishlist',

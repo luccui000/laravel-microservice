@@ -1,10 +1,11 @@
 <template>
-  <div id="app">
+  <div id="app"> 
     <transition>
       <component :is="layout" v-if="layout" ></component>
     </transition>
     <router-view />
     <l-alert />
+    <notifications group="alert" />
   </div>
 </template>
 

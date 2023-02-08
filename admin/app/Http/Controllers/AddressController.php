@@ -21,16 +21,9 @@ class AddressController extends Controller
         try {
             $provinces = Cache::rememberForever('provinces', function() {
                 $response = $this->_httpClient->withHeaders([
-                        'Content-Type' => 'application/json',
-                        'Token' => config('ghn.shop_token')
-                    ])->get('/shiip/public-api/master-data/province');
-
-                info($response);
-                if($response->status() !== 200) {
-                    Cache::forget('provinces');
-                    return [];
-                }
-
+                    'Content-Type' => 'application/json',
+                    'Token' => config('ghn.shop_token')
+                ])->get('/shiip/public-api/master-data/province');
 
                 $provinces = collect($response->json()['data'])->map(function($item) {
                     return [
@@ -41,6 +34,7 @@ class AddressController extends Controller
 
                 return $provinces->toArray();
             });
+
             return $this->jsonData($provinces);
         } catch (\Exception $ex) {
             return $this->jsonError($ex->getMessage());

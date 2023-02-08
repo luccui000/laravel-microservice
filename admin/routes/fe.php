@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\FE\CartController;
 use App\Http\Controllers\FE\CustomerController;
+use App\Http\Controllers\FE\FeeController;
 use App\Http\Controllers\FE\HeaderController;
 use App\Http\Controllers\FE\PostController;
 use App\Http\Controllers\FE\ProductController;
@@ -21,7 +22,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
 
     Route::post('add-to-cart', [OrderController::class, 'addToCart']);
     Route::post('get-order', [OrderController::class, 'getOrder']);
-    Route::post('order', [OrderController::class, 'order']);
+    Route::post('make-order', [OrderController::class, 'makeOrder']);
 
     Route::group(['prefix' => 'cart'], function() {
         Route::post('/apply-coupon', [CartController::class, 'applyCoupon']);
@@ -35,6 +36,8 @@ Route::group(['prefix' => 'address'], function () {
     Route::get('/districts', [AddressController::class, 'districts']);
     Route::get('/wards',     [AddressController::class, 'wards']);
 });
+
+Route::post('get-fee', [FeeController::class, 'getFee']);
 
 Route::group(['prefix' => 'header'], function() {
     Route::get('products', [HeaderController::class, 'products']);

@@ -1,4 +1,5 @@
 import axios from 'axios';
+// import router from '@/router';
 import { getToken, setToken } from '@/utils/auth';
 import { CONST_APP, CONST_AXIOS } from '@/config/constants';
 
@@ -9,7 +10,7 @@ const request = axios.create({
 });
 
 request.interceptors.request.use(
-  (config) => {  
+  (config) => {
     const token = getToken() || null;
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token; // Set JWT token
@@ -29,6 +30,11 @@ request.interceptors.response.use(
     return response;
   },
   (error) => {
+    // const response = error.response;
+    // if (response.status == 401) {
+    //   router.push('/login');
+    // }
+    // if (error.response.status) window.location.href = '/login';
     return Promise.reject(error);
   }
 );

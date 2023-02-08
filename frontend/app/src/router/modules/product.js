@@ -13,7 +13,7 @@ const product = [
     meta: {
       title: 'Chi tiết sản phẩm',
     },
-  }
+  },
 ];
 
 export default product;

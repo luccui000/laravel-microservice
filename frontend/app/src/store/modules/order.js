@@ -1,4 +1,6 @@
 import order from '@/apis/resources/order';
+import auth from '@/apis/resources/auth';
+import router from '@/router';
 
 const state = {
   userOrders: [],
@@ -24,13 +26,23 @@ const actions = {
 
   addToCart(_, params) {
     return new Promise((resolve, reject) => {
-      order
-        .addToCart(params)
-        .then((response) => {
-          const { data } = response;
-          resolve(data.data);
+      auth
+        .me()
+        .then(() => {
+          order
+            .addToCart(params)
+            .then((response) => {
+              const { data } = response;
+              resolve(data.data);
+            })
+            .catch((error) => reject(error));
         })
-        .catch((error) => reject(error));
+        .catch((error) => {
+          const response = error.response;
+          if (response.status == 401) {
+            router.push('/login');
+          }
+        });
     });
   },
 };

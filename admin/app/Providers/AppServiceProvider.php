@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Contracts\GiaoHangInterface;
 use Illuminate\Support\ServiceProvider;
+use App\Services\GiaoHangNhanh\GiaoHangNhanh;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(GiaoHangInterface::class, function() {
+            return new GiaoHangNhanh(config('ghn'));
+        });
     }
 
     /**

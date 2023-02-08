@@ -310,12 +310,13 @@ export default {
     district: {
       handler: function(value) {
         this.$store.commit('address/SET_DISTRICT', value)
+        this.$store.dispatch('address/wards');
       }
     },
     ward: {
-      handler: function(value) {
-        this.$store.commit('address/SET_WARD', value) 
-        this.$store.dispatch('address/wards');
+      handler: function(value) { 
+        this.$store.commit('address/SET_WARD', value)
+        this.$store.dispatch('address/getFee');
       }
     }
   }

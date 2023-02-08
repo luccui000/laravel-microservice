@@ -26,6 +26,14 @@ class Address extends Resource {
       method: 'GET',
     });
   }
+
+  getFee(data) {
+    return request({
+      url: '/fe/get-fee',
+      method: 'POST',
+      data,
+    });
+  }
 }
 
 export default new Address();
