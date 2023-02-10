@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Services\GiaoHangNhanh;
+namespace Luccui\ShareData\Services;
 
-use App\Contracts\GiaoHangInterface;
-use Illuminate\Support\Facades\Http;
-use App\Exceptions\GiaoHangException;
+use Illuminate\Support\Facades\Http; 
+use Luccui\ShareData\Contracts\GiaoHangInterface;
 
 class GiaoHangNhanh implements GiaoHangInterface
 {
@@ -45,7 +44,7 @@ class GiaoHangNhanh implements GiaoHangInterface
         $dichvus = $this->layDichVu(+$maQuanHuyen);
 
         if(!isset($dichvus[$loaiDichVu])) {
-            throw new GiaoHangException("Không hỗ trợ giao hàng");
+            throw new \Exception("Không hỗ trợ giao hàng");
         }
         $serviceId = $dichvus[$loaiDichVu]['service_id'];
         $formData = [

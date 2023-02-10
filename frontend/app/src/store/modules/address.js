@@ -13,7 +13,11 @@ const state = {
   },
   fee: 0,
 };
-const getters = {};
+const getters = {
+  fee(state) {
+    return state.fee;
+  },
+};
 const actions = {
   provinces({ commit }) {
     return new Promise((resolve, reject) => {
@@ -48,6 +52,14 @@ const actions = {
           commit('SET_WARDS', data.data);
           resolve(data.data);
         })
+        .catch((error) => reject(error));
+    });
+  },
+  updateShipAddress({ state }) {
+    return new Promise((resolve, reject) => {
+      address
+        .updateShipAddress(state.filter)
+        .then((response) => resolve(response))
         .catch((error) => reject(error));
     });
   },

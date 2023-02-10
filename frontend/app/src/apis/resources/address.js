@@ -34,6 +34,14 @@ class Address extends Resource {
       data,
     });
   }
+
+  updateShipAddress(data) {
+    return request({
+      url: '/fe/update-ship-address',
+      method: 'POST',
+      data,
+    });
+  }
 }
 
 export default new Address();

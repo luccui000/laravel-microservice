@@ -6,8 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Luccui\ShareData\Enums\DiscountTypeEnum;
-use Luccui\ShareData\Enums\StatusEnum;
+use Luccui\ShareData\Enums\DiscountTypeEnum; 
+use Luccui\ShareData\Services\GiaoHangNhanh;
 
 class Order extends Model
 {
@@ -125,14 +125,14 @@ class Order extends Model
                     $value = $discount->value;
                     $amount = $subTotal - $value;
                 }
-            }
+            } 
 
             $totalDiscount = $amount + $couponAmount; 
 
             $model->sub_total = $subTotal;
             $model->discount = $totalDiscount; 
 
-            $model->total = $subTotal - $totalDiscount;
+            $model->total = ($subTotal - $totalDiscount) + $model->fee;
         });
 
         static::updating(function ($model) { 
@@ -179,14 +179,14 @@ class Order extends Model
                     $value = $discount->value;
                     $amount = $subTotal - $value;
                 }
-            }
+            } 
 
             $totalDiscount = $amount + $couponAmount; 
 
             $model->sub_total = $subTotal;
             $model->discount = $totalDiscount; 
 
-            $model->total = $subTotal - $totalDiscount;
+            $model->total = ($subTotal - $totalDiscount) + $model->fee;
         });
     } 
 }

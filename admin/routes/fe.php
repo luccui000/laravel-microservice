@@ -9,6 +9,7 @@ use App\Http\Controllers\FE\PostController;
 use App\Http\Controllers\FE\ProductController;
 use App\Http\Controllers\FE\SliderController;
 use App\Http\Controllers\FE\OrderController;
+use App\Http\Controllers\FE\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('register', [CustomerController::class, 'register']);
@@ -18,6 +19,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::post('me', [CustomerController::class, 'me']);
     Route::post('update-profile', [CustomerController::class, 'updateProfile']);
     Route::post('update-address', [CustomerController::class, 'updateAddress']);
+    Route::post('update-ship-address', [CustomerController::class, 'updateShipAddress']);
     Route::post('logout', [CustomerController::class, 'logout']);
 
     Route::post('add-to-cart', [OrderController::class, 'addToCart']);
@@ -29,6 +31,9 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::post('/update/{detailId}/quantity', [CartController::class, 'updateQuantity']);
         Route::post('/product/delete', [CartController::class, 'deleteProduct']);
     });
+
+    Route::get('/payment/callback', [PaymentController::class, 'callback']);
+    Route::post('/payment/generate-url', [PaymentController::class, 'generateUrl']);
 });
 
 Route::group(['prefix' => 'address'], function () {

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\VNPayService;
 use App\Contracts\GiaoHangInterface;
 use Illuminate\Support\ServiceProvider;
 use App\Services\GiaoHangNhanh\GiaoHangNhanh;
@@ -17,6 +18,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(GiaoHangInterface::class, function() {
             return new GiaoHangNhanh(config('ghn'));
+        });
+
+        $this->app->bind(ThanhToanGateway::class, function() {
+            return new VNPayService(config('services.vnpay'));
         });
     }
 

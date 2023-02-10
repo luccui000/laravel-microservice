@@ -144,11 +144,12 @@
                         {{ ward.name }}
                       </option>
                     </select>
-                  </div>
+                  </div> 
                 </div>
               </fieldset> 
+              
               <fieldset>
-                <div class="row">
+                <div class="row mt-2">
                   <div class="form-group col-md-12 col-lg-12 col-xl-12">
                     <label for="input-company">Ghi chú cho đơn hàng <span class="required-f">*</span>
                     </label>
@@ -156,6 +157,9 @@
                   </div>
                 </div>
               </fieldset>
+              <div class="d-flex justify-content-end">
+                <button type="button" @click="saveData" class="btn">Lưu lại</button>
+              </div>
             </form>
           </div>
         </div>
@@ -184,7 +188,7 @@
                   <tfoot class="font-weight-600">
                     <tr>
                       <td colspan="4" class="text-right">Phí vận chuyển </td>
-                      <td>$50.00</td>
+                      <td>{{ cart.fee | vietnamdong }}</td>
                     </tr>
                     <tr>
                       <td colspan="4" class="text-right">Tổng thanh toán</td>
@@ -260,7 +264,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> 
     </div>
   </div>
 </template>
@@ -296,6 +300,9 @@ export default {
     },
     user() {
       return this.$store.state.auth.user;
+    },
+    fee() {
+      return this.$store.getters['address/fee'] || 0;
     }
   },
   watch: {
@@ -315,9 +322,17 @@ export default {
     },
     ward: {
       handler: function(value) { 
-        this.$store.commit('address/SET_WARD', value)
-        this.$store.dispatch('address/getFee');
+        this.$store.commit('address/SET_WARD', value) 
       }
+    }
+  },
+  methods: {
+    saveData() {
+      this.$store.dispatch('address/updateShipAddress')
+      this.$store.dispatch('address/getFee')
+        .then(() => {
+          this.$store.dispatch('cart/getCarts');
+        })
     }
   }
 }

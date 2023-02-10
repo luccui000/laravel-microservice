@@ -1,23 +1,24 @@
 <?php
 
-use App\Http\Controllers\FE\CategoryController;
-use App\Http\Controllers\FE\BrandController;
-use App\Http\Controllers\FE\CouponController;
-use App\Http\Controllers\FE\PostController;
-
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BrandController as CMSBrandController;
-use App\Http\Controllers\CategoryController as CMSCategoryController;
-use App\Http\Controllers\SupplierController as CMSSupplierController;
-use App\Http\Controllers\DiscountController as CMSDiscountController;
-use App\Http\Controllers\CouponController as CMSCouponController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZaloController;
-use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FE\PostController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\FE\BrandController;
+use App\Http\Controllers\FE\CouponController;
+use App\Http\Controllers\FE\CategoryController;
+use App\Http\Controllers\CMS\DashboardController;
+use App\Http\Controllers\BrandController as CMSBrandController;
+use App\Http\Controllers\CouponController as CMSCouponController;
+use App\Http\Controllers\CategoryController as CMSCategoryController;
+use App\Http\Controllers\DiscountController as CMSDiscountController;
+use App\Http\Controllers\SupplierController as CMSSupplierController;
 
 Route::post('login', [AuthController::class, 'login']);
 Route::get('zalo', [ZaloController::class, 'callback']);
@@ -73,4 +74,9 @@ Route::group(['prefix' => 'products'], function() {
     Route::post('/{id}/order', [OrderController::class, 'orderProduct']);
     Route::post('/{id}/rates', [ProductController::class, 'productRates']);
     Route::post('/{id}/variants', [ProductController::class, 'productVariants']);
+});
+
+
+Route::group(['prefix' => 'dashboard'], function() {
+    Route::get('orders', [DashboardController::class, 'orders']);
 });

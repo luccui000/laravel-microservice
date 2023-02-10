@@ -33,5 +33,10 @@ return [
         'sid' => env('TWILIO_SID'),
         'token' => env('TWILIO_AUTH_TOKEN'),
         'verify_sid' => env('TWILIO_VERIFY_SID'),
+    ],
+    'vnpay' => [
+        'code' => env('VNPAY_TMNCODE'),
+        'hash' => env('VNPAY_HASHSECRET'),
+        'callback' => env('VNPAY_CALLBACK'),
     ]
 ];

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\FE;
 
+use Illuminate\Http\Request;
+use Luccui\ShareData\Models\Order;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
+use Luccui\ShareData\Enums\StatusEnum;
 use App\Http\Requests\UpdateAddressRequest;
 use App\Http\Requests\UpdateProfileRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Luccui\ShareData\Services\GiaoHangNhanh;
 use Illuminate\Validation\ValidationException;
 use Luccui\ShareData\Repositories\Customer\CustomerRepository;
 
@@ -85,6 +88,46 @@ class CustomerController extends Controller
             $customer->save();
 
             return $this->jsonData($customer);
+        } catch (\Exception $ex) {
+            handleError($ex);
+        }
+    }
+
+    public function updateShipAddress(Request $request)
+    {
+        try {
+            $customer = $request->user();
+            $order = Order::where([
+                'customer_id' => $customer->id,
+                'status' => StatusEnum::IN_CART
+            ])->first();
+
+            $province = $request->get('province');
+            $district = $request->get('district');
+            $ward = $request->get('ward');
+
+            if($order) {
+                $order->province_id = $province;
+                $order->district_id = $district;
+                $order->ward_id = $ward;
+
+                $fee = $order->fee;
+                if($order->province_id && $order->district_id && $order->ward_id) {
+                    $phi = (new GiaoHangNhanh(config('ghn')))->phiVanChuyen(
+                        $order->province_id,
+                        $order->district_id,
+                        $order->ward_id,
+                    );
+
+                    if(isset($phi['total'])) {
+                        $fee = $phi['total'];
+                    }
+                }
+                $order->fee = $fee;
+                $order->save();
+
+                return $this->jsonData($order);
+            }
         } catch (\Exception $ex) {
             handleError($ex);
         }
