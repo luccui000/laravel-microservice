@@ -6,7 +6,12 @@ class Dashboard extends Resource {
     super('/');
   }
 
-  
+  getOrders() {
+    return request({
+      url: '/dashboard/orders',
+      method: 'GET',
+    });
+  }
 }
 
 export default new Dashboard();

@@ -10,6 +10,7 @@ import BrandView from '@/views/brand/index.vue';
 import SupplierView from '@/views/supplier/index.vue';
 import CategoryView from '@/views/category/index.vue';
 import CouponView from '@/views/coupon/index.vue';
+import OrderView from '@/views/order/index.vue';
 
 Vue.use(VueRouter);
 
@@ -93,6 +94,14 @@ const routes = [
     component: CouponView,
     meta: {
       title: 'Mã giảm giá',
+    },
+  },
+  {
+    path: '/orders',
+    name: 'order.index',
+    component: OrderView,
+    meta: {
+      title: 'Đơn hàng',
     },
   },
 ];

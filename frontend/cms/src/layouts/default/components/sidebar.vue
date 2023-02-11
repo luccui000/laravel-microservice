@@ -37,6 +37,21 @@
             </li>
           </ul>
           <ul>
+            <li class="menu-title">Đơn hàng</li>
+            <li> 
+              <router-link to="/orders">
+                <i class="fa fa-orders"></i>
+                <span>Đơn hàng</span>
+              </router-link>
+            </li>
+            <li> 
+              <router-link to="/coupons">
+                <i class="fa fa-list"></i>
+                <span>Mã giảm giá</span>
+              </router-link>
+            </li> 
+          </ul>
+          <ul>
             <li class="menu-title">Test</li>
             <li> 
               <router-link to="/discounts">
@@ -50,7 +65,7 @@
                 <span>Mã giảm giá</span>
               </router-link>
             </li> 
-          </ul>
+          </ul> 
         </div>
       </div> 
     </div>

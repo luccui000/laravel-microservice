@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ZaloController;
 
+use App\Http\Controllers\ZaloController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\CMS\PDFController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FE\PostController;
 use App\Http\Controllers\ProductController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\FE\CategoryController;
 use App\Http\Controllers\CMS\DashboardController;
 use App\Http\Controllers\BrandController as CMSBrandController;
 use App\Http\Controllers\CouponController as CMSCouponController;
+use App\Http\Controllers\CMS\OrderController as CMSOrderController;
 use App\Http\Controllers\CategoryController as CMSCategoryController;
 use App\Http\Controllers\DiscountController as CMSDiscountController;
 use App\Http\Controllers\SupplierController as CMSSupplierController;
@@ -79,4 +81,10 @@ Route::group(['prefix' => 'products'], function() {
 
 Route::group(['prefix' => 'dashboard'], function() {
     Route::get('orders', [DashboardController::class, 'orders']);
+});
+
+
+Route::group(['prefix' => 'orders'], function() {
+    Route::post('/', [CMSOrderController::class, 'index']);
+    Route::get('/{id}/export', [PDFController::class, 'export']);
 });

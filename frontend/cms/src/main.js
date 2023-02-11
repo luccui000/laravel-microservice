@@ -10,24 +10,6 @@ import Editor from '@tinymce/tinymce-vue';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
 
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-} from 'chart.js';
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale
-);
-
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);

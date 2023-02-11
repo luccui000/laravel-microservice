@@ -1,15 +1,20 @@
 <template>
-  <LineChartGenerator
-    :chart-options="chartOptions"
-    :data="chartData"
-    :chart-id="chartId"
-    :dataset-id-key="datasetIdKey"
-    :plugins="plugins"
-    :css-classes="cssClasses"
-    :styles="styles"
-    :width="width"
-    :height="height"
-  />
+  <div> 
+    <div v-if="dataChart">
+      <LineChartGenerator
+        :chart-options="chartOptions"
+        :data="dataChart"
+        :chart-id="chartId"
+        :dataset-id-key="datasetIdKey"
+        :plugins="plugins"
+        :css-classes="cssClasses"
+        :styles="styles"
+        :width="width"
+        :height="height"
+      /> 
+    </div>
+    <div v-else>Loading...</div>
+  </div>
 </template>
 
 <script>
@@ -103,8 +108,39 @@ export default {
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false
-      }
+      },
+      timerId: null
     }
+  },
+  beforeMount() {
+    this.$store.dispatch('dashboard/getOrders');
+  },
+  mounted() {
+    if(this.timerId)
+      return;
+    let timer = setInterval(() => {
+      this.getOrders();
+    }, 5000);
+    this.timerId = timer;
+  },
+  methods: {
+    getOrders() {
+      this.$store.dispatch('dashboard/getOrders')
+        .then(response => {
+          const lables = Object.keys(response);
+          this.chartData.labels = lables;
+          const values = Object.values(response);
+          this.chartData.datasets.data = values;
+        })
+    },
+  },
+  computed: { 
+    dataChart() {
+      return this.$store.getters['dashboard/chartData'] || {};
+    }
+  },
+  beforeDestroy() { 
+    clearInterval(this.timerId)
   }
 }
 </script>

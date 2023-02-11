@@ -8,6 +8,8 @@ import supplier from './modules/supplier';
 import brand from './modules/brand';
 import discount from './modules/discount';
 import coupon from './modules/coupon';
+import dashboard from './modules/dashboard';
+import order from './modules/order';
 
 Vue.use(Vuex);
 
@@ -25,5 +27,7 @@ export default new Vuex.Store({
     brand,
     discount,
     coupon,
+    dashboard,
+    order
   },
 });
