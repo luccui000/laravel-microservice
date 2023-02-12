@@ -95,7 +95,10 @@ export default {
   methods: {
     onSubmit() { 
       try {
-        this.$store.dispatch('auth/register', this.account) 
+        this.$store.dispatch('auth/register', this.account)
+          .then(() => {
+            this.$router.push('/user/verify');
+          })
       } catch (error ){
         console.log(error)
       }

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', [CustomerController::class, 'register']);
 Route::post('login', [CustomerController::class, 'login']);
+Route::post('user/verify', [CustomerController::class, 'verify']);
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::post('me', [CustomerController::class, 'me']);
@@ -30,6 +31,7 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::post('/apply-coupon', [CartController::class, 'applyCoupon']);
         Route::post('/update/{detailId}/quantity', [CartController::class, 'updateQuantity']);
         Route::post('/product/delete', [CartController::class, 'deleteProduct']);
+        Route::post('/checkout', [CartController::class, 'checkout']);
     });
 
     Route::get('/payment/callback', [PaymentController::class, 'callback']);

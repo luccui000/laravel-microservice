@@ -55,7 +55,16 @@ export default {
         email: this.email, 
         password: this.password
       }).then(() => { 
-        this.$router.go(-1)
+        this.$router.go('/')
+      }).catch(error => { 
+        if(error) {
+          this.$notify({
+            group: 'alert',
+            title: 'Thất bại',
+            text: error.response.data?.message,
+            type: 'error'
+          })
+        }
       })
     }
   }

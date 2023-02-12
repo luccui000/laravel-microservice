@@ -1,5 +1,6 @@
 import { auth } from '@/apis/resources';
 import { setToken } from '@/utils/auth';
+import router from '@/router';
 
 const state = {
   isLogin: false,
@@ -32,6 +33,16 @@ const actions = {
         .catch((error) => reject(error));
     });
   },
+
+  verify(_, code) {
+    return new Promise((resolve, reject) => {
+      auth.verify(code)
+        .then(response => {
+          const { data } = response;
+          resolve(data.data)
+        }).catch(error => reject(error))
+    })
+  },
   getUser({ state }) {
     return new Promise((resolve) => {
       resolve(state);
@@ -53,6 +64,7 @@ const actions = {
           commit('SET_TOKEN', null);
           commit('SET_USER', null);
           resolve(response.data);
+          router.push('/')
         })
         .catch((error) => reject(error));
     });

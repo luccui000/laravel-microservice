@@ -57,14 +57,25 @@ const actions = {
   },
   applyCoupon({ dispatch }, couponName) {
     return new Promise((resolve, reject) => {
-      cart.applyCoupon(couponName)
-        .then(response => {
+      cart
+        .applyCoupon(couponName)
+        .then((response) => {
           const { data } = response;
           dispatch('getCarts');
-          resolve(data.data)
-        }).catch(error => reject(error))
-    })
-  }
+          resolve(data.data);
+        })
+        .catch((error) => reject(error));
+    });
+  },
+
+  checkout(_, params) {
+    return new Promise((resolve, reject) => {
+      cart
+        .checkout(params)
+        .then((response) => resolve(response))
+        .catch((error) => reject(error));
+    });
+  },
 };
 const mutations = {
   ADD_TO_CART(state) {

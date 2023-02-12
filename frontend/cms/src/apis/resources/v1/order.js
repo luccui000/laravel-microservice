@@ -15,6 +15,20 @@ class Order extends Resource {
       },
     });
   }
+
+  confirmOrder(id) {
+    return request({
+      url: `/orders/${id}/confirm`,
+      method: 'POST',
+    });
+  }
+
+  cancelOrder(id) {
+    return request({
+      url: `/orders/${id}/cancel`,
+      method: 'POST',
+    });
+  }
 }
 
 export default new Order();

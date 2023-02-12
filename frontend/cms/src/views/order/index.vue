@@ -2,17 +2,17 @@
   <div>
     <h3>Chi tiết đơn hàng</h3>
     <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="Tất cả đơn hàng" name="first">
-        <all-order-component />
+      <el-tab-pane label="Tất cả đơn hàng" name="all">
+        <all-order-component :orders="orders" />
       </el-tab-pane>
-      <el-tab-pane label="Đã hoàn thành" name="second">
-        <success-order-component />
+      <el-tab-pane label="Đã hoàn thành" name="success">
+        <success-order-component :orders="orders" />
       </el-tab-pane>
-      <el-tab-pane label="Đang chờ xác nhận" name="third">
-        <pending-order-component />
+      <el-tab-pane label="Đang chờ xác nhận" name="pending">
+        <pending-order-component :orders="orders" />
       </el-tab-pane>
-      <el-tab-pane label="Bị huỷ" name="fourth">
-        <failed-order-component />
+      <el-tab-pane label="Bị huỷ" name="canceled">
+        <failed-order-component :orders="orders" />
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -34,13 +34,20 @@ export default {
   },
   data() {
     return {
-      activeName: 'first'
+      activeName: 'all'
     }
   },
+  mounted() {
+    this.$store.dispatch('order/getOrders', this.activeName)
+  },
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
-
+    handleClick(tab) {
+      this.$store.dispatch('order/getOrders', tab.name)
+    }
+  },
+  computed: {
+    orders() {
+      return this.$store.state.order.orders;
     }
   }
 }

@@ -83,4 +83,17 @@ trait ApiResponser
             'code' => $status
         ], $status);
     }
+
+    public function jsonErrorMessage($message, bool $success = false, int $status = Response::HTTP_UNPROCESSABLE_ENTITY): JsonResponse
+    {
+        return response()
+            ->json(
+                [
+                    'success' => $success,
+                    'message' => $message,
+                ],
+                $status
+            )
+            ->header('Cache-Control', 'no-store, no-cache');
+    }
 }

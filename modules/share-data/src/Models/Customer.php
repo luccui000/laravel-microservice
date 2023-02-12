@@ -29,7 +29,7 @@ class Customer extends Authenticatable
         'ship_postalcode',
         'ship_country',
         'verify_token',
-        'is_verify'
+        'is_verified'
     ];
 
     protected $appends = ['name'];

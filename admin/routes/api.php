@@ -86,5 +86,7 @@ Route::group(['prefix' => 'dashboard'], function() {
 
 Route::group(['prefix' => 'orders'], function() {
     Route::post('/', [CMSOrderController::class, 'index']);
+    Route::post('/{id}/confirm', [CMSOrderController::class, 'confirm']);
+    Route::post('/{id}/cancel', [CMSOrderController::class, 'cancel']);
     Route::get('/{id}/export', [PDFController::class, 'export']);
 });

@@ -24,6 +24,16 @@ class Auth extends Resource {
     });
   }
 
+  verify(code) {
+    return request({
+      url: '/fe/user/verify',
+      method: 'POST',
+      data: {
+        code: code,
+      },
+    });
+  }
+
   me() {
     return request({
       url: '/fe/me',

@@ -147,7 +147,10 @@ class OrderController extends Controller
             $customer = $request->user();
 
             $orders = $this->_orderRepo
-                ->where('customer_id', $customer->id)
+                ->where([
+                    'customer_id' => $customer->id,
+                    'status' => StatusEnum::IN_CART
+                ])
                 ->with(['details.product', 'coupon'])
                 ->first();
 

@@ -6,7 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Luccui\ShareData\Enums\DiscountTypeEnum; 
+use Luccui\ShareData\Enums\DiscountTypeEnum;
+use Luccui\ShareData\Enums\StatusEnum;
 use Luccui\ShareData\Services\GiaoHangNhanh;
 
 class Order extends Model
@@ -29,6 +30,10 @@ class Order extends Model
         'customer_id',
         'shipper_id',
         'payment_type_id',
+        'note',
+        'province_id',
+        'district_id',
+        'ward_id',
     ];
 
 
@@ -74,6 +79,12 @@ class Order extends Model
     public function markDeclined()
     {
         $this->status = self::DECLINE;
+        $this->save();
+    }
+
+    public function markFailed()
+    {
+        $this->status = StatusEnum::FAILED;
         $this->save();
     }
 

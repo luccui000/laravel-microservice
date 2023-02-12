@@ -45,11 +45,11 @@
                     <span class="money">{{  cart.sub_total | vietnamdong }}</span>
                   </span>
                 </div> 
-                <div class="row border-bottom pb-2 pt-2">
+                <div class="row border-bottom pb-2 pt-2" v-if="cart.fee">
                   <span class="col-12 col-sm-6 cart__subtotal-title">Phí vận chuyển</span>
-                  <span class="col-12 col-sm-6 text-right">Miễn phí</span>
+                  <span class="col-12 col-sm-6 text-right">{{ cart.fee }}</span>
                 </div>
-                <div class="row border-bottom pb-2 pt-2">
+                <div class="row border-bottom pb-2 pt-2" v-if="cart.discount">
                   <span class="col-12 col-sm-6 cart__subtotal-title">Giảm giá</span>
                   <span class="col-12 col-sm-6 text-right">{{ cart.discount | vietnamdong  }}</span>
                 </div>
@@ -61,7 +61,9 @@
                     <span class="money">{{  cart.total | vietnamdong }}</span>
                   </span>
                 </div>
-                <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div> 
+                <div class="cart__shipping">
+                  Phí ship và giảm giá sẽ được tính khi thanh toán.
+                </div> 
                 <router-link to="/checkout" class="btn btn--small-wide">
                   Tiến hành thanh toán
                 </router-link>
@@ -72,6 +74,11 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div v-else>
+      <div class="container mt-4">
+        <empty-list />
       </div>
     </div>
     <footer id="footer" class="footer-2">
@@ -85,6 +92,7 @@
 import NewLetter from '@/components/NewLetter';
 import PageFooter from '@/components/Footer';
 import CartList from '@/views/Cart/components/list';
+import EmptyList from '@/views/Cart/components/empty.vue';
 import CartItem from '@/views/Cart/components/item';
 
 export default {
@@ -93,7 +101,8 @@ export default {
     CartList,
     NewLetter,
     PageFooter,
-    CartItem
+    CartItem,
+    EmptyList
   },
   data() {
     return {

@@ -2,6 +2,7 @@ import LoginView from '@/views/Auth/login.vue';
 import RegisterView from '@/views/Auth/register.vue';
 import WishlistView from '@/views/Auth/wishlist.vue';
 import AccountView from '@/views/Account/index.vue';
+import UserVerifyView from '@/views/Auth/verify.vue';
 
 const auth = [
   {
@@ -11,7 +12,7 @@ const auth = [
     meta: {
       // layout: 'auth',
       title: 'Đăng nhập',
-      middleware: 'guest'
+      middleware: 'guest',
     },
   },
   {
@@ -21,9 +22,8 @@ const auth = [
     meta: {
       // layout: 'auth',
       title: 'Đăng ký tài khoản',
-      middleware: 'guest'
+      middleware: 'guest',
     },
-    
   },
   {
     path: '/wishlist',
@@ -41,6 +41,15 @@ const auth = [
     meta: {
       // layout: 'auth',
       title: 'Danh sách yêu thích',
+    },
+  },
+  {
+    path: '/user/verify',
+    name: 'user.verify.index',
+    component: UserVerifyView,
+    meta: {
+      // layout: 'auth',
+      title: 'Xác thực tài khoản',
     },
   },
 ];

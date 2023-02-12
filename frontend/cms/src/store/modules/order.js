@@ -17,6 +17,30 @@ const actions = {
         .catch((error) => reject(error));
     });
   },
+
+  confirmOrder(_, id) {
+    return new Promise((resolve, reject) => {
+      order
+        .confirmOrder(id)
+        .then((response) => {
+          const { data } = response;
+          resolve(data.data);
+        })
+        .catch((error) => reject(error));
+    });
+  },
+
+  cancelOrder(_, id) {
+    return new Promise((resolve, reject) => {
+      order
+        .cancelOrder(id)
+        .then((response) => {
+          const { data } = response;
+          resolve(data.data);
+        })
+        .catch((error) => reject(error));
+    });
+  },
 };
 const mutations = {
   SET_ORDERS(state, orders) {

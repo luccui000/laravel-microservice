@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\FE;
 
 use Illuminate\Http\Request;
+use App\Jobs\SendSMSVerification;
 use Luccui\ShareData\Models\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Luccui\ShareData\Models\Customer;
 use App\Http\Requests\RegisterRequest;
 use Luccui\ShareData\Enums\StatusEnum;
 use App\Http\Requests\UpdateAddressRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use Luccui\ShareData\Services\GiaoHangNhanh;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 use Luccui\ShareData\Repositories\Customer\CustomerRepository;
 
 class CustomerController extends Controller
@@ -26,8 +29,20 @@ class CustomerController extends Controller
     public function register(RegisterRequest $request)
     {
         try {
+            $password = $request->get('password');
+
+            $request->merge([
+                'phone' => preg_replace('/^0/', '+84', $request->get('phone')),
+                'is_verified' => 0,
+                'verify_token' => mt_rand(100000, 999999),
+                'password' => \Hash::make($password)
+            ]);
+
             $customer = $this->_customerRepo->store($request);
-            return $this->jsonData($customer);
+
+            SendSMSVerification::dispatch($customer->toArray());
+
+            return $this->jsonData($request->all());
         } catch (\Exception $ex) {
             return $this->jsonError($ex->getMessage());
         }
@@ -35,12 +50,18 @@ class CustomerController extends Controller
 
     public function login(Request $request) {
         try {
-            $customer = $this->_customerRepo->where('email', $request->email)->first();
+            $input = $request->get('email');
+            $email = $input;
+            $phone = preg_replace('/^0/', '+84', $input);
+
+            $customer = $this->_customerRepo
+                ->where('email', $email)
+                ->orWhere('phone', $phone)
+                ->first();
+
 
             if(!$customer || !Hash::check($request->password, $customer->password)) {
-                throw ValidationException::withMessages([
-                    'email' => ['The provided credentials are incorrect.'],
-                ]);
+                return $this->jsonErrorMessage('Email hoặc mật khẩu không đúng');
             }
 
             return $this->jsonData([
@@ -48,6 +69,28 @@ class CustomerController extends Controller
             ]);
         } catch (\Exception $ex) {
             return $this->jsonError($ex->getMessage());
+        }
+    }
+
+    public function verify(Request $request)
+    {
+        try {
+            $code = $request->get('code');
+
+            $customer = Customer::where([
+                'verify_token' => $code,
+                'is_verified' => 0
+            ])->first();
+
+            if(!$customer)
+                return $this->jsonError('ERROR', Response::HTTP_BAD_REQUEST);
+
+            $customer->is_verified = 1;
+            $customer->save();
+
+            return $this->jsonData($customer);
+        } catch(\Exception $e) {
+            return $this->jsonError($e);
         }
     }
 

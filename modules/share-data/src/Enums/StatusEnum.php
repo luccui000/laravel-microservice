@@ -17,4 +17,5 @@ class StatusEnum
     const CANCELED = 'canceled';
     const FAILED = 'failed';
     const IN_CART = 'in_cart';
+    const CHECKOUT = 'checkout';
 }

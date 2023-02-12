@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\VNPayService;
+use App\Contracts\ThanhToanGateway;
 use App\Contracts\GiaoHangInterface;
 use Illuminate\Support\ServiceProvider;
 use App\Services\GiaoHangNhanh\GiaoHangNhanh;

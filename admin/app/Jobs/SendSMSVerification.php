@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use Twilio\Rest\Client;
 use Illuminate\Bus\Queueable;
-use Luccui\ShareData\Models\Customer;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -23,10 +22,11 @@ class SendSMSVerification implements ShouldQueue
     public $customer;
 
     public function __construct(
-        Customer $customer
+        $customer
     )
     {
         $this->customer = $customer;
+        info($this->customer);
     }
 
     /**
@@ -36,14 +36,17 @@ class SendSMSVerification implements ShouldQueue
      */
     public function handle()
     {
+        if(!$this->customer)
+            return;
+
         $sms = config('services.sms');
 
         $twilio = new Client($sms['sid'], $sms['token']);
 
-        if(!$this->customer->isVerified()) {
+        if($this->customer['is_verified'] == 0) {
             $message = $twilio->messages
-                ->create($this->customer->phone, [
-                    'body' => "Mã xác nhận của bạn là: " . $this->customer->verify_token,
+                ->create($this->customer['phone'], [
+                    'body' => "Mã xác nhận của bạn là: " . $this->customer['verify_token'],
                     'messagingServiceSid' => $sms['verify_sid']
                 ]);
             info($message);

@@ -40,6 +40,14 @@ class Cart extends Resource {
       },
     });
   }
+
+  checkout(params) {
+    return request({
+      url: `/fe/cart/checkout`,
+      method: 'POST',
+      data: params,
+    });
+  }
 }
 
 export default new Cart();

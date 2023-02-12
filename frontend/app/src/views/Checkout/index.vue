@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div> 
     <div class="page section-header text-center">
       <div class="page-title">
         <div class="wrapper">
@@ -55,15 +55,15 @@
               <a class="text-white text-decoration-underline show-coupon" @click="showCouponBox = !showCouponBox">
                 Ấn vào đây để áp dụng mã giảm giá
               </a>
-            </h3>
+            </h3> 
             <div id="have-coupon" class="coupon-checkout-content" :class=" { 'collapse': showCouponBox }">
               <div class="discount-coupon">
                 <div id="coupon" class="coupon-dec tab-pane active">
                   <p class="margin-10px-bottom">Nhập vào mã giảm giá của bạn.</p>
                   <label class="required get" for="coupon-code">
                     <span class="required-f">*</span> Mã giảm giá </label>
-                  <input id="coupon-code" required="" type="text" class="mb-3">
-                  <button class="coupon-btn btn" type="submit">Áp dụng</button>
+                  <input v-model="code" id="coupon-code" required="" type="text" class="mb-3">
+                  <button @click="applyCoupon" class="coupon-btn btn" type="button">Áp dụng</button>
                 </div>
               </div>
             </div>
@@ -101,17 +101,17 @@
                   </div>
                 </div>
               </fieldset>
-              <fieldset> 
+              <fieldset>  
                 <div class="row"> 
                   <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                     <label for="input-country">Tỉnh/Thành phố <span class="required-f">*</span>
                     </label>
                     <select v-model="province">
-                      <option value=""> --- Chọn tỉnh/thành phố --- </option>
+                      <option value="" selected="true"> --- Chọn tỉnh/thành phố --- </option>
                       <option 
                         v-for="province in provinces"
                         :key="province.id"
-                        :value="province.id"
+                        :value="province.id" 
                       >
                         {{ province.name }}
                       </option>
@@ -125,6 +125,7 @@
                         v-for="district in districts"
                         :key="district.id"
                         :value="district.id"
+                        :selected="cart.district_id == district.id"
                       >
                         {{ district.name }}
                       </option>
@@ -140,6 +141,7 @@
                         v-for="ward in wards"
                         :key="ward.id"
                         :value="ward.id"
+                        :selected="cart.ward_id == ward.id"
                       >
                         {{ ward.name }}
                       </option>
@@ -153,7 +155,7 @@
                   <div class="form-group col-md-12 col-lg-12 col-xl-12">
                     <label for="input-company">Ghi chú cho đơn hàng <span class="required-f">*</span>
                     </label>
-                    <textarea class="form-control resize-both" rows="3"></textarea>
+                    <textarea v-model="note" class="form-control resize-both" rows="3"></textarea>
                   </div>
                 </div>
               </fieldset>
@@ -187,8 +189,16 @@
                   </tbody>
                   <tfoot class="font-weight-600">
                     <tr>
+                      <td colspan="4" class="text-right">Thành tiền </td>
+                      <td>{{ cart.sub_total | vietnamdong }}</td>
+                    </tr>
+                    <tr>
                       <td colspan="4" class="text-right">Phí vận chuyển </td>
                       <td>{{ cart.fee | vietnamdong }}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" class="text-right">Giảm giá </td>
+                      <td>{{ cart.discount | vietnamdong }}</td>
                     </tr>
                     <tr>
                       <td colspan="4" class="text-right">Tổng thanh toán</td>
@@ -255,10 +265,18 @@
                         </div>
                       </fieldset>
                     </l-dropdown-content> 
+                    <div class="form-group d-flex checkout-btn">
+                      <input v-model="payment_type" class="form-control" checked type="radio" value="1" id="thanhtoan1" />
+                      <label for="thanhtoan1">Thanh toán khi nhận hàng</label>
+                    </div>
+                    <div class="form-group d-flex checkout-btn">
+                      <input v-model="payment_type" class="form-control" type="radio" value="2" id="thanhtoan2" />
+                      <label for="thanhtoan2">Thanh toán online</label>
+                    </div>
                   </div>
                 </div>
                 <div class="order-button-payment">
-                  <button class="btn" value="Place order">Thanh toán</button>
+                  <button @click="checkout" class="btn" value="Place order">Thanh toán</button>
                 </div>
               </div>
             </div>
@@ -279,10 +297,20 @@ export default {
       province: null,
       district: null,
       ward: null, 
+      code: null,
+      payment_type: 1,
+      note: ''
     }
   },
   beforeMount() { 
-    this.$store.dispatch('cart/getCarts');
+    this.$store.dispatch('cart/getCarts')
+      .then(response => {
+        const { province_id, district_id, ward_id, coupon } = response; 
+        this.province = province_id;
+        this.district = district_id;
+        this.ward = ward_id;
+        this.code = coupon?.code;
+      })
     this.$store.dispatch('address/provinces');
   },
   computed: {
@@ -333,6 +361,35 @@ export default {
         .then(() => {
           this.$store.dispatch('cart/getCarts');
         })
+    },
+    checkout() {
+      this.$store.dispatch('cart/checkout', {
+        payment_type: this.payment_type,
+        note: this.note
+      }).then(response => {
+        console.log(response)
+      })
+    },
+    applyCoupon() { 
+      this.$store.dispatch('cart/applyCoupon', this.code)
+        .then(response => {
+          console.log(response)
+          this.$notify({
+              group: 'alert',
+              title: 'Thất bại',
+              text: 'Chúc mừng bạn đã thêm mã thành công',
+              type: 'success'
+            })
+        }).catch(error => {
+          if(error) {
+            this.$notify({
+              group: 'alert',
+              title: 'Thất bại',
+              text: error.response.data?.message,
+              type: 'error'
+            })
+          }
+        })
     }
   }
 }
@@ -347,6 +404,25 @@ export default {
 }
 
 .show-coupon {
+  cursor: pointer;
+}
+
+.checkout-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px 0;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.checkout-btn input {
+  width: 20px;
+}
+
+.checkout-btn label {
+  align-self: center;
+  margin-bottom: 0;
   cursor: pointer;
 }
 

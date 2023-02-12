@@ -4,9 +4,9 @@
       <div class="row align-items-center">
         <!--Desktop Logo-->
         <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
-			<router-link to="/">
-				<img class="luccui-logo" src="/assets/images/logo.png" alt="MinhLuc" title="MinhLuc" />
-			</router-link>
+        <router-link to="/">
+          <img class="luccui-logo" src="/assets/images/logo.png" alt="MinhLuc" title="MinhLuc" />
+        </router-link>
         </div>
         <!--End Desktop Logo-->
         <div class="col-2 col-sm-3 col-md-3 col-lg-8">
@@ -365,90 +365,9 @@
             <router-link class="site-header__cart" to="/cart">
               <i class="icon anm anm-bag-l"></i>
               <span class="site-header__cart-count" @click="isShow = !isShow">
-                {{  cart.details.length  }}
+                {{  cart && cart.details ? cart.details.length : 0 }}
               </span>
-            </router-link> 
-            <!--Minicart Popup-->
-            <div class="block block-cart" v-show="isShow">
-              <ul class="mini-products-list">
-                <li class="item">
-                  <a class="product-image" href="#">
-                    <img src="/assets/images/product-images/cape-dress-1.jpg" alt="3/4 Sleeve Kimono Dress" title="" />
-                  </a>
-                  <div class="product-details">
-                    <a href="#" class="remove">
-                      <i class="anm anm-times-l" aria-hidden="true"></i>
-                    </a>
-                    <a href="#" class="edit-i remove">
-                      <i class="anm anm-edit" aria-hidden="true"></i>
-                    </a>
-                    <a class="pName" href="cart.html">Sleeve Kimono Dress</a>
-                    <div class="variant-cart">Black / XL</div>
-                    <div class="wrapQtyBtn">
-                      <div class="qtyField">
-                        <span class="label">Qty:</span>
-                        <a class="qtyBtn minus" href="javascript:void(0);">
-                          <i class="fa anm anm-minus-r" aria-hidden="true"></i>
-                        </a>
-                        <input type="text" value="1" class="product-form__input qty">
-                        <a class="qtyBtn plus" href="javascript:void(0);">
-                          <i class="fa anm anm-plus-r" aria-hidden="true"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="priceRow">
-                      <div class="product-price">
-                        <span class="money">$59.00</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="item">
-                  <a class="product-image" href="#">
-                    <img src="/assets/images/product-images/cape-dress-2.jpg" alt="Elastic Waist Dress - Black / Small" title="" />
-                  </a>
-                  <div class="product-details">
-                    <a href="#" class="remove">
-                      <i class="anm anm-times-l" aria-hidden="true"></i>
-                    </a>
-                    <a href="#" class="edit-i remove">
-                      <i class="anm anm-edit" aria-hidden="true"></i>
-                    </a>
-                    <a class="pName" href="cart.html">Elastic Waist Dress</a>
-                    <div class="variant-cart">Gray / XXL</div>
-                    <div class="wrapQtyBtn">
-                      <div class="qtyField">
-                        <span class="label">Qty:</span>
-                        <a class="qtyBtn minus" href="javascript:void(0);">
-                          <i class="fa anm anm-minus-r" aria-hidden="true"></i>
-                        </a>
-                        <input type="text" value="1" class="product-form__input qty">
-                        <a class="qtyBtn plus" href="javascript:void(0);">
-                          <i class="fa anm anm-plus-r" aria-hidden="true"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="priceRow">
-                      <div class="product-price">
-                        <span class="money">$99.00</span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <div class="total">
-                <div class="total-in">
-                  <span class="label">Cart Subtotal:</span>
-                  <span class="product-price">
-                    <span class="money">$748.00</span>
-                  </span>
-                </div>
-                <div class="buttonSet text-center">
-                  <a href="cart.html" class="btn btn-secondary btn--small">View Cart</a>
-                  <a href="checkout.html" class="btn btn-secondary btn--small">Checkout</a>
-                </div>
-              </div>
-            </div>
+            </router-link>  
             <!--End Minicart Popup-->
           </div>
           <div class="site-header__search">
@@ -468,22 +387,7 @@ export default {
   name: 'NavHeader',
   data() {
     return {
-      products: [
-        {
-          id: 1,
-          name: 'Sleeve Kimono Dress',
-          variant_type: 'Gray / XXL',
-          quantity: 4,
-          price: 745.2
-        },
-        {
-          id: 2,
-          name: 'Sleeve Kimono Dress',
-          variant_type: 'Gray / XXL',
-          quantity: 1,
-          price: 745.2
-        },
-      ],
+      products: [],
       isShow: false
     }
   },
@@ -495,10 +399,10 @@ export default {
       return this.products.reduce((total, curr) => total + curr.price * curr.quantity);
     },
     productData() {
-      return this.$store.state.header.products;
+      return this.$store.state.header.products || [];
     },
     cart() {
-      return this.$store.state.cart.carts;
+      return this.$store.state.cart.carts || {};
     }
   }
 }
