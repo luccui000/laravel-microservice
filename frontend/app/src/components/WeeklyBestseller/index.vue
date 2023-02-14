@@ -1,19 +1,19 @@
 <template>
-  <div class="section">
+  <div class="section" v-if="products">
     <div class="container">
       <div class="row">
         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
           <div class="section-header text-center">
-            <h2 class="h2">Weekly Bestseller</h2>
-            <p>Our most popular products based on sales</p>
+            <h2 class="h2">Bán nhiều nhất trong tuần qua</h2>
+            <p>Các sản phẩm dựa trên doanh số bán ra trong tuần qua</p>
           </div>
-          <div class="grid-products">
+          <div class="grid-products"> 
             <vue-slick-carousel v-bind="settings">
-              <weekly-bestseller-item></weekly-bestseller-item>
-              <weekly-bestseller-item></weekly-bestseller-item>
-              <weekly-bestseller-item></weekly-bestseller-item>
-              <weekly-bestseller-item></weekly-bestseller-item>
-              <weekly-bestseller-item></weekly-bestseller-item>
+              <weekly-bestseller-item
+                v-for="product in products"
+                :key="product.id"
+                :product="product"
+              /> 
             </vue-slick-carousel>
           </div>
         </div>
@@ -28,6 +28,7 @@ import VueSlickCarousel from 'vue-slick-carousel'
 
 export default {
   name: 'WeeklyBestseller',
+  props: ['products'],
   components: {
     VueSlickCarousel,
     WeeklyBestsellerItem, 

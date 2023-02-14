@@ -1,20 +1,24 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FE\FeeController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\FE\CartController;
-use App\Http\Controllers\FE\CustomerController;
-use App\Http\Controllers\FE\FeeController;
-use App\Http\Controllers\FE\HeaderController;
+use App\Http\Controllers\FE\HomeController;
 use App\Http\Controllers\FE\PostController;
-use App\Http\Controllers\FE\ProductController;
-use App\Http\Controllers\FE\SliderController;
 use App\Http\Controllers\FE\OrderController;
+use App\Http\Controllers\FE\HeaderController;
+use App\Http\Controllers\FE\SliderController;
 use App\Http\Controllers\FE\PaymentController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FE\ProductController;
+use App\Http\Controllers\FE\CustomerController;
 
 Route::post('register', [CustomerController::class, 'register']);
 Route::post('login', [CustomerController::class, 'login']);
 Route::post('user/verify', [CustomerController::class, 'verify']);
+
+
+Route::get('home', [HomeController::class, 'index']);
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::post('me', [CustomerController::class, 'me']);
@@ -35,7 +39,6 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     });
 
     Route::get('/payment/callback', [PaymentController::class, 'callback']);
-    Route::post('/payment/generate-url', [PaymentController::class, 'generateUrl']);
 });
 
 Route::group(['prefix' => 'address'], function () {

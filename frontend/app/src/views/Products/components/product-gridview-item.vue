@@ -4,15 +4,21 @@
       <router-link :to="{ name: 'products.show', params: { id: product.id} }"> 
         <img 
           class="primary lazyload" 
-          :data-src="'assets/images/product-images/product-image1-1.jpg'"
-          :src="'assets/images/product-images/product-image1-1.jpg'"
+          :data-src="product.image_origin"
+          :src="product.image_origin"
           alt="image" 
           title="product"
         > 
-        <img class="hover lazyload" data-src="assets/images/product-images/product-image1-1.jpg" src="assets/images/product-images/product-image1-1.jpg" alt="image" title="product"> 
+        <img 
+          class="hover lazyload" 
+          :data-src="product.image_origin" 
+          :src="product.image_origin"
+          alt="image" 
+          title="product"
+        > 
         <div class="product-labels rectangular">
           <span class="lbl on-sale">HOT</span>
-          <span class="lbl pr-label1">new</span>
+          <span class="lbl pr-label1">NEW</span>
         </div>
       </router-link> 
       <div class="variants add">

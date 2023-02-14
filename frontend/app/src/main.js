@@ -10,12 +10,16 @@ import '@/utils/rules';
 import { ValidationProvider, ValidationObserver } from 'vee-validate';
 import { localize } from 'vee-validate';
 import Notifications from 'vue-notification';
+import NewLetter from '@/components/NewLetter';
+import PageFooter from '@/components/Footer';
 
 localize('vi');
 
 Vue.use(Alert);
 Vue.component('validation-provider', ValidationProvider);
 Vue.component('validation-observer', ValidationObserver);
+Vue.component('new-letter', NewLetter);
+Vue.component('page-footer', PageFooter);
 Vue.use(Notifications);
 
 Vue.config.productionTip = false;

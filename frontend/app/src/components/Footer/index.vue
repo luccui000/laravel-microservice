@@ -5,96 +5,86 @@
       <div class="footer-top">
         <div class="row">
           <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
-            <h4 class="h4">Quick Shop</h4>
+            <h4 class="h4">Truy cập nhanh</h4>
             <ul>
               <li>
-                <a href="#">Women</a>
+                <a href="#">Trang chủ</a>
               </li>
               <li>
-                <a href="#">Men</a>
+                <a href="#">Cửa hàng</a>
               </li>
               <li>
-                <a href="#">Kids</a>
+                <a href="#">Sản phẩm</a>
               </li>
               <li>
-                <a href="#">Sportswear</a>
+                <a href="#">Giới thiệu</a>
               </li>
               <li>
-                <a href="#">Sale</a>
+                <a href="#">Blog</a>
               </li>
             </ul>
           </div>
           <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
-            <h4 class="h4">Informations</h4>
+            <h4 class="h4">Thông tin</h4>
             <ul>
               <li>
-                <a href="#">About us</a>
+                <a href="#">Về chúng tôi</a>
               </li>
               <li>
-                <a href="#">Careers</a>
+                <a href="#">Tuyển dụng</a>
               </li>
               <li>
-                <a href="#">Privacy policy</a>
+                <a href="#">Điều khoản</a>
               </li>
               <li>
-                <a href="#">Terms &amp; condition</a>
+                <a href="#">Chính sách</a>
               </li>
               <li>
-                <a href="#">My Account</a>
+                <router-link to="/me">Tài khoản của tôi</router-link> 
               </li>
             </ul>
           </div>
           <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
-            <h4 class="h4">Customer Services</h4>
+            <h4 class="h4">Dịch vụ khách hàng</h4>
             <ul>
               <li>
-                <a href="#">Request Personal Data</a>
+                <a href="#">Yêu cầu thông tin</a>
               </li>
               <li>
                 <a href="#">FAQ's</a>
               </li>
               <li>
-                <a href="#">Contact Us</a>
+                <a href="#">Liên hệ với chúng tôi</a>
               </li>
               <li>
-                <a href="#">Orders and Returns</a>
+                <a href="#">Đặt hàng và hoàn trả</a>
               </li>
               <li>
-                <a href="#">Support Center</a>
+                <a href="#">Trung tâm hỗ trợ</a>
               </li>
             </ul>
           </div>
           <div class="col-12 col-sm-12 col-md-3 col-lg-3 contact-box">
-            <h4 class="h4">Contact Us</h4>
+            <h4 class="h4">Liên hệ chúng tôi</h4>
             <ul class="addressFooter">
               <li>
                 <i class="icon anm anm-map-marker-al"></i>
-                <p>55 Gallaxy Enque, <br>2568 steet, 23568 NY </p>
+                <p>129 Nguyễn Thiện Thành, <br>TP Trà Vinh </p>
               </li>
               <li class="phone">
                 <i class="icon anm anm-phone-s"></i>
-                <p>(440) 000 000 0000</p>
+                <p>0399942301</p>
               </li>
               <li class="email">
                 <i class="icon anm anm-envelope-l"></i>
-                <p>sales@yousite.com</p>
+                <p>cskh@minhluc.com</p>
               </li>
             </ul>
           </div>
         </div>
       </div>
       <!--End Footer Links-->
-      <hr>
-      <div class="footer-bottom">
-        <div class="row">
-          <!--Footer Copyright-->
-          <div class="col-12 col-sm-12 col-md-12 col-lg-12 order-1 order-md-0 order-lg-0 order-sm-1 copyright text-center">
-            <span></span>
-            <a href="templateshub.net">Templates Hub</a>
-          </div>
-          <!--End Footer Copyright-->
-        </div>
-      </div>
+      <hr> 
     </div>
   </div>
 </template>

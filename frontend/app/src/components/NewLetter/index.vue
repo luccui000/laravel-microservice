@@ -7,14 +7,14 @@
           <div class="display-table-cell footer-newsletter">
             <div class="section-header text-center">
               <label class="h2">
-                <span>sign up for </span>newsletter </label>
+                <span>Đăng ký </span>nhận thông báo </label>
             </div>
             <form action="#" >
               <div class="input-group">
-                <input type="email" class="input-group__field newsletter__input" name="EMAIL" value="" placeholder="Email address" >
+                <input type="email" class="input-group__field newsletter__input" name="EMAIL" value="" placeholder="Địa chỉ email" >
                 <span class="input-group__btn">
                   <button type="submit" class="btn newsletter__submit" name="commit" id="Subscribe">
-                    <span class="newsletter__submit-text--large">Subscribe</span>
+                    <span class="newsletter__submit-text--large">Nhận</span>
                   </button>
                 </span>
               </div>

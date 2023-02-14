@@ -1,6 +1,6 @@
 <template> 
   <div class="notification-bar mobilehide" v-show="showNotification">
-    <a href="#" class="notification-bar__message">20% off your very first purchase, use promo code: belle fashion</a>
+    <router-link to="/products" class="notification-bar__message">Giảm giá 20% cho tất cả đơn hàng đầu tiên</router-link>
       <span class="close-announcement" @click="closeNotification">&times;</span>
   </div>
 </template>

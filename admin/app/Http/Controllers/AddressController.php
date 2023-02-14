@@ -67,8 +67,6 @@ class AddressController extends Controller
                 return $districts->toArray();
             });
 
-            info($districts);
-
             return $this->jsonData($districts);
         } catch (\Exception $ex) {
             return $this->jsonError($ex->getMessage());

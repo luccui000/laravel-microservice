@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -39,13 +40,14 @@ class MonitorOrderPayment implements ShouldQueue
 
         $minute = config('constants.minutes_decline_transaction');
 
-        if($this->order->order_date->diffInMinutes() > $minute + 1) {
+        $orderDate = new Carbon($this->order->order_date);
+        if($orderDate->diffInMinutes() > $minute + 1) {
             $this->order->markFailed();
             return ;
+        } else if ($orderDate->diffInMinutes() > $minute - 5) {
+            SendMailPaymentOrder::dispatch($this->order)->onQueue('mail_queue');
         }
-
         // handle send email into user here
-
 
         $this->release(now()->addMinutes(ceil($minute / $this->tries)));
     }

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\FE;
 
-use App\Contracts\ThanhToanGateway;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Luccui\ShareData\Models\Order;
+use App\Contracts\ThanhToanGateway;
 use Luccui\ShareData\Models\Coupon;
 use App\Http\Controllers\Controller;
+use App\Jobs\MonitorOrderPayment;
+use App\Jobs\SendMailOrderSuccess;
 use Luccui\ShareData\Enums\StatusEnum;
 use Luccui\ShareData\Models\DetailOrder;
 use Symfony\Component\HttpFoundation\Response;
@@ -118,7 +121,8 @@ class CartController extends Controller {
             } else if ($paymentType == 1) {
                 $order->status = StatusEnum::PENDING;
             }
-
+            $now = Carbon::now();
+            $order->order_date = $now;
             $order->save();
 
             if($paymentType == 2) {
@@ -131,9 +135,13 @@ class CartController extends Controller {
                     'vnp_IpAddr' => $request->ip(),
                 ]);
 
+                MonitorOrderPayment::dispatch($order);
+
                 return $this->jsonData([
                     'url' => $url
                 ]);
+            } else {
+                SendMailOrderSuccess::dispatch($order)->onQueue('mail_queue');
             }
 
             return $this->jsonData([

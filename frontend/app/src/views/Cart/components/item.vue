@@ -3,7 +3,7 @@
     <td class="cart__image-wrapper cart-flex-item">
       <router-link :to="`/products/${cart.product_id}`">
         <img class="cart__image" 
-          :src="cart.product.image"
+          :src="cart.product.image_origin"
           alt="Minerva Dress black"
         >
       </router-link>

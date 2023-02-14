@@ -2,8 +2,11 @@
   <div>
     <!-- Home slider -->
     <page-slider></page-slider>
-    <!-- Weekly bestseller -->
-    <weekly-bestseller></weekly-bestseller>
+    <!-- Weekly bestseller -->    
+    <weekly-bestseller  
+      v-if="bestsellers" 
+      :products="bestsellers"
+    ></weekly-bestseller>
     <!-- Advertisement -->
     <advertisement></advertisement>
     <!-- New Arrivals -->
@@ -38,9 +41,17 @@ export default {
     NewLetter,
     PageFooter,
   },
+  beforeMount() {
+    this.$store.dispatch('home/getData')
+  },
   data() {
     return {
 
+    }
+  },
+  computed: {
+    bestsellers() {
+      return this.$store.state.home.bestsellers;
     }
   }
 }

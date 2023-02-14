@@ -235,7 +235,7 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class
     ],
 
-    'url' => [
+    'service_url' => [
         'cms' => env('BASE_CMS_URL', ''),
         'app' => env('BASE_APP_URL', ''),
     ]

@@ -307,14 +307,13 @@ export default {
         product_id: this.product.id,
         sku_id: has_variant ? this.item.sku_id : null,
         qty: this.quantity
-      }).then(() => {
-        this.$modal.alert('Thêm vào giỏ hàng thành công');
-      })
-      this.$notify({
-        group: 'alert',
-        title: 'Thành công',
-        text: 'Thêm vào giỏ hàng thành công',
-        type: 'success'
+      }).then(() => { 
+        this.$notify({
+          group: 'alert',
+          title: 'Thành công',
+          text: 'Thêm vào giỏ hàng thành công',
+          type: 'success'
+        })
       })
     }
   },

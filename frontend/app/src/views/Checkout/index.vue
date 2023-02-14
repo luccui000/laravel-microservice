@@ -366,8 +366,13 @@ export default {
       this.$store.dispatch('cart/checkout', {
         payment_type: this.payment_type,
         note: this.note
-      }).then(response => {
-        console.log(response)
+      }).then(() => {
+        this.$notify({
+            group: 'alert',
+            title: 'Thành công',
+            text: "Thành công",
+            type: 'error'
+          })
       })
     },
     applyCoupon() { 

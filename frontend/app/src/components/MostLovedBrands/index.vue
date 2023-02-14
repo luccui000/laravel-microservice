@@ -4,26 +4,15 @@
       <div class="row">
         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
           <div class="section-header text-center">
-            <h2 class="h2">The Most Loved Brands</h2>
+            <h2 class="h2">Top thương hiệu được yêu thích nhất</h2>
           </div>
           <div class="logo-bar d-flex justify-content-center">
-            <div class="logo-bar__item">
-              <img src="assets/images/logo/brandlogo1.png" alt="" title="" />
-            </div>
-            <div class="logo-bar__item">
-              <img src="assets/images/logo/brandlogo2.png" alt="" title="" />
-            </div>
-            <div class="logo-bar__item">
-              <img src="assets/images/logo/brandlogo3.png" alt="" title="" />
-            </div>
-            <div class="logo-bar__item">
-              <img src="assets/images/logo/brandlogo4.png" alt="" title="" />
-            </div>
-            <div class="logo-bar__item">
-              <img src="assets/images/logo/brandlogo5.png" alt="" title="" />
-            </div>
-            <div class="logo-bar__item">
-              <img src="assets/images/logo/brandlogo6.png" alt="" title="" />
+            <div 
+              class="logo-bar__item"
+              v-for="brand in brands"
+              :key="brand"
+            >
+              <img :src="brand" alt="" title="" />
             </div>
           </div>
         </div>
@@ -34,8 +23,15 @@
 
 <script>
 
+import { TOP_BRANDS } from '@/config/constants';
+
 export default {
   name: 'MostLovedBrands',
+  data() {
+    return {
+      brands: TOP_BRANDS
+    }
+  }
 }
 
 </script>

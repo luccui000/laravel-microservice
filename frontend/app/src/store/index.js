@@ -8,6 +8,7 @@ import address from '@/store/modules/address';
 import header from '@/store/modules/header';
 import category from '@/store/modules/category';
 import user from '@/store/modules/user';
+import home from '@/store/modules/home';
 
 Vue.use(Vuex);
 
@@ -36,5 +37,6 @@ export default new Vuex.Store({
     header,
     category,
     user,
+    home,
   },
 });
