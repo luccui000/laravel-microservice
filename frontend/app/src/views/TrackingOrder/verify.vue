@@ -20,8 +20,9 @@
                   <input v-model="phone3" type="number" class="phone" maxlength="1" min="1" placeholder="0" >
                   <input v-model="phone4" type="number" class="phone" maxlength="1" min="1" placeholder="0" >
                   <input v-model="phone5" type="number" class="phone" maxlength="1" min="1" placeholder="0" >
+                  <input v-model="phone6" type="number" class="phone" maxlength="1" min="1" placeholder="0" >
                 </div>
-                <button class="btn">Kiểm tra</button>
+                <button @click="verifyToken" class="btn">Kiểm tra</button>
               </div>
             </div>
           </div>
@@ -49,6 +50,19 @@ export default {
       phone6: null,
     }
   },
+  methods: {
+    verifyToken() {
+      this.$store.dispatch('order/verifyOrderTracking', `${this.phone1}${this.phone2}${this.phone3}${this.phone4}${this.phone5}${this.phone6}`)
+        .catch(error => {
+          this.$notify({
+            group: 'alert',
+            type: 'error',
+            title: 'Thất bại',
+            text: error,
+          });
+      })
+    }
+  }
 }
 
 </script>

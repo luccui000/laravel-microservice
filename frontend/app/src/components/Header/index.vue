@@ -24,117 +24,27 @@
                 <router-link to="/">Trang chủ <i class="anm anm-angle-down-l"></i></router-link> 
                 <div class="megamenu style1">
                   <ul class="grid mmWrapper">
-                    <li class="grid__item large-up--one-whole">
+                    <li class="grid__item">
                       <ul class="grid">
-                        <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                          <a href="#" class="site-nav lvl-1">Trang chủ 1</a>
+                        <li class="grid__item lvl-1 col-md-6 col-lg-3">
+                          <router-link to="/" class="site-nav lvl-1">Trang chủ</router-link> 
                           <ul class="subLinks">
                             <li class="lvl-2">
-                              <a href="#" class="site-nav lvl-2">Home 1 - Classic</a>
+                              <a href="#" class="site-nav lvl-2">Các thương hiệu nổi tiếng</a>
                             </li>
                             <li class="lvl-2">
-                              <a href="#" class="site-nav lvl-2">Home 2 - Default</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="#" class="site-nav lvl-2">Home 15 - Furniture <span class="lbl nm_label1">New</span>
-                              </a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="#" class="site-nav lvl-2">Home 3 - Boxed</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="#" class="site-nav lvl-2">Home 4 - Fullwidth</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="#" class="site-nav lvl-2">Home 5 - Cosmetic</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="home6-modern.html" class="site-nav lvl-2">Home 6 - Modern</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="home7-shoes.html" class="site-nav lvl-2">Home 7 - Shoes</a>
-                            </li>
+                              <a href="#" class="site-nav lvl-2">Mẫu thời trang hot nhất</a>
+                            </li> 
                           </ul>
                         </li>
-                        <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                          <a href="#" class="site-nav lvl-1">Home Group 2</a>
+                        <li class="grid__item lvl-1 col-md-6 col-lg-3">
+                          <router-link to="/" class="site-nav lvl-1">Chủ đề</router-link>  
                           <ul class="subLinks">
                             <li class="lvl-2">
-                              <a href="home8-jewellery.html" class="site-nav lvl-2">Home 8 - Jewellery</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="home9-parallax.html" class="site-nav lvl-2">Home 9 - Parallax</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="home10-minimal.html" class="site-nav lvl-2">Home 10 - Minimal</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="home11-grid.html" class="site-nav lvl-2">Home 11 - Grid</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="home12-category.html" class="site-nav lvl-2">Home 12 - Category</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="home13-auto-parts.html" class="site-nav lvl-2">Home 13 - Auto Parts</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="home14-bags.html" class="site-nav lvl-2">Home 14 - Bags <span class="lbl nm_label1">New</span>
-                              </a>
-                            </li>
+                              <a href="#" class="site-nav lvl-2">Thời trang theo chủ đề</a>
+                            </li> 
                           </ul>
-                        </li>
-                        <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                          <a href="#" class="site-nav lvl-1">New Sections</a>
-                          <ul class="subLinks">
-                            <li class="lvl-2">
-                              <a href="home11-grid.html" class="site-nav lvl-2">Image Gallery</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="home5-cosmetic.html" class="site-nav lvl-2">Featured Product</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="home7-shoes.html" class="site-nav lvl-2">Columns with Items</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="home6-modern.html" class="site-nav lvl-2">Text columns with images</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="home2-default.html" class="site-nav lvl-2">Products Carousel</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="home9-parallax.html" class="site-nav lvl-2">Parallax Banner</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                          <a href="#" class="site-nav lvl-1">New Features</a>
-                          <ul class="subLinks">
-                            <li class="lvl-2">
-                              <a href="home13-auto-parts.html" class="site-nav lvl-2">Top Information Bar <span class="lbl nm_label1">New</span>
-                              </a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="#" class="site-nav lvl-2">Age Varification <span class="lbl nm_label1">New</span>
-                              </a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="#" class="site-nav lvl-2">Footer Blocks</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="#" class="site-nav lvl-2">2 New Megamenu style</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="#" class="site-nav lvl-2">Show Total Savings <span class="lbl nm_label3">Hot</span>
-                              </a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="#" class="site-nav lvl-2">New Custom Icons</a>
-                            </li>
-                            <li class="lvl-2">
-                              <a href="#" class="site-nav lvl-2">Auto Currency</a>
-                            </li>
-                          </ul>
-                        </li>
+                        </li> 
                       </ul>
                     </li>
                   </ul>
@@ -146,68 +56,37 @@
                 <div class="megamenu style4">
                   <ul class="grid grid--uniform mmWrapper">
                     <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                      <a href="#" class="site-nav lvl-1">Shop Pages</a>
+                      <a href="#" class="site-nav lvl-1">Thông tin shop</a>
                       <ul class="subLinks">
                         <li class="lvl-2">
-                          <a href="shop-left-sidebar.html" class="site-nav lvl-2">Left Sidebar</a>
+                          <router-link to="/blog" class="site-nav lvl-2">Giới thiệu</router-link>
                         </li>
                         <li class="lvl-2">
-                          <a href="shop-right-sidebar.html" class="site-nav lvl-2">Right Sidebar</a>
-                        </li>
-                        <li class="lvl-2">
-                          <a href="shop-fullwidth.html" class="site-nav lvl-2">Fullwidth</a>
-                        </li>
-                        <li class="lvl-2">
-                          <a href="shop-grid-3.html" class="site-nav lvl-2">3 items per row</a>
-                        </li>
-                        <li class="lvl-2">
-                          <a href="shop-grid-4.html" class="site-nav lvl-2">4 items per row</a>
-                        </li>
-                        <li class="lvl-2">
-                          <a href="shop-grid-5.html" class="site-nav lvl-2">5 items per row</a>
-                        </li>
-                        <li class="lvl-2">
-                          <a href="shop-grid-6.html" class="site-nav lvl-2">6 items per row</a>
-                        </li>
-                        <li class="lvl-2">
-                          <a href="shop-grid-7.html" class="site-nav lvl-2">7 items per row</a>
-                        </li>
-                        <li class="lvl-2">
-                          <a href="shop-listview.html" class="site-nav lvl-2">Product Listview</a>
-                        </li>
+                          <a href="#" class="site-nav lvl-2">Hệ thống cửa hàng</a>
+                        </li> 
                       </ul>
                     </li>
                     <li class="grid__item lvl-1 col-md-3 col-lg-3">
-                      <a href="#" class="site-nav lvl-1">Shop Features</a>
+                      <a href="#" class="site-nav lvl-1">Dịch vụ</a>
                       <ul class="subLinks">
                         <li class="lvl-2">
-                          <a href="shop-left-sidebar.html" class="site-nav lvl-2">Product Countdown <span class="lbl nm_label3">Hot</span>
+                          <a href="#" class="site-nav lvl-2">
+                            Yêu cầu thông tin 
                           </a>
                         </li>
                         <li class="lvl-2">
-                          <a href="shop-right-sidebar.html" class="site-nav lvl-2">Infinite Scrolling</a>
-                        </li>
-                        <li class="lvl-2">
-                          <a href="shop-grid-3.html" class="site-nav lvl-2">Pagination - Classic</a>
-                        </li>
-                        <li class="lvl-2">
-                          <a href="shop-grid-6.html" class="site-nav lvl-2">Pagination - Load More</a>
-                        </li>
-                        <li class="lvl-2">
-                          <a href="product-labels.html" class="site-nav lvl-2">Dynamic Product Labels</a>
-                        </li>
-                        <li class="lvl-2">
-                          <a href="product-swatches-style.html" class="site-nav lvl-2">Product Swatches <span class="lbl nm_label2">Sale</span>
+                          <a href="#" class="site-nav lvl-2">
+                            Liên hệ với chúng tôi
                           </a>
                         </li>
                         <li class="lvl-2">
-                          <a href="product-hover-info.html" class="site-nav lvl-2">Product Hover Info</a>
+                          <a href="#" class="site-nav lvl-2">
+                            Đặt hàng và hoàn trả
+                          </a>
                         </li>
                         <li class="lvl-2">
-                          <a href="shop-grid-3.html" class="site-nav lvl-2">Product Reviews</a>
-                        </li>
-                        <li class="lvl-2">
-                          <a href="shop-left-sidebar.html" class="site-nav lvl-2">Discount Label <span class="lbl nm_label1">New</span>
+                          <a href="#" class="site-nav lvl-2">
+                            Trung tâm hỗ trợ
                           </a>
                         </li>
                       </ul>
@@ -222,125 +101,64 @@
               </li>
               <li class="lvl1 parent megamenu">
                 <router-link to="/products">
-                  Sản phẩm<i class="anm anm-angle-down-l"></i>
+                  Sản phẩm
+                <i class="anm anm-angle-down-l"></i>
                 </router-link>  
                 <div class="megamenu style2">
                   <ul class="grid mmWrapper">
-                    <li class="grid__item one-whole">
+                    <li class="grid__item large-up--one-whole">
                       <ul class="grid">
-                        <li
-                          class="grid__item lvl-1 col-md-3 col-lg-3" 
-                          v-for="group in productData"
-                          :key="group.id" 
-                        >
-                          <a href="#" class="site-nav lvl-1">{{  group.name  }}</a>
+                        <li class="grid__item lvl-1 col-md-3 col-lg-3">
+                          <a href="#" class="site-nav lvl-1">Đồ nam</a>
                           <ul class="subLinks">
-                            <li 
-                            class="lvl-2" 
-                              v-for="product in group.products" 
-                              :key="product.id" >
-                              <router-link 
-                                :to="{ name: 'products.show', params: { id: product.id } }"
-                                class="site-nav lvl-2"
-                                style="max-width: 200px; overflow: hidden"
-                                >{{ product.name }}
-                              </router-link> 
+                            <li class="lvl-2">
+                              <a href="#" class="site-nav lvl-2">KAPPA Áo thun tay ngắn ...</a>
+                            </li>
+                            <li class="lvl-2">
+                              <router-link to="/products/46" class="site-nav lvl-2">Kappa nam áo thun tay ...</router-link>
                             </li> 
                           </ul>
-                        </li> 
+                        </li>
+                        <li class="grid__item lvl-1 col-md-3 col-lg-3">
+                          <a href="#" class="site-nav lvl-1">Đồ nữ</a>
+                          <ul class="subLinks">
+                            <li class="lvl-2">
+                              <a href="" class="site-nav lvl-2">Kappa giày sneakers nữ...</a>
+                            </li> 
+                          </ul>
+                        </li>
+                        <li class="grid__item lvl-1 col-md-3 col-lg-3">
+                          <a href="#" class="site-nav lvl-1">Giày dép</a>
+                          <ul class="subLinks">
+                            <li class="lvl-2">
+                              <router-link to="/products/302" class="site-nav lvl-2">Kappa giày thể thao nam/nữ...</router-link>
+                            </li>
+                            <li class="lvl-2">
+                              <router-link to="/products/335" class="site-nav lvl-2">Kappa giày thể thao nam/nữ...</router-link>
+                            </li>
+                          </ul>
+                        </li>
+                        <li class="grid__item lvl-1 col-md-3 col-lg-3">
+                          <a href="#" class="site-nav lvl-1">Quần JEAN</a>
+                          <ul class="subLinks">
+                            <li class="lvl-2">
+                              <router-link to="/products/237" class="site-nav lvl-2">Ecko quần JEAN <span class="lbl nm_label1">New</span>
+                              </router-link>
+                            </li>
+                            <li class="lvl-2">
+                              <router-link to="/products/227" class="site-nav lvl-2">Staple quần khakhi <span class="lbl nm_label1">New</span>
+                              </router-link>
+                            </li> 
+                          </ul>
+                        </li>
                       </ul>
-                    </li>
-                    <li class="grid__item large-up--one-whole imageCol">
-                      <a href="#">
-                        <img src="/assets/images/megamenu-bg2.jpg" alt="">
-                      </a>
                     </li>
                   </ul>
                 </div>
               </li>
               <li class="lvl1 parent dropdown">
-                <a href="#">Giới thiệu <i class="anm anm-angle-down-l"></i>
-                </a>
-                <ul class="dropdown">
-                  <li>
-                    <a href="cart-variant1.html" class="site-nav">Cart Page <i class="anm anm-angle-right-l"></i>
-                    </a>
-                    <ul class="dropdown">
-                      <li>
-                        <a href="cart-variant1.html" class="site-nav">Cart Variant1</a>
-                      </li>
-                      <li>
-                        <a href="cart-variant2.html" class="site-nav">Cart Variant2</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="compare-variant1.html" class="site-nav">Compare Product <i class="anm anm-angle-right-l"></i>
-                    </a>
-                    <ul class="dropdown">
-                      <li>
-                        <a href="compare-variant1.html" class="site-nav">Compare Variant1</a>
-                      </li>
-                      <li>
-                        <a href="compare-variant2.html" class="site-nav">Compare Variant2</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="checkout.html" class="site-nav">Checkout</a>
-                  </li>
-                  <li>
-                    <a href="about-us.html" class="site-nav">About Us <span class="lbl nm_label1">New</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="contact-us.html" class="site-nav">Contact Us</a>
-                  </li>
-                  <li>
-                    <a href="faqs.html" class="site-nav">FAQs</a>
-                  </li>
-                  <li>
-                    <a href="lookbook1.html" class="site-nav">Lookbook <i class="anm anm-angle-right-l"></i>
-                    </a>
-                    <ul>
-                      <li>
-                        <a href="lookbook1.html" class="site-nav">Style 1</a>
-                      </li>
-                      <li>
-                        <a href="lookbook2.html" class="site-nav">Style 2</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="404.html" class="site-nav">404</a>
-                  </li>
-                  <li>
-                    <a href="coming-soon.html" class="site-nav">Coming soon <span class="lbl nm_label1">New</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="lvl1 parent dropdown">
-                <a href="#">Blog <i class="anm anm-angle-down-l"></i>
-                </a>
-                <ul class="dropdown">
-                  <li>
-                    <a href="blog-left-sidebar.html" class="site-nav">Left Sidebar</a>
-                  </li>
-                  <li>
-                    <a href="blog-right-sidebar.html" class="site-nav">Right Sidebar</a>
-                  </li>
-                  <li>
-                    <a href="blog-fullwidth.html" class="site-nav">Fullwidth</a>
-                  </li>
-                  <li>
-                    <a href="blog-grid-view.html" class="site-nav">Gridview</a>
-                  </li>
-                  <li>
-                    <a href="blog-article.html" class="site-nav">Article</a>
-                  </li>
-                </ul>
-              </li>
+                <router-link to="/blog">Giới thiệu <i class="anm anm-angle-down-l"></i></router-link>
+              </li> 
               <li class="lvl1">
                 <a href="#">
                   <b>Mua ngay!</b>
@@ -365,7 +183,7 @@
             <router-link class="site-header__cart" to="/cart">
               <i class="icon anm anm-bag-l"></i>
               <span class="site-header__cart-count" @click="isShow = !isShow">
-                {{  cart && cart.details ? cart.details.length : 0 }}
+                {{  totalItem }}
               </span>
             </router-link>  
             <!--End Minicart Popup-->
@@ -403,6 +221,9 @@ export default {
     },
     cart() {
       return this.$store.state.cart.carts || {};
+    },
+    totalItem() {
+      return this.$store.state.cart.carts?.details?.length || 0;
     }
   }
 }

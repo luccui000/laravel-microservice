@@ -6,9 +6,9 @@ class Product extends Resource {
     super('products');
   }
 
-  getAll(data) {
+  getAll(data, page) {
     return request({
-      url: '/products/get-all',
+      url: `/products/get-all?page=${page}`,
       method: 'POST',
       data,
     });

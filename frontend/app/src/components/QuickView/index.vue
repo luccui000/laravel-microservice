@@ -12,7 +12,9 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                   <div class="product-details-img">
                     <div class="pl-20">
-                      <img class="blur-up ls-is-cached lazyloaded" data-src="assets/images/product-detail-page/camelia-reversible-big1.jpg" src="assets/images/product-detail-page/camelia-reversible-big1.jpg" alt="">
+                      <img class="blur-up ls-is-cached lazyloaded" 
+                        :data-src="product.image_origin" 
+                        :src="product.image_origin"  alt="">
                     </div>
                   </div>
                 </div>
@@ -21,67 +23,60 @@
                     <h2 class="product-single__title">{{ product.name }}</h2>
                     <div class="prInfoRow">
                       <div class="product-stock">
-                        <span class="instock ">In Stock</span>
+                        <span class="instock ">Còn hàng</span>
                         <span class="outstock hide">Unavailable</span>
                       </div>
-                      <div class="product-sku">SKU: <span class="variant-sku">19115-rdxs</span>
+                      <div class="product-sku">SKU: <span class="variant-sku">{{ item.sku}}</span>
                       </div>
                     </div>
-                    <p class="product-single__price product-single__price-product-template">
-                      <span class="visually-hidden">Regular price</span>
+                    <p v-if="product.has_variant" class="product-single__price product-single__price-product-template">
+                      <span class="visually-hidden"></span>
                       <s id="ComparePrice-product-template">
-                        <span class="money">$600.00</span>
+                        <span class="money">{{ product.min_price | vietnamdong }}</span>
                       </s>
                       <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
                         <span id="ProductPrice-product-template">
-                          <span class="money">$500.00</span>
+                          <span class="money">{{ item.price | vietnamdong }}</span>
+                        </span>
+                      </span>
+                    </p>
+                    <p v-else class="product-single__price product-single__price-product-template">
+                      <span class="visually-hidden"></span>
+                      <s id="ComparePrice-product-template">
+                        <span class="money">{{ product.price | vietnamdong }}</span>
+                      </s>
+                      <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
+                        <span id="ProductPrice-product-template">
+                          <span class="money">{{ product.sell_price | vietnamdong }}</span>
                         </span>
                       </span>
                     </p>
                     <div class="product-single__description rte"> Belle Multipurpose Bootstrap 4 Html Template that will give you and your customers a smooth shopping experience which can be used for various kinds of stores such as fashion,... </div>
-                    <form method="post" action="http://annimexweb.com/cart/add" id="product_form_10508262282" accept-charset="UTF-8" class="product-form product-form-product-template hidedropdown" enctype="multipart/form-data">
-                      <div class="swatch clearfix swatch-0 option1" data-option-index="0">
+                    <div class="product-form product-form-product-template hidedropdown" >
+                      <div class="swatch clearfix swatch-0 option1">
                         <div class="product-form__item">
-                          <label class="header">Color: <span class="slVariant">Red</span>
+                          <label class="header">Màu sắc: <span class="slVariant">{{ color }}</span>
                           </label>
-                          <div data-value="Red" class="swatch-element color red available">
-                            <input class="swatchInput" id="swatch-0-red" type="radio" name="option-0" value="Red">
-                            <label class="swatchLbl color medium rectangle" for="swatch-0-red" style="background-image:url(assets/images/product-detail-page/variant1-1.jpg);" title="Red"></label>
-                          </div>
-                          <div data-value="Blue" class="swatch-element color blue available">
-                            <input class="swatchInput" id="swatch-0-blue" type="radio" name="option-0" value="Blue">
-                            <label class="swatchLbl color medium rectangle" for="swatch-0-blue" style="background-image:url(assets/images/product-detail-page/variant1-2.jpg);" title="Blue"></label>
-                          </div>
-                          <div data-value="Green" class="swatch-element color green available">
-                            <input class="swatchInput" id="swatch-0-green" type="radio" name="option-0" value="Green">
-                            <label class="swatchLbl color medium rectangle" for="swatch-0-green" style="background-image:url(assets/images/product-detail-page/variant1-3.jpg);" title="Green"></label>
-                          </div>
-                          <div data-value="Gray" class="swatch-element color gray available">
-                            <input class="swatchInput" id="swatch-0-gray" type="radio" name="option-0" value="Gray">
-                            <label class="swatchLbl color medium rectangle" for="swatch-0-gray" style="background-image:url(assets/images/product-detail-page/variant1-4.jpg);" title="Gray"></label>
-                          </div>
+                          <product-variant-color
+                            v-for="item in product.colors"
+                            :key="item.id"
+                            :color="item" 
+                            @set-color="setColor"
+                            :isSelect="color === item.name"
+                          >
+                          </product-variant-color> 
                         </div>
                       </div>
-                      <div class="swatch clearfix swatch-1 option2" data-option-index="1">
+                      <div class="swatch clearfix swatch-1 option2" >
                         <div class="product-form__item">
-                          <label class="header">Size: <span class="slVariant">XS</span>
+                          <label class="header">Kích cỡ: <span class="slVariant">{{ size }}</span>
                           </label>
-                          <div data-value="XS" class="swatch-element xs available">
-                            <input class="swatchInput" id="swatch-1-xs" type="radio" name="option-1" value="XS">
-                            <label class="swatchLbl medium rectangle" for="swatch-1-xs" title="XS">XS</label>
-                          </div>
-                          <div data-value="S" class="swatch-element s available">
-                            <input class="swatchInput" id="swatch-1-s" type="radio" name="option-1" value="S">
-                            <label class="swatchLbl medium rectangle" for="swatch-1-s" title="S">S</label>
-                          </div>
-                          <div data-value="M" class="swatch-element m available">
-                            <input class="swatchInput" id="swatch-1-m" type="radio" name="option-1" value="M">
-                            <label class="swatchLbl medium rectangle" for="swatch-1-m" title="M">M</label>
-                          </div>
-                          <div data-value="L" class="swatch-element l available">
-                            <input class="swatchInput" id="swatch-1-l" type="radio" name="option-1" value="L">
-                            <label class="swatchLbl medium rectangle" for="swatch-1-l" title="L">L</label>
-                          </div>
+                          <product-variant-size
+                            v-for="size in product.sizes"
+                            :key="size.id"
+                            :size="size"
+                            @set-size="setSize"
+                          ></product-variant-size>
                         </div>
                       </div>
                       <!-- Product Action -->
@@ -100,12 +95,12 @@
                           </div>
                         </div>
                         <div class="product-form__item--submit">
-                          <button type="button" name="add" class="btn product-form__cart-submit">
+                          <button @click="addToCart" type="button" name="add" class="btn product-form__cart-submit">
                             <span>Thêm vào giỏ hàng</span>
                           </button>
                         </div>
                       </div> 
-                    </form>
+                    </div>
                     <div class="display-table shareRow">
                       <div class="display-table-cell">
                         <div class="wishlist-btn">
@@ -128,18 +123,74 @@
 </template>
 
 <script> 
+import ProductVariantColor from '@/views/ProductDetail/components/color.vue';
+import ProductVariantSize from '@/views/ProductDetail/components/size.vue';
 
 export default {
-  name: 'QuickView',
+  name: 'QuickViewComponent',
+  components: {
+    ProductVariantColor,
+    ProductVariantSize
+  },
   props: ['product', 'isShow'], 
   data() {
     return { 
       quantity: 1,
+      color: null,
+      size: null,
+      showSizeGuide: false,
+      showContact: false,
+      price: 0,
+      item: {
+       color: null,
+       size: null,
+       sku: null,
+       price: null,
+       sku_id: null
+      }
     }
   }, 
+  mounted() {
+    let details = this.$store.getters['cart/detailCart'];
+    if(details && details.length) {
+      let product = details.filter(el => el.product_id == this.product.id);
+      if(product.length) { 
+        this.quantity = product[0].quantity; 
+        this.calcSku(); 
+      }
+    } 
+    if(this.product) {
+      this.color = this.product.colors[0]?.name;
+      this.item.color = this.product.colors[0]?.id;
+      this.size = this.product.sizes[0]?.name;
+      this.item.size = this.product.sizes[0]?.id;
+      this.calcSku();
+    }
+  },
   methods: {
     closeQuickView() {
       this.$emit('close', !this.isShow);
+    },
+    setColor(color) {  
+      this.color = color.name;
+      this.item.color = color.id;
+      this.calcSku();
+    },
+    setSize(size) {   
+      this.size = size.name;
+      this.item.size = size.id;
+      this.calcSku();
+    },
+    calcSku() {
+      if(this.product.has_variant) { 
+        const skus = this.product.skus;  
+        const founded = skus.filter(el => el.color_id == this.item.color && el.size_id == this.item.size);
+        if(founded.length) {
+          this.item.sku = founded[0].sku;
+          this.item.price = founded[0].price;
+          this.item.sku_id = founded[0].id;
+        }
+      }
     },
     increment() {
       if(this.quantity < this.product.stock) {
@@ -152,6 +203,22 @@ export default {
       if(this.quantity > 1)  {
         this.quantity--; 
       }
+    },
+    addToCart() { 
+      let has_variant = this.product.has_variant;
+
+      this.$store.dispatch('order/addToCart', {
+        product_id: this.product.id,
+        sku_id: has_variant ? this.item.sku_id : null,
+        qty: this.quantity
+      }).then(() => { 
+        this.$notify({
+          group: 'alert',
+          title: 'Thành công',
+          text: 'Thêm vào giỏ hàng thành công',
+          type: 'success'
+        })
+      })
     }
   }
 }

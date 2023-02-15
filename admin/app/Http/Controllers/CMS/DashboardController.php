@@ -16,19 +16,19 @@ class DashboardController extends Controller
             $now = Carbon::now();
             $prevMonth = (clone $now)->subMonth(1);
 
-            $orders = Order::where('created_at', '>=', $prevMonth)
-                ->select('*', \DB::raw('DATE(created_at) as date'))
+            $orders = Order::where('order_date', '>=', $prevMonth)
+                ->select('*', \DB::raw('DATE(order_date) as date'))
                 ->get()
                 ->groupBy('date');
 
-            $orderSuccess = Order::where('created_at', '>=', $prevMonth)
-                ->select('*', \DB::raw('DATE(created_at) as date'))
+            $orderSuccess = Order::where('order_date', '>=', $prevMonth)
+                ->select('*', \DB::raw('DATE(order_date) as date'))
                 ->where('status', StatusEnum::SUCCESS)
                 ->get()
                 ->groupBy('date');
 
-            $orderFailed = Order::where('created_at', '>=', $prevMonth)
-                ->select('*', \DB::raw('DATE(created_at) as date'))
+            $orderFailed = Order::where('order_date', '>=', $prevMonth)
+                ->select('*', \DB::raw('DATE(order_date) as date'))
                 ->where('status', StatusEnum::FAILED)
                 ->get()
                 ->groupBy('date');

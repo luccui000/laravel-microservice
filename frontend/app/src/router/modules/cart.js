@@ -3,6 +3,7 @@ import Checkout from '@/views/Checkout/index.vue';
 import CheckoutSuccess from '@/views/Checkout/success.vue';
 import TrackingOrderView from '@/views/TrackingOrder/index.vue';
 import TrackingOrderVerifyView from '@/views/TrackingOrder/verify.vue';
+import TrackingOrderListView from '@/views/TrackingOrder/orders.vue';
 
 const cart = [
   {
@@ -36,6 +37,13 @@ const cart = [
   {
     path: '/tracking-order/verify',
     component: TrackingOrderVerifyView,
+    meta: {
+      title: 'Thanh toán thành công',
+    },
+  },
+  {
+    path: '/tracking-order/list',
+    component: TrackingOrderListView,
     meta: {
       title: 'Thanh toán thành công',
     },

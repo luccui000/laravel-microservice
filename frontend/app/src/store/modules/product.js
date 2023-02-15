@@ -9,6 +9,7 @@ export default {
     sizes: [],
     tags: [],
     brands: [],
+    data: null,
     filter: {
       category_id: null,
       price: {
@@ -20,6 +21,7 @@ export default {
       color_id: null,
       brands: [],
       tags: [],
+      per_page: 16,
     },
   },
   getters: {
@@ -31,13 +33,14 @@ export default {
     },
   },
   actions: {
-    async getAllProduct({ state, commit }) {
+    async getAllProduct({ state, commit }, page = 1) {
       return new Promise((resolve, reject) => {
         product
-          .getAll(state.filter)
+          .getAll(state.filter, page)
           .then((response) => {
             const { data } = response;
             commit('SET_PRODUCTS', data.data.data);
+            commit('SET_DATA', data.data);
             resolve(data.data.data);
           })
           .catch((error) => reject(error));
@@ -111,6 +114,12 @@ export default {
     },
     SET_PRICE(state, price) {
       state.filter.price = price;
+    },
+    SET_DATA(state, data) {
+      state.data = data;
+    },
+    SET_PER_PAGE(state, data) {
+      state.filter.per_page = data;
     },
     RESET_FILTER(state) {
       state.filter = {

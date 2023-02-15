@@ -4,6 +4,7 @@ import router from '@/router';
 
 const state = {
   userOrders: [],
+  orders: [],
 };
 const getters = {
   userOrders(state) {
@@ -45,10 +46,51 @@ const actions = {
         });
     });
   },
+  getOrderTracking(_, phone) {
+    return new Promise((resolve, reject) => {
+      order
+        .getOrderTracking(phone)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => reject(error));
+    });
+  },
+
+  verifyOrderTracking({ dispatch }, code) {
+    return new Promise((resolve, reject) => {
+      order
+        .verifyOrderTracking(code)
+        .then((response) => {
+          if (response.data.success) {
+            dispatch('getOrderByPhone', response.data.phone);
+          } else {
+            reject('Mã xác nhận không hợp lệ hoặc đã hết hạn');
+          }
+        })
+        .catch((error) => reject(error));
+    });
+  },
+
+  getOrderByPhone({ commit }, phone) {
+    return new Promise((resolve, reject) => {
+      order
+        .getOrderByPhone(phone)
+        .then((response) => {
+          const { data } = response;
+          commit('SET_MY_ORDERS', data.data);
+          router.push('/tracking-order/list');
+        })
+        .catch((error) => reject(error));
+    });
+  },
 };
 const mutations = {
   SET_USER_ORDER(state, orders) {
     state.userOrders = orders;
+  },
+  SET_MY_ORDERS(state, orders) {
+    state.orders = orders;
   },
 };
 

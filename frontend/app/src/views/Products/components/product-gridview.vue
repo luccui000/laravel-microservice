@@ -13,17 +13,25 @@
       :isShow="isShow" 
       @close="closeQuickView"
     />
-    <div class="infinitpaginOuter">
-      <div class="infinitpagin">
-        <a href="#" class="btn loadMore">Load More</a>
-      </div>
+    <hr class="clear" />  
+    <div class="pagination" v-if="links">
+      <ul>
+        <li 
+          class="paginate-item"
+          v-for="link in links"
+          :class="{ 'active': link.active }"
+          :key="link.label"
+        >
+          <a @click="setPage(link.label)" class="link-btn" >{{ link.label }}</a>
+        </li>  
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
 import ProductGridviewItem from '@/views/Products/components/product-gridview-item.vue';
-import QuickView from '@/views/Products/components/quick-view.vue';
+import QuickView from '@/components/QuickView/index.vue';
 
 export default {
   name: 'ProductGridView',
@@ -47,7 +55,34 @@ export default {
     },
     closeQuickView(isShow) {
       this.isShow = isShow;
+    },
+    setPage(page) {
+      console.log(page)
+      if(page != '...') {
+        this.$store.dispatch('product/getAllProduct', page);
+      }
+    }
+  },
+  computed: {
+    paginate() {
+      return this.$store.state.product.data;
+    },
+    links() {
+      const data = this.$store.state.product.data;
+      return data?.links.filter((el, idx) => idx !== 0 && idx != data.links.length - 1)
     }
   }
 }
 </script>
+
+<style>
+
+.paginate-item {
+  margin: 0 5px;
+}
+
+.link-btn {
+  cursor: pointer;
+}
+
+</style>

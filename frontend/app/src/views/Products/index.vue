@@ -22,8 +22,18 @@
                       <img src="assets/images/list.jpg" alt="List" />
                     </div>
                   </div>
-                  <div class="col-4 col-md-4 col-lg-4 text-center filters-toolbar__item filters-toolbar__item--count d-flex justify-content-center align-items-center">
-                    <span class="filters-toolbar__product-count">Hiển thị: 22</span>
+                  <div class="col-4 col-md-4 col-lg-4 text-center d-flex show-item filters-toolbar__item filters-toolbar__item--count d-flex justify-content-center align-items-center"> 
+                    <div>
+                      <label for="SortBy" class="show-label">Hiển thị</label> 
+                    </div>
+                    <div>
+                      <select v-model="showItem" name="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
+                        <option value="16" selected="selected">16</option>
+                        <option value="32">32</option>
+                        <option value="48">48</option>
+                        <option value="96">98</option> 
+                      </select>
+                    </div>
                   </div>
                   <div class="col-4 col-md-4 col-lg-4 text-right">
                     <div class="filters-toolbar__item">
@@ -91,7 +101,8 @@ export default {
           src: 'assets/images/cat-women1.jpg'
         },
         title: 'Danh sách sản phẩm'
-      }
+      },
+      showItem: 16
     }
   },
   mounted() {
@@ -109,6 +120,14 @@ export default {
     products() {
       return this.$store.state.product.products;
     }
+  },
+  watch: {
+    showItem: {
+      handler(newValue) { 
+        this.$store.commit('product/SET_PER_PAGE', newValue);
+        this.$store.dispatch('product/getAllProduct');
+      }
+    }
   }
 }
 </script>
@@ -116,5 +135,14 @@ export default {
 <style scoped>
 .filters-toolbar__item select {
   border: 1px solid #ddd;
+}
+
+.show-item {
+  display: flex;
+  justify-content: center;
+}
+
+.show-label {
+  width: 80px;
 }
 </style>

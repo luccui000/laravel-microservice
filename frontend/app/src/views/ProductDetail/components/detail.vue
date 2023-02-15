@@ -8,13 +8,9 @@
               <img class="lazyload zoompro" 
                 data-zoom-image="/assets/images/product-detail-page/camelia-reversible-big1.jpg" 
                 alt="" 
-                src="/assets/images/product-detail-page/camelia-reversible-big1.jpg" 
+                :src="product.image_origin" 
               />
-            </div>
-            <div class="product-labels">
-              <span class="lbl on-sale">Giảm giá</span>
-              <span class="lbl pr-label1">Sản phẩm mới</span>
-            </div>
+            </div> 
             <div class="product-buttons">
               <a href="#" class="btn popup-video" title="Xem video">
                 <i class="icon anm anm-play-r" aria-hidden="true"></i>

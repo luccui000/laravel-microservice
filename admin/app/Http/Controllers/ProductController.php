@@ -17,6 +17,7 @@ use Luccui\ShareData\Models\Product;
 use App\Http\Requests\ProductRequest;
 use Luccui\ShareData\Models\Category;
 use Luccui\ShareData\Models\ProductTag;
+use RecentlyViewed\Facades\RecentlyViewed;
 use Luccui\ShareData\Models\ProductVariant;
 use Luccui\ShareData\Models\ProductVariantOption;
 use Luccui\ShareData\Models\SkuProductVariantOption;
@@ -43,7 +44,11 @@ class ProductController extends Controller
     public function index(Request  $request): JsonResponse
     {
         try {
-			$products = Product::with(['colors', 'sizes', 'brand', 'supplier', 'category', 'skus'])->paginate();
+            $perpage = $request->get('per_page', 16);
+
+			$products = Product::with(['colors', 'sizes', 'brand', 'supplier', 'category', 'skus'])
+                ->paginate($perpage);
+
 
 			return $this->jsonData($products);
         } catch (\Exception $ex) {
@@ -59,6 +64,7 @@ class ProductController extends Controller
             $colorId = $request->get('color_id');
             $sizeId = $request->get('size_id');
             $tags = $request->get('tags');
+            $perpage = $request->get('per_page', 16);
 
             // DB::enableQueryLog();
 
@@ -94,7 +100,7 @@ class ProductController extends Controller
 
                 $products = $products->when($categoryId, function($q) use ($categoryId) {
                     $q->where('category_id', $categoryId);
-                })->paginate(16);
+                })->paginate($perpage);
 
             // info(DB::getQueryLog());
 
@@ -261,6 +267,14 @@ class ProductController extends Controller
                 ->withCount(['reviews', 'sold'])
                 ->find($id);
 
+            $cateId = $product->category_id;
+            $products = Product::where('category_id', $cateId)
+                ->take(8)
+                ->get();
+
+            $product->related = $products;
+
+            RecentlyViewed::add($product);
 
             return $this->jsonData($product);
         } catch (\Exception $ex) {

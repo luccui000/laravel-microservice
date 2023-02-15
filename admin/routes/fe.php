@@ -12,6 +12,7 @@ use App\Http\Controllers\FE\SliderController;
 use App\Http\Controllers\FE\PaymentController;
 use App\Http\Controllers\FE\ProductController;
 use App\Http\Controllers\FE\CustomerController;
+use App\Http\Controllers\FE\OrderTrackingController;
 
 Route::post('register', [CustomerController::class, 'register']);
 Route::post('login', [CustomerController::class, 'login']);
@@ -19,6 +20,9 @@ Route::post('user/verify', [CustomerController::class, 'verify']);
 
 
 Route::get('home', [HomeController::class, 'index']);
+Route::post('tracking-order', [OrderTrackingController::class, 'store']);
+Route::post('tracking-order/verify', [OrderTrackingController::class, 'verify']);
+Route::post('get-order-by-phone', [OrderTrackingController::class, 'getOrder']);
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::post('me', [CustomerController::class, 'me']);

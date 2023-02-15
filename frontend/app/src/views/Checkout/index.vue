@@ -13,10 +13,10 @@
           <div class="customer-box returning-customer">
             <h3>
               <i class="icon anm anm-user-al"></i> 
-                Returning customer ? 
-                <a href="#customer-login" id="customer" class="text-white text-decoration-underline" data-toggle="collapse">
-                  Click here to login
-                </a>
+                Đăng nhập tài khoản tại đây ? 
+                <router-link to="/login" class="text-white text-decoration-underline" data-toggle="collapse">
+                  Nhấn vào đây
+                </router-link>
             </h3>
             <div id="customer-login" class="collapse customer-content">
               <div class="customer-info">

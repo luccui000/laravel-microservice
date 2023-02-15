@@ -17,7 +17,7 @@
                   <label for="CustomerEmail">Số điện thoại</label>
                   <input v-model="phone" type="text" placeholder="Nhập vào số điện thoại" >
                 </div>
-                <button class="btn">Kiểm tra</button>
+                <button @click="trackingOrder" class="btn">Kiểm tra</button>
               </div>
             </div>
           </div>
@@ -38,6 +38,21 @@ export default {
   data() {
     return {
       phone: ''
+    }
+  },
+  methods: {
+    trackingOrder() {
+      this.$store.dispatch('order/getOrderTracking', this.phone)
+        .then(() => {
+          this.$router.push('/tracking-order/verify')
+        }).catch(() => {
+          this.$notify({
+            group: 'alert',
+            type: 'error',
+            title: 'Thất bại',
+            text: 'Có lỗi xảy ra'
+          })
+        })
     }
   }
 }

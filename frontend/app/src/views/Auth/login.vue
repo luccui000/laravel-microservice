@@ -54,8 +54,10 @@ export default {
       this.$store.dispatch('auth/login', {
         email: this.email, 
         password: this.password
-      }).then(() => { 
-        this.$router.go('/')
+      }).then(() => {  
+        setTimeout(() => {
+          this.$router.go(-1)
+        }, 0) 
       }).catch(error => { 
         if(error) {
           this.$notify({

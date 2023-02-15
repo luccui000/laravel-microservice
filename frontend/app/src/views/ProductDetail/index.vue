@@ -6,7 +6,7 @@
         <div class="product-template__container prstyle1 container">
           <product-detail></product-detail>
           <product-feature></product-feature>
-          <product-tab></product-tab>
+          <!-- <product-tab></product-tab> -->
           <related-product></related-product>
           <recently-viewed></recently-viewed>
         </div>
@@ -22,7 +22,7 @@
 <script>
 import Breadcrumb from "@/components/Breadcrumb";
 import ProductFeature from "@/components/Feature";
-import ProductTab from "@/components/ProductTab";
+// import ProductTab from "@/components/ProductTab";
 import ProductDetail from "@/views/ProductDetail/components/detail.vue";
 import RelatedProduct from "@/components/RelatedProduct";
 import RecentlyViewed from "@/components/RecentlyViewed";
@@ -37,7 +37,7 @@ export default {
     ProductDetail,
     ProductFeature,
     Breadcrumb,
-    ProductTab,
+    // ProductTab,
     NewLetter,
     PageFooter,
   },

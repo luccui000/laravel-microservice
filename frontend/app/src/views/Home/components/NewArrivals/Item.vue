@@ -1,15 +1,22 @@
 <template>
-  <div class="col-6 col-sm-2 col-md-3 col-lg-3 item"> 
+  <div class="col-6 col-sm-2 col-md-3 col-lg-3 item" v-if="product"> 
     <div class="product-image"> 
-      <a href="product-layout-1.html" class="grid-view-item__link"> 
-        <img class="primary lazyload" data-src="assets/images/product-images/product-image1.jpg" src="assets/images/product-images/product-image1.jpg" alt="image" title="product"> 
-        <img class="hover lazyload" data-src="assets/images/product-images/product-image1-1.jpg" src="assets/images/product-images/product-image1-1.jpg" alt="image" title="product"> 
-        <img class="grid-view-item__image hover variantImg" src="assets/images/product-images/product-image1.jpg" alt="image" title="product"> 
+      <router-link :to="`/products/${product.id}`" class="grid-view-item__link"> 
+        <img 
+          class="primary lazyload" 
+          :data-src="product.image_origin" 
+          :src="product.image_origin" 
+           alt="image" title="product"> 
+        <img 
+          class="hover lazyload" 
+          :data-src="product.image_origin" 
+          :src="product.image_origin" alt="image" title="product"> 
+        <img class="grid-view-item__image hover variantImg" :src="product.image_origin" alt="image" title="product"> 
         <div class="product-labels rounded">
           <span class="lbl on-sale">HOT</span>
           <span class="lbl pr-label1">NEW</span>
         </div> 
-      </a> 
+      </router-link> 
       <div class="saleTime desktop" data-countdown="2022/03/01"></div> 
       <div class="variants add">
         <button @click="addToCart" class="btn btn-addto-cart" type="button" tabindex="0">

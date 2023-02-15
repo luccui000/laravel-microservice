@@ -5,6 +5,7 @@ import Cart from '@/views/Cart';
 import auth from './modules/auth';
 import cart from './modules/cart';
 import product from './modules/product';
+import blog from './modules/blog';
 
 Vue.use(VueRouter);
 
@@ -12,6 +13,7 @@ const routes = [
   ...auth,
   ...cart,
   ...product,
+  ...blog,
   {
     path: '/',
     name: 'home.index',
