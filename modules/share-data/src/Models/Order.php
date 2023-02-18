@@ -35,7 +35,7 @@ class Order extends Model
         'district_id',
         'ward_id',
     ];
-
+    
 
     public function coupon()
     {
@@ -50,6 +50,11 @@ class Order extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(PaymentType::class, 'payment_type_id', 'id');
     }
 
     public function details()

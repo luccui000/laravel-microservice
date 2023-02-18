@@ -46,6 +46,11 @@ class Customer extends Authenticatable
         return $this->attributes['first_name'] . " " . $this->attributes['last_name'];
     }
 
+    public function category()
+    {
+        return $this->belongsTo(CustomerCategory::class, 'customer_category_id', 'id');
+    }
+
     public function isVerified()
     {
         return $this->is_verify == 1;

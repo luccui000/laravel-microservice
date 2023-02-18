@@ -18,6 +18,8 @@ use App\Http\Controllers\CMS\DashboardController;
 use App\Http\Controllers\BrandController as CMSBrandController;
 use App\Http\Controllers\CouponController as CMSCouponController;
 use App\Http\Controllers\CMS\OrderController as CMSOrderController;
+use App\Http\Controllers\CMS\CustomerController as CMSCustomerController;
+use App\Http\Controllers\CMS\PostController as CMSPostController;
 use App\Http\Controllers\CategoryController as CMSCategoryController;
 use App\Http\Controllers\DiscountController as CMSDiscountController;
 use App\Http\Controllers\SupplierController as CMSSupplierController;
@@ -36,6 +38,9 @@ Route::group(['as' => 'cms.'], function() {
     Route::apiResource('comments', CommentController::class);
     Route::apiResource('discounts', CMSDiscountController::class);
     Route::apiResource('coupons', CMSCouponController::class);
+    Route::apiResource('orders', CMSOrderController::class);
+    Route::apiResource('customers', CMSCustomerController::class);
+    Route::apiResource('posts', CMSPostController::class);
 
     Route::post('get-attribute', [ProductController::class, 'getAttribute']);
 

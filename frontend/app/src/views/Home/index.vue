@@ -3,9 +3,9 @@
     <!-- Home slider -->
     <page-slider></page-slider>
     <!-- Weekly bestseller -->    
-    <weekly-bestseller  
-      v-if="bestsellers" 
+    <weekly-bestseller   
       :products="bestsellers"
+      
     ></weekly-bestseller>
     <!-- Advertisement -->
     <advertisement></advertisement>

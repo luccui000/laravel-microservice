@@ -37,10 +37,42 @@ class DashboardController extends Controller
             $orderSuccess = $this->transformData($orderSuccess);
             $orderFailed = $this->transformData($orderFailed);
 
+            $recently = Order::with(['customer'])
+                ->whereNotIn('status', [StatusEnum::IN_CART])
+                ->latest('order_date')
+                ->take(10)->get();
+
+            $orderCount = Order::whereIn('status', [
+                StatusEnum::SUCCESS,
+                StatusEnum::PENDING,
+                StatusEnum::FAILED,
+                StatusEnum::CANCELED,
+            ])->count();
+            
+            $orderSuccessCount = Order::where('status', StatusEnum::SUCCESS)->count();
+            $orderPendingCount = Order::where('status', StatusEnum::PENDING)->count();
+            $orderFailedCount = Order::where('status', StatusEnum::FAILED)->count();
+            $orderCancelledCount = Order::where('status', StatusEnum::CANCELED)->count();
+
             return $this->jsonData([
                 'all' => $orders,
                 'success' => $orderSuccess,
-                'failed' => $orderFailed
+                'failed' => $orderFailed,
+                'recently' => $recently,
+                'percent' => [
+                    'labels' => [
+                        'Thành công',
+                        'Đang chờ xác nhận',
+                        'Bị hủy',
+                        'Lỗi',
+                    ],
+                    'values' => [
+                        ($orderSuccessCount / $orderCount) * 100,
+                        ($orderPendingCount / $orderCount) * 100,
+                        ($orderCancelledCount / $orderCount) * 100,
+                        ($orderFailedCount / $orderCount) * 100,
+                    ]
+                ]
             ]);
         } catch(\Exception $e) {
             return $this->jsonError($e);

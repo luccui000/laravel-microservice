@@ -44,7 +44,7 @@
                 <i class="font-13 fa fa-star"></i>
                 <i class="font-13 fa fa-star-o"></i>
                 <i class="font-13 fa fa-star-o"></i>
-                <span class="spr-badge-caption">6 reviews</span>
+                <span class="spr-badge-caption">6 bình luận</span>
               </a>
             </div>
           </div>

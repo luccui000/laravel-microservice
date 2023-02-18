@@ -33,6 +33,18 @@ class OrderController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        try {
+            $order = Order::with(['details', 'customer', 'payment'])
+                ->find($id);
+
+            return $this->jsonData($order);
+        } catch(\Exception $e) {
+            return $this->jsonData($e);
+        }
+    }
+
     public function confirm($id, Request $request) {
         try {
             $order = Order::with(['customer'])->find($id);

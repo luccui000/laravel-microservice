@@ -31,7 +31,7 @@
             </li>
             <li>
               <router-link to="/brands">
-                <i class="fa fa-list"></i>
+                <i class="fa fa-envira"></i>
                 <span>Thương hiệu</span>
               </router-link>
             </li>
@@ -40,32 +40,47 @@
             <li class="menu-title">Đơn hàng</li>
             <li> 
               <router-link to="/orders">
-                <i class="fa fa-orders"></i>
+                <i class="fa fa-cart-plus"></i>
                 <span>Đơn hàng</span>
               </router-link>
             </li>
             <li> 
               <router-link to="/coupons">
-                <i class="fa fa-list"></i>
+                <i class="fa fa-gift"></i>
                 <span>Mã giảm giá</span>
               </router-link>
             </li> 
           </ul>
           <ul>
-            <li class="menu-title">Test</li>
+            <li class="menu-title">Khách hàng</li>
             <li> 
-              <router-link to="/discounts">
-                <i class="fa fa-list"></i>
-                <span>Giảm giá</span>
+              <router-link to="/customers">
+                <i class="fa fa-user-plus"></i>
+                <span>Danh sách</span>
               </router-link>
             </li>
             <li> 
-              <router-link to="/coupons">
-                <i class="fa fa-list"></i>
-                <span>Mã giảm giá</span>
+              <router-link to="/discounts">
+                <i class="fa fa-group"></i>
+                <span>Nhóm khách hàng</span>
               </router-link>
             </li> 
           </ul> 
+          <ul>
+            <li class="menu-title">Mục khác</li>
+            <li> 
+              <router-link to="/posts">
+                <i class="fa fa-feed"></i>
+                <span>Quản lý bài viết</span>
+              </router-link>
+            </li>
+            <li> 
+              <router-link to="/comments">
+                <i class="fa fa-comment"></i>
+                <span>Quản lý bình luận</span>
+              </router-link>
+            </li>
+          </ul>
         </div>
       </div> 
     </div>

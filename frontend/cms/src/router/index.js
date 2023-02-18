@@ -11,6 +11,10 @@ import SupplierView from '@/views/supplier/index.vue';
 import CategoryView from '@/views/category/index.vue';
 import CouponView from '@/views/coupon/index.vue';
 import OrderView from '@/views/order/index.vue';
+import OrderShowView from '@/views/order/show.vue';
+import CustomerView from '@/views/customer/index.vue';
+import PostView from '@/views/post/index.vue';
+import CommentView from '@/views/comment/index.vue';
 
 Vue.use(VueRouter);
 
@@ -102,6 +106,38 @@ const routes = [
     component: OrderView,
     meta: {
       title: 'Đơn hàng',
+    },
+  },
+  {
+    path: '/orders/:id',
+    name: 'order.show',
+    component: OrderShowView,
+    meta: {
+      title: 'Đơn hàng',
+    },
+  },
+  {
+    path: '/customers',
+    name: 'customer.index',
+    component: CustomerView,
+    meta: {
+      title: 'Khách hàng',
+    },
+  },
+  {
+    path: '/posts',
+    name: 'post.index',
+    component: PostView,
+    meta: {
+      title: 'Bài viết',
+    },
+  },
+  {
+    path: '/comments',
+    name: 'comments.index',
+    component: CommentView,
+    meta: {
+      title: 'Bình luận',
     },
   },
 ];

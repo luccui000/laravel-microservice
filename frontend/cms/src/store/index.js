@@ -10,6 +10,8 @@ import discount from './modules/discount';
 import coupon from './modules/coupon';
 import dashboard from './modules/dashboard';
 import order from './modules/order';
+import customer from './modules/customer';
+import post from './modules/post';
 
 Vue.use(Vuex);
 
@@ -28,6 +30,8 @@ export default new Vuex.Store({
     discount,
     coupon,
     dashboard,
-    order
+    order,
+    customer,
+    post,
   },
 });

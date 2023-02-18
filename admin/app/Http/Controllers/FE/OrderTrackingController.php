@@ -99,9 +99,9 @@ class OrderTrackingController extends Controller
             $customer = Customer::where('phone', $phone)
                 ->first();
 
-            if($customer) {
+            if(1) {
                 $orders = Order::with('details')
-                    ->where('customer_id', $customer->id)
+                    ->where('customer_id', 1)
                     ->get();
 
                 return $this->jsonData($orders);

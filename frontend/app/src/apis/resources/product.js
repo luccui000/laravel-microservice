@@ -28,6 +28,13 @@ class Product extends Resource {
       method: 'POST',
     });
   }
+
+  getTop10() {
+    return request({
+      url: '/fe/products/popular',
+      method: 'POST',
+    });
+  }
 }
 
 export default new Product();

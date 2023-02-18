@@ -2,6 +2,7 @@ import order from '@/apis/resources/v1/order';
 
 const state = {
   orders: [],
+  order: null,
 };
 const getters = {};
 const actions = {
@@ -12,6 +13,19 @@ const actions = {
         .then((response) => {
           const { data } = response;
           commit('SET_ORDERS', data.data.data);
+          resolve(data.data);
+        })
+        .catch((error) => reject(error));
+    });
+  },
+
+  getOrder({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      order
+        .get(id)
+        .then((response) => {
+          const { data } = response;
+          commit('SET_ORDER', data.data);
           resolve(data.data);
         })
         .catch((error) => reject(error));
@@ -45,6 +59,9 @@ const actions = {
 const mutations = {
   SET_ORDERS(state, orders) {
     state.orders = orders;
+  },
+  SET_ORDER(state, order) {
+    state.order = order;
   },
 };
 

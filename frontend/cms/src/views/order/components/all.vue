@@ -7,15 +7,20 @@
         <el-table-column type="expand">
           <template slot-scope="props" >
             <div style="margin-left: 50px"> 
-              <p>City: {{ props.row.city }}</p>
-              <p>Address: {{ props.row.address }}</p>
-              <p>Zip: {{ props.row.zip }}</p>
+              <p>Tên khách hàng: <strong>{{ props.row.customer.name }}</strong></p>
+              <p>Số điện thoại đặt hàng: <strong>{{ props.row.phone }}</strong></p>
+              <p>Địa chỉ: <strong>{{ props.row.address }}</strong></p>
             </div>
           </template>
         </el-table-column>
         <el-table-column label="Mã số" prop="order_number" > 
+          <template slot-scope="scope">
+            <router-link :to="`/orders/${scope.row.id}`">{{ scope.row.order_number }}</router-link>
+          </template>
         </el-table-column>
         <el-table-column label="Tên người đặt" prop="customer.name" > 
+        </el-table-column>
+        <el-table-column label="SDT đặt hàng" prop="phone" > 
         </el-table-column>
         <el-table-column label="Ngày đặt">
           <template slot-scope="props">

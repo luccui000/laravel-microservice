@@ -9,7 +9,7 @@
               <h2 class="h1 mega-title slideshow__title">Bộ sưu tập mùa thu</h2>
               <span class="mega-subtitle slideshow__subtitle">Giảm giá 20% cho tất cả các đơn</span>
               <span class="btn ml-2">Mua sắm ngay</span>
-            </div>
+            </div> 
           </div>
         </div>
       </div>

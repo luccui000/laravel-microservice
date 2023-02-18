@@ -1,8 +1,8 @@
 <template>
   <div class="row">
-    <div class="col-12">
+    <!-- <div class="col-12">
       <el-button @click="handleCreate" type="primary" size="small">Thêm mới</el-button>  
-    </div>
+    </div> -->
     <div class="col-12 mt-3">
       <el-form label-position="top">
         <el-row>

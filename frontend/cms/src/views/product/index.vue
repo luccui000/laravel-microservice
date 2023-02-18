@@ -16,15 +16,28 @@
         width="60"> 
       </el-table-column>
       <el-table-column
+        prop="price"
+        label="Ảnh sản phẩm" 
+        width="150"
+        sortable
+      >
+        <template v-slot="{row}">
+          <img class="image-product" :src="row.image_origin" />
+        </template>
+      </el-table-column>
+      <el-table-column
         prop="name"
         label="Tên sản phẩm"
-        width="500"
+        width="400"
         sortable
       >
       </el-table-column>
       <el-table-column
         prop="category.name"
-        label="Danh mục">
+        label="Danh mục"
+        width="120"
+        sortable
+        >
       </el-table-column>
       <el-table-column
         prop="supplier.name"
@@ -36,11 +49,16 @@
       <el-table-column
         prop="price"
         label="Giá bán"
-        width="300"
+        width="200"
         sortable
       >
         <template v-slot="{row}">
-          {{ row.min_price | vietnamdong }} - {{ row.max_price | vietnamdong }}
+          <span v-if="row.has_variant">
+            {{ row.min_price | vietnamdong }} - {{ row.max_price | vietnamdong }}
+          </span>
+          <span v-else>
+            {{ row.price | vietnamdong }} - {{ row.sell_price | vietnamdong }}
+          </span>
         </template>
       </el-table-column>
       <el-table-column align="right" width="300"> 
@@ -132,3 +150,11 @@ export default {
 }
 
 </script>
+
+<style>
+
+.image-product {
+  width: 100px;
+}
+
+</style>
